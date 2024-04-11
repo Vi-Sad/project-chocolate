@@ -1,10 +1,31 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+<!--    <link rel="stylesheet" href="{% static 'css/all.css' %}">-->
 </head>
 <body>
-<h1>MAIN PAGE</h1>
+{% block nav %}
+{% endblock nav %}
+<header>
+    <p>Добро пожаловать, {{ user_active }}!</p>
+    <div>
+        <div>
+            <img src="" alt="icon_main"/>
+            <h1>~Choco~</h1>
+        </div>
+        <p>шоколад ручной работы</p>
+        <p>Мы сделаем Вашу жизнь ярче и слаще!</p>
+        <button>Выбрать шоколад</button>
+        <button>Создать свой</button>
+    </div>
+    <div>
+        <p>Шоколад с <span>малиной</span></p>
+        <input type="button" value="&#10229;"/>
+        <input type="button" value="&#10230;"/>
+    </div>
+</header>
 </body>
 </html>
