@@ -15,9 +15,13 @@
         <a href="">Наша продукция</a>
     </div>
     <div>
-        <a href="">Войти</a>
+        {% if user_active == 'Сладкоежка' %}
+        <a href="{% url 'login' %}">Войти</a>
         <span>|</span>
-        <a href="">Зарегистрироваться</a>
+        <a href="{% url 'registration' %}">Зарегистрироваться</a>
+        {% else %}
+        <a href="{% url 'main' %}">Выйти</a>
+        {% endif %}
         <img src="" alt="icon_basket"/>
     </div>
 </nav>

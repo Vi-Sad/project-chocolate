@@ -2,21 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Registration user</title>
+    <title>Регистрация</title>
 </head>
 <body>
 <form method="post" action="{% url 'registration_check' %}">
     {% csrf_token %}
     <label>Введите Ваше имя</label>
-    <input type="text">
+    <input type="text" name="name">
     <br><br>
     <label>Введите Ваш Email</label>
-    <input type="email">
+    <input type="email" name="email">
     <br><br>
     <label>Придумайте пароль</label>
-    <input type="password">
+    <input type="password" name="password">
     <br><br>
     <button type="submit">Зарегистрироваться</button>
 </form>
+<a href="{% url 'main' %}">
+    <button>Вернуться</button>
+</a>
+<p>Зарегистрируйтесь, чтобы можно было заказать</p>
 </body>
 </html>
