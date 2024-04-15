@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from .models import User
-from main.views import user_active
 
 # Create your views here.
 
 users = User.objects.all()
+user_active = None
 
 
 def registration(request):
@@ -33,18 +33,23 @@ def login(request):
 
 
 def login_check(request):
-    global user
+    global user_active
     email = request.POST['email']
     password = request.POST['password']
     if len(email) == 0 or len(password) == 0:
         message = 'Поля не могут быть пустыми'
-        url = 'login'
+        url = 'user/login/'
     elif any(x.email == email and x.password == password for x in users):
         for i in users:
             if i.email == email and i.password == password:
-                user = i.name
-        return render(request, 'main/blocks.html', context={'user_active': user_active(user)})
+                user_active = i.name
+        message = 'Вы успешно вошли'
+        url = f'user_active/{user_active}/'
     else:
-        url = 'login'
+        url = 'user/login/'
         message = 'Не верный логин или пароль'
     return render(request, 'users/login_check.html', context={'message': message, 'url': url})
+
+
+def account(request, name):
+    return render(request, 'users/account.html', context={'users': users, 'user_active': name})

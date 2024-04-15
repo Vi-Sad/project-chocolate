@@ -7,4 +7,5 @@ urlpatterns = [
     path('registration/check/', users.registration_check, name='registration_check'),
     path('login/', users.login, name='login'),
     path('login/check', users.login_check, name='login_check'),
+    path('account/<slug:name>/', users.account, name='account')
 ]

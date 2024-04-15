@@ -1,0 +1,31 @@
+<nav>
+    <div>
+        <a href="">
+            <img src="" alt="icon_main"/>
+        </a>
+        <a href="">~Choco~</a>
+    </div>
+    <div>
+        <a href="">Главная</a>
+        <a href="">Наши контакты</a>
+        <a href="">Наша продукция</a>
+    </div>
+    <div>
+        <!--        <a href="{% url 'login' %}">Войти</a>-->
+        <!--        <span>|</span>-->
+        <!--        <a href="{% url 'registration' %}">Зарегистрироваться</a>-->
+        {% for i in users %}
+        {% if i.name == user_active %}
+        <a href="{% url 'main' %}">Выйти</a>
+        <span>|</span>
+        <a href="{% url 'account' user_active %}">Личный кабинет</a>
+        {% else %}
+        <a href="{% url 'login' %}">Войти</a>
+        <span>|</span>
+        <a href="{% url 'registration' %}">Зарегистрироваться</a>
+        {% endif %}
+        {% endfor %}
+        <img src="" alt="icon_basket"/>
+        <span>0</span>
+    </div>
+</nav>

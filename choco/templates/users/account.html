@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет</title>
+</head>
+<body>
+<h2>Ваши личные данные</h2>
+{% for i in users %}
+{% if i.name == user_active %}
+<p>Имя: {{ i.name }}</p>
+<p>Email: {{ i.email }}</p>
+<p>Пароль: {{ i.password }}</p>
+{% endif %}
+{% endfor %}
+<a href="{% url 'main_user' user_active %}">
+    <button>Вернуться</button>
+</a>
+</body>
+</html>

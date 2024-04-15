@@ -7,10 +7,9 @@
     <!--    <link rel="stylesheet" href="{% static 'css/all.css' %}">-->
 </head>
 <body>
-{% block nav %}
-{% endblock nav %}
+{% include 'main/nav.html' %}
 <header>
-    <p>Добро пожаловать, {{ user_active }}!</p>
+    <p>Добро пожаловать{% block user_active %}{% endblock user_active %}!</p>
     <div>
         <div>
             <img src="" alt="icon_main"/>
@@ -240,7 +239,6 @@
         <p>Нажимая на кнопку, Вы даете согласие на обработку Ваших персональных данных</p>
     </form>
 </section>
-{% block footer %}
-{% endblock footer %}
+{% include 'main/footer.html' %}
 </body>
 </html>
