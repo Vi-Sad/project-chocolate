@@ -135,27 +135,15 @@
         </div>
     </div>
     <div>
+        {% for i in products %}
         <div>
             <img src="" alt="img">
-            <p>Шоколад 1</p>
-            <p>Описание и содержимое шоколада 1</p>
-            <p>Грамм/Цена</p>
+            <p>{{ i.product_name }}</p>
+            <p>{{ i.description }}</p>
+            <p>{{ i.grams }} г./{{ i.price }} руб.</p>
             <button>В корзину</button>
         </div>
-        <div>
-            <img src="" alt="img">
-            <p>Шоколад 2</p>
-            <p>Описание и содержимое шоколада 2</p>
-            <p>Грамм/Цена</p>
-            <button>В корзину</button>
-        </div>
-        <div>
-            <img src="" alt="img">
-            <p>Шоколад 3</p>
-            <p>Описание и содержимое шоколада 3</p>
-            <p>Грамм/Цена</p>
-            <button>В корзину</button>
-        </div>
+        {% endfor %}
     </div>
     <button>Больше товаров</button>
 </section>
