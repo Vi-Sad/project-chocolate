@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import User
+from .forms import *
 
 # Create your views here.
 
@@ -19,6 +20,7 @@ def registration_check(request):
         message = 'Поля не могут быть пустыми'
         url = 'registration'
     elif all([x.name != name for x in users]):
+        # form = FormUser(request.POST)
         User.objects.create(name=name, email=email, password=password)
         message = 'Вы успешны зарегистрированы. Попробуйте войти'
         url = 'main'

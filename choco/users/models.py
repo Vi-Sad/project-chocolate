@@ -16,8 +16,8 @@ class User(models.Model):
 class Basket(models.Model):
     objects = None
     name = models.CharField(max_length=20)
-    product_name = models.CharField(max_length=20, default=None)
-    product_count = models.IntegerField(default=0)
+    product_name = models.CharField(max_length=50, default=None)
+    count = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.product_name
+        return self.name

@@ -3,7 +3,7 @@
         <a href="">
             <img src="" alt="icon_main"/>
         </a>
-        <a href="">~Choco~</a>
+        <a href="">~Чоко~</a>
     </div>
     <div>
         <a href="">Главная</a>
@@ -11,19 +11,16 @@
         <a href="">Наша продукция</a>
     </div>
     <div>
-        <!--        <a href="{% url 'login' %}">Войти</a>-->
-        <!--        <span>|</span>-->
-        <!--        <a href="{% url 'registration' %}">Зарегистрироваться</a>-->
+        <a class="login_and_registration" href="{% url 'login' %}">Войти</a>
+        <span class="login_and_registration">|</span>
+        <a class="login_and_registration" href="{% url 'registration' %}">Зарегистрироваться</a>
         {% for i in users %}
-        {% if i.name == user_active %}
-        <a href="{% url 'main' %}">Выйти</a>
-        <span>|</span>
-        <a href="{% url 'account' user_active %}">Личный кабинет</a>
-        {% else %}
-        <a href="{% url 'login' %}">Войти</a>
-        <span>|</span>
-        <a href="{% url 'registration' %}">Зарегистрироваться</a>
-        {% endif %}
+            {% if i.name == user_active %}
+                <style>.login_and_registration {display: none;}</style>
+                <a href="{% url 'main' %}">Выйти</a>
+                <span>|</span>
+                <a href="{% url 'account' user_active %}">Личный кабинет</a>
+            {% endif %}
         {% endfor %}
         <img src="" alt="icon_basket"/>
         <span>0</span>
