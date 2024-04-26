@@ -137,7 +137,7 @@
     <div>
         {% for i in products %}
         <div>
-            <img src="" alt="img">
+            <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px;">
             <p>{{ i.product_name }}</p>
             <p>{{ i.description }}</p>
             <p>{{ i.grams }} г./{{ i.price }} руб.</p>
