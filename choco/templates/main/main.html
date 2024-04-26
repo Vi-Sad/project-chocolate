@@ -116,12 +116,15 @@
     <div>
         <div>
             <img src="" alt="img"/>
+            <input type="submit" value="Все" name="category" id="all" disabled/>
+        </div>
+        <div>
+            <img src="" alt="img"/>
             <input
                     type="submit"
                     value="Праздничные"
                     name="category"
                     id="festive"
-                    disabled
             />
         </div>
         <div>
@@ -142,34 +145,7 @@
             <input type="submit" value="Предметы" name="category" id="items"/>
         </div>
     </div>
-    <!-- Categories -->
-    <div class="category_festive">
-        {% for i in products %}
-        {% if i.category == 'Праздничные' %}
-        <div>
-            <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
-            <p>{{ i.product_name }}</p>
-            <p>{{ i.description }}</p>
-            <p>{{ i.grams }} г./{{ i.price }} руб.</p>
-            <button>В корзину</button>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-    <div class="category_standard" style="{display: none;}">
-        {% for i in products %}
-        {% if i.category == 'Стандартные' %}
-        <div>
-            <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
-            <p>{{ i.product_name }}</p>
-            <p>{{ i.description }}</p>
-            <p>{{ i.grams }} г./{{ i.price }} руб.</p>
-            <button>В корзину</button>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-    <!-- End Categories -->
+    {% include 'main/categories.html' %}
     <button>Больше товаров</button>
 </section>
 <section>

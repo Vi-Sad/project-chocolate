@@ -1,0 +1,26 @@
+<div class="category_festive" style="{display: none;}">
+    {% for i in products %}
+    {% if i.category == 'Праздничные' %}
+    <div>
+        <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
+        <p>{{ i.product_name }}</p>
+        <p>{{ i.description }}</p>
+        <p>{{ i.grams }} г./{{ i.price }} руб.</p>
+        <button>В корзину</button>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<div class="category_standard" style="{display: none;}">
+    {% for i in products %}
+    {% if i.category == 'Стандартные' %}
+    <div>
+        <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
+        <p>{{ i.product_name }}</p>
+        <p>{{ i.description }}</p>
+        <p>{{ i.grams }} г./{{ i.price }} руб.</p>
+        <button>В корзину</button>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
