@@ -6,7 +6,9 @@
         <p>{{ i.product_name }}</p>
         <p>{{ i.description }}</p>
         <p>{{ i.grams }} г./{{ i.price }} руб.</p>
-        <button>В корзину</button>
+        <a href="{% url 'info_product' i.id %}">
+            <button>В корзину {{ i.id }}</button>
+        </a>
     </div>
     {% endif %}
     {% endfor %}
@@ -19,7 +21,9 @@
         <p>{{ i.product_name }}</p>
         <p>{{ i.description }}</p>
         <p>{{ i.grams }} г./{{ i.price }} руб.</p>
-        <button>В корзину</button>
+        <a href="{% url 'info_product' i.id %}">
+            <button>В корзину {{ i.id }}</button>
+        </a>
     </div>
     {% endif %}
     {% endfor %}

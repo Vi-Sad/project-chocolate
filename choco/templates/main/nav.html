@@ -17,7 +17,7 @@
         {% for i in users %}
             {% if i.name == user_active %}
                 <style>.login_and_registration {display: none;}</style>
-                <a href="{% url 'main' %}">Выйти</a>
+                <a href="{% url 'logout' %}">Выйти</a>
                 <span>|</span>
                 <a href="{% url 'account' user_active %}">Личный кабинет</a>
             {% endif %}

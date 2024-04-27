@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Information about chocolate</title>
+</head>
+<body>
+{% for i in products %}
+<img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
+<p>{{ i.product_name }}</p>
+<p>{{ i.description }}</p>
+<p>{{ i.grams }} г./{{ i.price }} руб.</p>
+<button>В корзину {{ i.id }}</button>
+{% endfor %}
+{% if user_active == None %}
+<a href="{% url 'main' %}">
+    <button>Вернуться</button>
+</a>
+{% else %}
+<a href="{% url 'main_user' user_active %}">
+    <button>Вернуться</button>
+</a>
+{% endif %}
+</body>
+</html>
