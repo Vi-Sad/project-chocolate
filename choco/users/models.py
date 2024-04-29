@@ -18,6 +18,7 @@ class Basket(models.Model):
     name = models.CharField(max_length=20)
     product_name = models.CharField(max_length=50, default=None)
     count = models.IntegerField(default=0)
+    favourites = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

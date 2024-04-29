@@ -6,9 +6,13 @@
         <a href="">~ЧоКо~</a>
     </div>
     <div>
-        <a href="">Главная</a>
+        {% if user_active == None %}
+        <a href="{% url 'main' %}">Главная</a>
+        {% else %}
+        <a href="{% url 'main_user' user_active %}">Главная</a>
+        {% endif %}
         <a href="">Наши контакты</a>
-        <a href="">Наша продукция</a>
+        <a href="#all_products">Наша продукция</a>
     </div>
     <div>
         <a class="login_and_registration" href="{% url 'login' %}">Войти</a>
