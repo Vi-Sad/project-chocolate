@@ -10,7 +10,9 @@ urlpatterns = [
     path('login/check', users.login_check, name='login_check'),
     path('logout/', users.logout, name='logout'),
     path('account/<slug:name>/', users.account, name='account'),
-    path('chocolate/id_product=<int:id>/', users.info_product, name='info_product')
+    path('chocolate/id_product=<int:id>/', users.info_product, name='info_product'),
+    path('chocolate/<slug:name>/favourites/', users.add_favourites, name='favourites'),
+    path('chocolate/<slug:name>/basket/', users.add_basket, name='basket'),
 ]
 
 if settings.DEBUG:

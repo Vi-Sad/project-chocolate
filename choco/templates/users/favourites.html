@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Избранное</title>
+</head>
+<body>
+<h2>Избранные товары</h2>
+{% if favourites|length == 0 %}
+<p>Здесь пока ничего нет</p>
+{% else %}
+{% for i in favourites %}
+<p>{{ i.product_name }}</p>
+{% endfor %}
+{% endif %}
+<a href="{% url 'account' user_active %}">
+    <button>Вернуться</button>
+</a>
+{% include 'main/footer.html' %}
+</body>
+</html>

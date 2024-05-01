@@ -13,10 +13,15 @@
 <p>Пароль: {{ i.password }}</p>
 {% endif %}
 {% endfor %}
-<button>Избранное</button>
-<button>Мои покупки</button>
+<a href="{% url 'favourites' user_active %}">
+    <button>Избранное</button>
+</a>
+<a href="{% url 'basket' user_active %}">
+    <button>Корзина</button>
+</a>
 <a href="{% url 'main_user' user_active %}">
     <button>Вернуться</button>
 </a>
+{% include 'main/footer.html' %}
 </body>
 </html>

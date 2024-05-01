@@ -7,6 +7,8 @@ from .forms import *
 
 users = User.objects.all()
 products = Product.objects
+basket = Basket.objects
+
 user_active = None
 
 
@@ -71,3 +73,13 @@ def account(request, name):
 def info_product(request, id):
     return render(request, 'main/info_product.html',
                   context={'products': products.filter(id=id), 'user_active': user_active})
+
+
+def add_favourites(request, name):
+    return render(request, 'users/favourites.html',
+                  context={'favourites': basket.filter(name=name), 'user_active': user_active})
+
+
+def add_basket(request, name):
+    return render(request, 'users/basket.html',
+                  context={'basket': basket.filter(name=name), 'user_active': user_active})
