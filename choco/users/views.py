@@ -75,11 +75,32 @@ def info_product(request, id):
                   context={'products': products.filter(id=id), 'user_active': user_active})
 
 
-def add_favourites(request, name):
+def view_favourites(request, name):
     return render(request, 'users/favourites.html',
-                  context={'favourites': basket.filter(name=name), 'user_active': user_active})
+                  context={'favourites': basket.filter(name=name, favourites=True), 'user_active': user_active,
+                           'products': products.all()})
 
 
-def add_basket(request, name):
+def view_basket(request, name):
     return render(request, 'users/basket.html',
-                  context={'basket': basket.filter(name=name), 'user_active': user_active})
+                  context={'basket': basket.filter(name=name, basket=True), 'user_active': user_active,
+                           'products': products.all()})
+
+
+def add_basket(request, name, id):
+    count_product = request.POST.get('count_product')
+    for i in products.filter(id=id):
+        basket.create(name=name, id_product=id, count=count_product, product_name=i.product_name, favourites=False,
+                      basket=True)
+    return render(request, 'users/add_basket.html', context={'name': name, 'id': id, 'user_active': user_active})
+
+
+def add_favourites(request, name, id):
+    count_product = request.POST.get('count_product')
+    for i in basket.filter(name=name):
+        if i.id_product == id:
+            basket.filter(id_product=id).update(favourites=True)
+        else:
+            basket.create(name=name, id_product=id, count=count_product, product_name=i.product_name, favourites=True,
+                          basket=False)
+    return render(request, 'users/add_favourites.html', context={'user_active': user_active})

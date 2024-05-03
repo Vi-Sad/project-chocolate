@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить в корзину</title>
+</head>
+<body>
+<p>Name: {{ name }}</p>
+<p>id: {{ id }}</p>
+<p>Success|Basket</p>
+<a href="{% url 'main_user' user_active %}">
+    <input type="button" value="Вернуться">
+</a>
+</body>
+</html>

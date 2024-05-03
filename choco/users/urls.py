@@ -11,8 +11,10 @@ urlpatterns = [
     path('logout/', users.logout, name='logout'),
     path('account/<slug:name>/', users.account, name='account'),
     path('chocolate/id_product=<int:id>/', users.info_product, name='info_product'),
-    path('chocolate/<slug:name>/favourites/', users.add_favourites, name='favourites'),
-    path('chocolate/<slug:name>/basket/', users.add_basket, name='basket'),
+    path('chocolate/<slug:name>/favourites/', users.view_favourites, name='favourites'),
+    path('chocolate/<slug:name>/basket/', users.view_basket, name='basket'),
+    path('chocolate/<slug:name>/basket/add/id_product=<int:id>/', users.add_basket, name='add_basket'),
+    path('chocolate/<slug:name>/favourites/add/id_product=<int:id>/', users.add_favourites, name='add_favourites'),
 ]
 
 if settings.DEBUG:

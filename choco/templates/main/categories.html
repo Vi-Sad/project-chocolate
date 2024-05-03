@@ -1,9 +1,11 @@
 <div class="category_festive" style="{display: none;}">
     {% for i in products %}
     {% if i.category == 'Праздничные' %}
+    <br>
+    <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
+    <p>{{ i.product_name }}</p>
     <a href="{% url 'info_product' i.id %}">
-        <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
-        <p>{{ i.product_name }}</p>
+        <button>Подробнее</button>
     </a>
     {% endif %}
     {% endfor %}
@@ -11,9 +13,11 @@
 <div class="category_standard" style="{display: none;}">
     {% for i in products %}
     {% if i.category == 'Стандартные' %}
+    <br>
+    <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
+    <p>{{ i.product_name }}</p>
     <a href="{% url 'info_product' i.id %}">
-        <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
-        <p>{{ i.product_name }}</p>
+        <button>Подробнее</button>
     </a>
     {% endif %}
     {% endfor %}

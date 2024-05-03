@@ -6,10 +6,10 @@
 </head>
 <body>
 <h2>Корзина товаров</h2>
-{% if favourites|length == 0 %}
+{% if basket|length == 0 %}
 <p>Здесь пока ничего нет</p>
 {% else %}
-{% for i in favourites %}
+{% for i in basket %}
 <p>{{ i.product_name }}</p>
 {% endfor %}
 {% endif %}

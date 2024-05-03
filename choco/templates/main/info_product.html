@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,25 +7,33 @@
 </head>
 <body>
 {% for i in products %}
-<img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
-<br>
-<span>{{ i.product_name }}</span>
-<span>×</span>
-<input type="number" value="1" style="width: 30px"> шт.
-<p>{{ i.description }}</p>
-<p>{{ i.grams }} г./{{ i.price }} руб.</p>
-<button>В корзину</button>
-<button>Добавить в избранное</button>
-{% endfor %}
-{% if user_active == None %}
-<a href="{% url 'main' %}">
-    <button>Вернуться</button>
-</a>
-{% else %}
+<form method="post" id="form_add">
+    {% csrf_token %}
+    <input class="user_active" value="{{ user_active }}" style="width: 0.1px; height: 0.1px; opacity: 0;" disabled>
+    <input class="id_product" value="{{ i.id }}" style="width: 0.1px; height: 0.1px; opacity: 0;" disabled>
+    <br>
+    <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
+    <br>
+    <span>{{ i.product_name }}</span>
+    <span>×</span>
+    <input name="count_product" type="number" value="1" style="width: 30px"> шт.
+    <p>{{ i.description }}</p>
+    <p>{{ i.grams }} г./{{ i.price }} руб.</p>
+    {% endfor %}
+    {% if user_active == None %}
+    <a href="{% url 'main' %}">
+        <input type="button" value="Вернуться">
+    </a>
+    <p>Уважаемый пользователь! Пожалуйста, зарегистрируйтесь, чтобы можно было пользоваться сайтом</p>
+    {% else %}
+    <button type="submit" id="but_basket">В корзину</button>
+    <button type="submit" id="but_favourites">Добавить в избранное</button>
+</form>
 <a href="{% url 'main_user' user_active %}">
-    <button>Вернуться</button>
+    <input type="button" value="Вернуться">
 </a>
 {% endif %}
 {% include 'main/footer.html' %}
+<script src="{% static 'js/add.js' %}"></script>
 </body>
 </html>
