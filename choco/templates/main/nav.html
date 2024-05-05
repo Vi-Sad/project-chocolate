@@ -24,8 +24,10 @@
         <a href="{% url 'logout' %}">Выйти</a>
         <span>|</span>
         <a href="{% url 'account' user_active %}">Личный кабинет</a>
-        <img src="" alt="icon_basket"/>
-        <span>{{ basket|length }}</span>
+        <button id="buy">
+            <img src="" alt="icon_basket"/>
+            <span>{{ basket|length }}</span>
+        </button>
         {% endif %}
         {% endfor %}
     </div>

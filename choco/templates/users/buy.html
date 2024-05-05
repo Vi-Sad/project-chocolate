@@ -1,0 +1,11 @@
+<section style="display: none;">
+    <h2>Мои товары</h2>
+    {% if basket|length == 0 %}
+    <p>Корзина пуста</p>
+    {% else %}
+    {% for i in basket %}
+    <p>{{ i.product_name }} × {{ i.count }}</p>
+    {% endfor %}
+    {% endif %}
+    <button>Купить</button>
+</section>
