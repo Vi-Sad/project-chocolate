@@ -89,8 +89,8 @@ def view_basket(request, name):
 
 def add_basket(request, name, id):
     count_product = request.POST.get('count_product')
-    existence = basket.filter(id_product=id).exists()
-    if count_product == '' or count_product <= 0 or count_product >= 21:
+    existence = basket.filter(id_product=id, name=name).exists()
+    if count_product == '':
         message = 'Упс! Что-то пошло не так'
     else:
         if not existence:
@@ -110,7 +110,7 @@ def add_basket(request, name, id):
 def add_favourites(request, name, id):
     count_product = request.POST.get('count_product')
     existence = basket.filter(name=name, id_product=id).exists()
-    if count_product == '' or count_product <= 0 or count_product >= 21:
+    if count_product == '':
         message = 'Упс! Что-то пошло не так'
     else:
         if existence:
