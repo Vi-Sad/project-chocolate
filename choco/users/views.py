@@ -89,18 +89,36 @@ def view_basket(request, name):
 
 def add_basket(request, name, id):
     count_product = request.POST.get('count_product')
-    for i in products.filter(id=id):
-        basket.create(name=name, id_product=id, count=count_product, product_name=i.product_name, favourites=False,
-                      basket=True)
-    return render(request, 'users/add_basket.html', context={'name': name, 'id': id, 'user_active': user_active})
+    existence = basket.filter(id_product=id).exists()
+    if count_product == '' or count_product <= 0 or count_product >= 21:
+        message = 'Упс! Что-то пошло не так'
+    else:
+        if not existence:
+            for i in products.filter(id=id):
+                basket.create(name=name, id_product=id, count=count_product, product_name=i.product_name,
+                              favourites=False, basket=True)
+            message = 'Товар успешно добавлен в корзину'
+        else:
+            if basket.filter(id_product=id, favourites=True, name=name).exists():
+                basket.filter(id_product=id).update(basket=True)
+                message = 'Товар успешно добавлен в корзину'
+            else:
+                message = 'Товар уже есть в корзине'
+    return render(request, 'users/add_basket.html', context={'user_active': user_active, 'message': message})
 
 
 def add_favourites(request, name, id):
     count_product = request.POST.get('count_product')
-    for i in basket.filter(name=name):
-        if i.id_product == id:
+    existence = basket.filter(name=name, id_product=id).exists()
+    if count_product == '' or count_product <= 0 or count_product >= 21:
+        message = 'Упс! Что-то пошло не так'
+    else:
+        if existence:
             basket.filter(id_product=id).update(favourites=True)
+            message = f'Товар уже есть в Избранном'
         else:
-            basket.create(name=name, id_product=id, count=count_product, product_name=i.product_name, favourites=True,
-                          basket=False)
-    return render(request, 'users/add_favourites.html', context={'user_active': user_active})
+            for i in products.filter(id=id):
+                basket.create(name=name, id_product=id, count=count_product, product_name=i.product_name,
+                              favourites=True, basket=False)
+            message = f'Товар успешно добавлен в Избранное'
+    return render(request, 'users/add_favourites.html', context={'user_active': user_active, 'message': message})

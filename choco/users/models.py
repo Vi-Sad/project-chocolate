@@ -1,4 +1,5 @@
 from django.db import models
+from main.models import *
 
 
 # Create your models here.
@@ -15,7 +16,7 @@ class User(models.Model):
 
 class Basket(models.Model):
     objects = None
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, default=None)
     id_product = models.IntegerField(default=0)
     product_name = models.CharField(max_length=50, default=None)
     count = models.IntegerField(default=1)

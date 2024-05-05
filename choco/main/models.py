@@ -6,7 +6,7 @@ from django.db import models
 class Product(models.Model):
     objects = None
     category = models.CharField(max_length=20, default=None)
-    product_name = models.CharField(max_length=50, default=None)
+    product_name = models.CharField(max_length=50, default=None, unique=True)
     description = models.CharField(max_length=150, default=None)
     price = models.IntegerField(default=0)
     grams = models.IntegerField(default=0)
