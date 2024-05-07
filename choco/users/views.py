@@ -96,7 +96,7 @@ def add_basket(request, name, id):
         if not existence:
             for i in products.filter(id=id):
                 basket.create(name=name, id_product=id, count=count_product, product_name=i.product_name,
-                              favourites=False, basket=True)
+                              favourites=False, basket=True, price=i.price)
             message = 'Товар успешно добавлен в корзину'
         else:
             if basket.filter(id_product=id, favourites=True, name=name).exists():

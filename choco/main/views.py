@@ -16,6 +16,10 @@ def main(request):
 
 
 def main_user(request, name):
+    total = 0
+    for i in basket.filter(name=name, basket=True):
+        total += (i.price * i.count)
     return render(request, 'main/main_user.html', context={'user_active': name, 'users': users, 'products': products,
-                                                           'basket': basket.filter(name=name, basket=True)})
+                                                           'basket': basket.filter(name=name, basket=True),
+                                                           'total': total})
 

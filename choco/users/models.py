@@ -20,6 +20,7 @@ class Basket(models.Model):
     id_product = models.IntegerField(default=0)
     product_name = models.CharField(max_length=50, default=None)
     count = models.IntegerField(default=1)
+    price = models.IntegerField(default=0)
     favourites = models.BooleanField(default=False)
     basket = models.BooleanField(default=False)
 
