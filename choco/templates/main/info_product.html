@@ -9,10 +9,9 @@
 {% for i in products %}
 <form method="post" id="form_add">
     {% csrf_token %}
-    <input class="user_active" value="{{ user_active }}" style="width: 0.1px; height: 0.1px; opacity: 0;" disabled>
-    <input class="id_product" value="{{ i.id }}" style="width: 0.1px; height: 0.1px; opacity: 0;" disabled>
-    <br>
     <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
+    <input class="user_active" value="{{ user_active }}" style="width: 0; height: 0; opacity: 0;" disabled>
+    <input class="id_product" value="{{ i.id }}" style="width: 0; height: 0; opacity: 0;" disabled>
     <br>
     <span>{{ i.product_name }}</span>
     <span>×</span>
@@ -32,8 +31,19 @@
 <a href="{% url 'main_user' user_active %}">
     <input type="button" value="Вернуться">
 </a>
+<h2>Оставить отзыв</h2>
+    {% include 'users/send_feedback.html' %}
+{% endif %}
+<h2>Отзывы:</h2>
+{% if feedbacks|length == 0 %}
+<p>Здесь пока ничего нет</p>
+{% else %}
+{% for i in feedbacks %}
+<p>{{ i }}</p>
+{% endfor %}
 {% endif %}
 {% include 'main/footer.html' %}
 <script src="{% static 'js/add.js' %}"></script>
+<script src="{% static 'js/feedback.js' %}"></script>
 </body>
 </html>

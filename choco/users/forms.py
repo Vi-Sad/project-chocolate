@@ -16,3 +16,9 @@ class FormBasket(forms.ModelForm):
         fields = '__all__'
         widgets = {}
 
+
+class FormFeedback(forms.ModelForm):
+    class Meta:
+        model = Feedback
+        fields = '__all__'
+        widgets = {}

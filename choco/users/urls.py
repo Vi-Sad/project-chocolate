@@ -15,6 +15,7 @@ urlpatterns = [
     path('chocolate/<slug:name>/basket/', users.view_basket, name='basket'),
     path('chocolate/<slug:name>/basket/add/id_product=<int:id>/', users.add_basket, name='add_basket'),
     path('chocolate/<slug:name>/favourites/add/id_product=<int:id>/', users.add_favourites, name='add_favourites'),
+    path('feedback/<slug:name>/id_product=<int:id>/', users.send_feedback, name='send_feedback'),
 ]
 
 if settings.DEBUG:

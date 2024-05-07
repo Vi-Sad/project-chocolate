@@ -1,0 +1,11 @@
+<form method="post" id="form_feedback">
+    {% csrf_token %}
+    <label>Score:</label>
+    <input type="number">
+    <br>
+    <label>Message:</label>
+    <br>
+    <textarea></textarea>
+    <br>
+    <button id="but_feedback" type="submit">Отправить</button>
+</form>

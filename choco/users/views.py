@@ -2,12 +2,14 @@ from django.shortcuts import render
 from .models import *
 from main.models import *
 from .forms import *
+from django.core.mail import send_mail
 
 # Create your views here.
 
 users = User.objects.all()
 products = Product.objects
 basket = Basket.objects
+feedbacks = Feedback.objects.all()
 
 user_active = None
 
@@ -72,7 +74,7 @@ def account(request, name):
 
 def info_product(request, id):
     return render(request, 'main/info_product.html',
-                  context={'products': products.filter(id=id), 'user_active': user_active})
+                  context={'products': products.filter(id=id), 'user_active': user_active, 'feedbacks': feedbacks})
 
 
 def view_favourites(request, name):
@@ -113,12 +115,19 @@ def add_favourites(request, name, id):
     if count_product == '':
         message = 'Упс! Что-то пошло не так'
     else:
-        if existence:
+        if basket.filter(name=name, id_product=id, favourites=True).exists():
+            message = 'Товар уже есть в Избранном'
+        elif existence:
             basket.filter(id_product=id).update(favourites=True)
-            message = f'Товар уже есть в Избранном'
+            message = 'Товар успешно добавлен в Избранное'
         else:
             for i in products.filter(id=id):
                 basket.create(name=name, id_product=id, count=count_product, product_name=i.product_name,
                               favourites=True, basket=False)
-            message = f'Товар успешно добавлен в Избранное'
+            message = 'Товар успешно добавлен в Избранное'
     return render(request, 'users/add_favourites.html', context={'user_active': user_active, 'message': message})
+
+
+def send_feedback(request, name, id):
+    existence = basket.filter(name=name, id_product=id).exists()
+    return render(request, 'users/check_feedback.html', context={'user_active': user_active})

@@ -26,3 +26,14 @@ class Basket(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Feedback(models.Model):
+    objects = None
+    name = models.CharField(max_length=20, default=None)
+    score = models.IntegerField()
+    message = models.CharField(max_length=2000, default=None)
+    id_product = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
