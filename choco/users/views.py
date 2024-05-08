@@ -12,6 +12,7 @@ basket = Basket.objects
 feedbacks = Feedback.objects.all()
 
 user_active = None
+start_url = 'http://127.0.0.1:8000/'
 
 
 def registration(request):
@@ -74,7 +75,8 @@ def account(request, name):
 
 def info_product(request, id):
     return render(request, 'main/info_product.html',
-                  context={'products': products.filter(id=id), 'user_active': user_active, 'feedbacks': feedbacks})
+                  context={'products': products.filter(id=id), 'user_active': user_active,
+                           'feedbacks': feedbacks.filter(id_product=id), 'id': id, 'start_url': start_url})
 
 
 def view_favourites(request, name):
@@ -129,5 +131,17 @@ def add_favourites(request, name, id):
 
 
 def send_feedback(request, name, id):
-    existence = basket.filter(name=name, id_product=id).exists()
-    return render(request, 'users/check_feedback.html', context={'user_active': user_active})
+    score = request.POST.get('score')
+    message = request.POST.get('message')
+    existence = feedbacks.filter(name=name, id_product=id).exists()
+    if score == '':
+        message = 'Упс! Что-то пошло не так'
+    else:
+        if not existence:
+            feedbacks.create(name=name, id_product=id, message=message, score=score)
+            message = 'Спасибо за отзыв!'
+        else:
+            feedbacks.filter(name=name, id_product=id).update(message=message, score=score)
+            message = 'Отзыв обновлен. Спасибо!'
+    return render(request, 'users/check_feedback.html', context={'user_active': user_active, 'message': message,
+                                                                 'start_url': start_url})
