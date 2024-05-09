@@ -22,3 +22,27 @@
     {% endif %}
     {% endfor %}
 </div>
+<div class="category_animals" style="{display: none;}">
+    {% for i in products %}
+    {% if i.category == 'Животные' %}
+    <br>
+    <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
+    <p>{{ i.product_name }}</p>
+    <a href="{% url 'info_product' i.id %}">
+        <button>Подробнее</button>
+    </a>
+    {% endif %}
+    {% endfor %}
+</div>
+<div class="category_items" style="{display: none;}">
+    {% for i in products %}
+    {% if i.category == 'Предметы' %}
+    <br>
+    <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
+    <p>{{ i.product_name }}</p>
+    <a href="{% url 'info_product' i.id %}">
+        <button>Подробнее</button>
+    </a>
+    {% endif %}
+    {% endfor %}
+</div>

@@ -2,14 +2,14 @@ from django.shortcuts import render
 from .models import *
 from main.models import *
 from .forms import *
-from django.core.mail import send_mail
+from datetime import datetime
 
 # Create your views here.
 
 users = User.objects.all()
 products = Product.objects
 basket = Basket.objects
-feedbacks = Feedback.objects.all()
+feedbacks = Feedback.objects
 
 user_active = None
 start_url = 'http://127.0.0.1:8000/'
@@ -137,10 +137,11 @@ def send_feedback(request, name, id):
     existence = feedbacks.filter(name=name, id_product=id).exists()
     anonim = True if anonim == 'on' else False
     if not existence:
-        feedbacks.create(name=name, id_product=id, message=message, score=score, anonim=anonim)
+        feedbacks.create(name=name, id_product=id, message=message, score=score, anonim=anonim, date=datetime.now())
         message = 'Спасибо за отзыв!'
     else:
-        feedbacks.filter(name=name, id_product=id).update(message=message, score=score, anonim=anonim)
+        feedbacks.filter(name=name, id_product=id).update(message=message, score=score, anonim=anonim,
+                                                          date=datetime.now())
         message = 'Отзыв обновлен. Спасибо!'
     return render(request, 'users/check_feedback.html', context={'user_active': user_active, 'message': message,
                                                                  'start_url': start_url})

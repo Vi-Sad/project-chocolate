@@ -35,6 +35,7 @@ class Feedback(models.Model):
     message = models.CharField(max_length=2000, default=None)
     id_product = models.IntegerField(default=0)
     anonim = models.BooleanField(default=False)
+    date = models.DateField(default=None)
 
     def __str__(self):
         return self.name

@@ -6,6 +6,8 @@ let input_category_all = document.getElementById("all");
 
 let div_category_festive = document.querySelector(".category_festive");
 let div_category_standard = document.querySelector(".category_standard");
+let div_category_animals = document.querySelector(".category_animals");
+let div_category_items = document.querySelector(".category_items");
 
 function active_category_festive() {
   input_category_festive.disabled = true;
@@ -16,6 +18,8 @@ function active_category_festive() {
 
   div_category_festive.style.display = "block";
   div_category_standard.style.display = "none";
+  div_category_animals.style.display = "none";
+  div_category_items.style.display = "none";
 }
 
 function active_category_standard() {
@@ -27,6 +31,8 @@ function active_category_standard() {
 
   div_category_festive.style.display = "none";
   div_category_standard.style.display = "block";
+  div_category_animals.style.display = "none";
+  div_category_items.style.display = "none";
 }
 
 function active_category_animals() {
@@ -38,6 +44,8 @@ function active_category_animals() {
 
   div_category_festive.style.display = "none";
   div_category_standard.style.display = "none";
+  div_category_animals.style.display = "block";
+  div_category_items.style.display = "none";
 }
 
 function active_category_items() {
@@ -49,6 +57,8 @@ function active_category_items() {
 
   div_category_festive.style.display = "none";
   div_category_standard.style.display = "none";
+  div_category_animals.style.display = "none";
+  div_category_items.style.display = "block";
 }
 
 function active_category_all() {
@@ -60,6 +70,8 @@ function active_category_all() {
 
   div_category_festive.style.display = "block";
   div_category_standard.style.display = "block";
+  div_category_animals.style.display = "block";
+  div_category_items.style.display = "block";
 }
 
 input_category_festive.onclick = active_category_festive;
