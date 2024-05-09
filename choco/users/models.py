@@ -34,6 +34,7 @@ class Feedback(models.Model):
     score = models.IntegerField()
     message = models.CharField(max_length=2000, default=None)
     id_product = models.IntegerField(default=0)
+    anonim = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name

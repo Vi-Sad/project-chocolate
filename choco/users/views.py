@@ -133,15 +133,14 @@ def add_favourites(request, name, id):
 def send_feedback(request, name, id):
     score = request.POST.get('score')
     message = request.POST.get('message')
+    anonim = request.POST.get('anonim')
     existence = feedbacks.filter(name=name, id_product=id).exists()
-    if score == '':
-        message = 'Упс! Что-то пошло не так'
+    anonim = True if anonim == 'on' else False
+    if not existence:
+        feedbacks.create(name=name, id_product=id, message=message, score=score, anonim=anonim)
+        message = 'Спасибо за отзыв!'
     else:
-        if not existence:
-            feedbacks.create(name=name, id_product=id, message=message, score=score)
-            message = 'Спасибо за отзыв!'
-        else:
-            feedbacks.filter(name=name, id_product=id).update(message=message, score=score)
-            message = 'Отзыв обновлен. Спасибо!'
+        feedbacks.filter(name=name, id_product=id).update(message=message, score=score, anonim=anonim)
+        message = 'Отзыв обновлен. Спасибо!'
     return render(request, 'users/check_feedback.html', context={'user_active': user_active, 'message': message,
                                                                  'start_url': start_url})

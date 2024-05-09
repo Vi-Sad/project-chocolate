@@ -64,6 +64,11 @@
     <p>Здесь пока ничего нет</p>
     {% else %} {% for i in feedbacks %}
     <p>Оценка: {{ i.score }}</p>
+    {% if i.anonim == 1 %}
+    <p>Пользователь скрыл свои данные</p>
+    {% else %}
+    <p>{{ i.name }}</p>
+    {% endif %}
     <p>{{ i.message }}</p>
     {% endfor %} {% endif %} {% include 'main/footer.html' %}
     <script src="{% static 'js/add.js' %}"></script>
