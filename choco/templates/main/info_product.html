@@ -60,10 +60,10 @@
     <h2>Оставить отзыв</h2>
     {% include 'users/send_feedback.html' %} {% endif %}
     <h2>Отзывы:</h2>
-    {% if feedback|length == 0 %}
+    {% if feedbacks|length == 0 %}
     <p>Отзывов пока нет</p>
     {% else %}
-    {% for i in feedback %}
+    {% for i in feedbacks %}
     <p>Оценка: {{ i.score }}</p>
     <p>{{ i.date }}</p>
     {% if i.anonim == 1 %}

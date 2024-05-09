@@ -10,9 +10,18 @@
 <p>Здесь пока ничего нет</p>
 {% else %}
 {% for i in basket %}
+{% for j in products %}
+{% if j.product_name == i.product_name %}
+<img src="{{ j.image.url }}" alt="chocolate" style="height: 100px">
+{% endif %}
+{% endfor %}
 <p>{{ i.product_name }}</p>
+<a href="{% url 'info_product' i.id_product %}">
+    <button>Подробнее</button>
+</a>
 {% endfor %}
 {% endif %}
+<br>
 <a href="{% url 'account' user_active %}">
     <button>Вернуться</button>
 </a>
