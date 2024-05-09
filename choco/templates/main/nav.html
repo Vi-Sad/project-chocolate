@@ -1,34 +1,36 @@
 <nav>
-    <div>
-        <a href="">
-            <img src="" alt="icon_main"/>
-        </a>
-        <a href="">~ЧоКо~</a>
-    </div>
-    <div>
-        {% if user_active == None %}
-        <a href="{% url 'main' %}">Главная</a>
-        {% else %}
-        <a href="{% url 'main_user' user_active %}">Главная</a>
-        {% endif %}
-        <a href="">Наши контакты</a>
-        <a href="#all_products">Наша продукция</a>
-    </div>
-    <div>
-        <a class="login_and_registration" href="{% url 'login' %}">Войти</a>
-        <span class="login_and_registration">|</span>
-        <a class="login_and_registration" href="{% url 'registration' %}">Зарегистрироваться</a>
-        {% for i in users %}
-        {% if i.name == user_active %}
-        <style>.login_and_registration {display: none;}</style>
-        <a href="{% url 'logout' %}">Выйти</a>
-        <span>|</span>
-        <a href="{% url 'account' user_active %}">Личный кабинет</a>
-        <button id="buy">
-            <img src="" alt="icon_basket"/>
-            <span>{{ basket|length }}</span>
-        </button>
-        {% endif %}
-        {% endfor %}
-    </div>
+  <div>
+    <img src="../../media/icons/icon_bunny.png" alt="icon_main" />
+    <p class="a_icon_text">~ЧоКо~</p>
+  </div>
+  <div>
+    {% if user_active == None %}
+    <a href="{% url 'main' %}">Главная</a>
+    {% else %}
+    <a href="{% url 'main_user' user_active %}">Главная</a>
+    {% endif %}
+    <a href="">Наши контакты</a>
+    <a href="#all_products">Наша продукция</a>
+  </div>
+  <div>
+    <a class="login_and_registration" href="{% url 'login' %}">Войти</a>
+    <span class="login_and_registration">|</span>
+    <a class="login_and_registration" href="{% url 'registration' %}"
+      >Зарегистрироваться</a
+    >
+    {% for i in users %} {% if i.name == user_active %}
+    <style>
+      .login_and_registration {
+        display: none;
+      }
+    </style>
+    <a href="{% url 'logout' %}">Выйти</a>
+    <span>|</span>
+    <a href="{% url 'account' user_active %}">Личный кабинет</a>
+    <button id="buy">
+      <img src="" alt="icon_basket" />
+      <span>{{ basket|length }}</span>
+    </button>
+    {% endif %} {% endfor %}
+  </div>
 </nav>

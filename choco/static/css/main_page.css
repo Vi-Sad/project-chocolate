@@ -1,0 +1,57 @@
+* {
+  inset: 0;
+  margin: 0;
+  padding: 0;
+}
+
+nav {
+  opacity: 0.7;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.8);
+  position: sticky;
+  z-index: 1;
+}
+
+nav a {
+  text-decoration: none;
+  vertical-align: middle;
+  margin-left: 20px;
+  color: black;
+}
+
+nav a:hover {
+  color: rgb(156, 90, 54);
+}
+
+nav a:active {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+nav span {
+  margin-left: 20px;
+}
+
+.a_icon_text,
+nav h1 {
+  color: rgb(156, 90, 54);
+  font-style: italic;
+  font-weight: 100;
+  font-weight: bold;
+}
+
+nav:hover {
+  opacity: 1;
+}
+
+nav img {
+  height: 60px;
+  vertical-align: middle;
+}
+
+nav img:hover {
+  cursor: auto;
+}
