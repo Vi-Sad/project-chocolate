@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
 </head>
 <body>
-<h1>Регистрация</h1>
+<h2>Регистрация</h2>
 <form method="post" action="{% url 'registration_check' %}">
     {% csrf_token %}
     <label>Введите Ваше имя</label>

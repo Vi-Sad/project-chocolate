@@ -1,26 +1,22 @@
-* {
-  inset: 0;
-  margin: 0;
-  padding: 0;
-}
-
 nav {
-  opacity: 0.7;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: center;
   align-items: center;
   padding: 5px;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgb(255, 255, 255, 0.8);
   position: sticky;
   z-index: 1;
+}
+
+nav:hover {
+  background-color: rgb(255, 255, 255);
 }
 
 nav a {
   text-decoration: none;
   vertical-align: middle;
   margin-left: 20px;
-  color: black;
 }
 
 nav a:hover {
@@ -43,10 +39,6 @@ nav h1 {
   font-weight: bold;
 }
 
-nav:hover {
-  opacity: 1;
-}
-
 nav img {
   height: 60px;
   vertical-align: middle;
@@ -54,4 +46,28 @@ nav img {
 
 nav img:hover {
   cursor: auto;
+}
+
+#buy {
+  border: none;
+  height: 20px;
+}
+
+#buy > img:hover,
+#buy > sup:hover,
+#buy {
+  cursor: pointer;
+}
+
+#buy > img {
+  height: 35px;
+  margin-left: 20px;
+}
+
+#buy > sup {
+  border: 1px solid rgb(156, 90, 54);
+  border-radius: 50%;
+  padding: 5px;
+  background-color: rgb(156, 90, 54);
+  color: white;
 }

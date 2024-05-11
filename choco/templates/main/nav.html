@@ -28,8 +28,8 @@
     <span>|</span>
     <a href="{% url 'account' user_active %}">Личный кабинет</a>
     <button id="buy">
-      <img src="" alt="icon_basket" />
-      <span>{{ basket|length }}</span>
+      <img src="../../media/icons/icon_basket.png" alt="icon_basket" />
+      <sup>{{ basket|length }}</sup>
     </button>
     {% endif %} {% endfor %}
   </div>

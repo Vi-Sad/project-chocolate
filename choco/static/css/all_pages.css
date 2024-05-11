@@ -1,0 +1,23 @@
+* {
+  font-family: "RubikBubbles-Regular";
+  color: rgb(55, 55, 55);
+  font-weight: 100;
+  line-height: 2;
+}
+
+h1 {
+  color: rgb(156, 90, 54);
+}
+
+@font-face {
+  font-family: "RubikBubbles-Regular";
+  src: url("../fonts/RubikBubbles-Regular.ttf");
+}
+
+button {
+  padding: 5px;
+}
+
+button:hover {
+  cursor: pointer;
+}
