@@ -2,12 +2,41 @@ footer {
   background-color: rgb(156, 90, 54);
   color: white;
   text-align: center;
+  padding-top: 20px;
 }
 
 footer a {
   color: white;
 }
 
+footer a:hover {
+  color: rgb(55, 55, 55);
+}
+
+footer a:active {
+  color: rgba(235, 222, 215);
+}
+
 footer img {
   height: 40px;
+  text-align: center;
+  vertical-align: middle;
+  margin-left: 20px;
+}
+
+footer > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+footer a {
+  text-decoration: none;
+  vertical-align: middle;
+  margin-left: 20px;
+}
+
+footer p {
+  color: white;
 }
