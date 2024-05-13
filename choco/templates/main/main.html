@@ -7,9 +7,22 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
     <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
     <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
   </head>
   <body>
+    <div class="div_background">
+      <svg
+        viewBox="0 0 500 500"
+        preserveAspectRatio="xMinYMin meet"
+        style="z-index: -3"
+      >
+        <path
+          d="M0, 100 C150, 300 350, 0 500, 100 L500, 00 L0, 0 Z"
+          style="stroke: none; fill: rgba(156, 90, 54, 0.2)"
+        ></path>
+      </svg>
+    </div>
     {% include 'main/nav.html' %} {% include 'users/buy.html' %}
     <header>
       <h3 class="hello_user">

@@ -4,7 +4,7 @@ nav {
   justify-items: center;
   align-items: center;
   padding: 5px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgba(235, 222, 215);
   position: sticky;
   z-index: 1;
 }
@@ -38,6 +38,7 @@ nav h1 {
 nav img {
   height: 40px;
   text-align: center;
+  vertical-align: middle;
 }
 
 nav img:hover {
@@ -66,4 +67,9 @@ nav img:hover {
   padding: 5px;
   background-color: rgb(156, 90, 54);
   color: white;
+}
+
+nav button {
+  vertical-align: middle;
+  margin-top: -30px;
 }

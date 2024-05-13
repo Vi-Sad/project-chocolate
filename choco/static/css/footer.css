@@ -1,0 +1,13 @@
+footer {
+  background-color: rgb(156, 90, 54);
+  color: white;
+  text-align: center;
+}
+
+footer a {
+  color: white;
+}
+
+footer img {
+  height: 40px;
+}
