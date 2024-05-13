@@ -2,10 +2,22 @@
   inset: 0;
   margin: 0;
   padding: 0;
+  overflow-x: clip;
 }
 
+/* header */
+
 .icon_main {
-  height: 130px;
+  height: 64px;
+}
+
+header {
+  padding: 0 50px;
+  background: linear-gradient(
+    to bottom left,
+    rgba(156, 90, 54, 0.3) 38%,
+    white 38%
+  );
 }
 
 .hello_user {
@@ -17,7 +29,7 @@
 }
 
 section {
-  margin-top: 100px;
+  margin: 100px 50px 0 50px;
 }
 
 .arrows {
@@ -26,4 +38,89 @@ section {
 
 .taste {
   color: rgb(214, 80, 97);
+}
+
+.main_icon_text {
+  text-align: center;
+  float: left;
+  line-height: 0.1;
+}
+
+.but_choco {
+  margin-right: 10px;
+}
+
+.but_create_choco,
+.but_choco {
+  border: 2px solid rgb(156, 90, 54);
+  background-color: rgb(255, 255, 255);
+  border-radius: 50px;
+  color: rgb(156, 90, 54);
+}
+
+.but_create_choco:hover,
+.but_choco:hover {
+  background-color: rgb(156, 90, 54);
+  color: white;
+  filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.3));
+}
+
+.but_create_choco:active,
+.but_choco:active {
+  filter: none;
+}
+
+.icon_slogan_img {
+  display: flex;
+  justify-content: space-between;
+}
+
+.div_taste {
+  text-align: center;
+}
+
+.div_images_taste {
+  display: flex;
+  gap: 50px;
+}
+
+.images_none {
+  position: absolute;
+  margin-left: 90%;
+  margin-top: 5%;
+}
+
+.images_none_2 {
+  opacity: 0;
+}
+
+.arrows {
+  background-color: rgb(55, 55, 55);
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.arrows:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+.arrows:active {
+  transform: scale(0.9);
+}
+
+.but_right {
+  margin-right: 2px;
+}
+
+.but_left {
+  margin-left: 2px;
+}
+
+/* section "Почему у нас вкусно?" */
+
+h2 {
+  text-align: center;
 }

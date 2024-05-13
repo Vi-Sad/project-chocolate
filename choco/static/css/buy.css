@@ -8,6 +8,7 @@
   max-height: max-content;
   padding: 20px;
   border-radius: 20px;
+  z-index: 1;
 }
 
 #buy_products p,

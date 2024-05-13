@@ -4,10 +4,10 @@
   <head>
     <meta charset="UTF-8" />
     <title>ЧоКо - Шоколад ручной работы</title>
-    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
     <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
   </head>
   <body>
     {% include 'main/nav.html' %} {% include 'users/buy.html' %}
@@ -15,42 +15,77 @@
       <h3 class="hello_user">
         Добро пожаловать{% block user_active %}{% endblock user_active %}!
       </h3>
-      <div>
+      <div class="icon_slogan_img">
         <div>
-          <img
-            class="icon_main"
-            src="../../media/icons/icon_bunny.png"
-            alt="icon_main"
-          />
-          <h1>~ЧоКо~</h1>
+          <div class="main_icon_text">
+            <img
+              class="icon_main"
+              src="../../media/icons/icon_main.png"
+              alt="icon_main"
+            />
+            <h1>~ЧоКо~</h1>
+          </div>
+          <br /><br /><br /><br />
+          <p>шоколад ручной работы</p>
+          <p class="slogan">Мы сделаем Вашу жизнь ярче и слаще!</p>
+          <button class="but_choco">Выбрать шоколад</button>
+          <button class="but_create_choco">Создать свой</button>
         </div>
-        <p>шоколад ручной работы</p>
-        <p class="slogan">Мы сделаем Вашу жизнь ярче и слаще!</p>
-        <button>Выбрать шоколад</button>
-        <button>Создать свой</button>
-      </div>
-      <img
-        src="../../media/img/heart_raspberries.png"
-        alt="heart_raspberries"
-        style="height: 400px"
-        id="heart_raspberries"
-      />
-      <img
-        src="../../media/img/heart_nuts.webp"
-        alt="heart_nuts"
-        style="height: 400px"
-        id="heart_nuts"
-      />
-      <img
-        src="../../media/img/heart_pineapple.webp"
-        alt="heart_pineapple"
-        style="height: 400px"
-        id="heart_pineapple"
-      />
-      <div>
-        <p>Шоколад с <span class="taste">малиной</span></p>
-        <input class="arrows" type="button" value="&#10229;" />
-        <input class="arrows" type="button" value="&#10230;" />
+        <div class="div_images_taste">
+          <div>
+            <img
+              src="../../media/img/heart_raspberries.png"
+              alt="heart_raspberries"
+              style="
+                height: 400px;
+                filter: drop-shadow(1px 10px 10px rgba(0, 0, 0, 0.5));
+                z-index: -1;
+              "
+              id="heart_raspberries"
+            />
+            <div class="div_taste">
+              <p>Шоколад с <span class="taste">малиной</span></p>
+              <input class="arrows but_right" type="button" value="&#10229;" />
+              <input class="arrows but_left" type="button" value="&#10230;" />
+            </div>
+          </div>
+          <div class="images_none">
+            <img
+              src="../../media/img/heart_nuts.webp"
+              alt="heart_nuts"
+              style="
+                height: 300px;
+                filter: drop-shadow(1px 10px 10px rgba(0, 0, 0, 0.5));
+              "
+              id="heart_nuts"
+            />
+            <br />
+            <img
+              src="../../media/img/heart_pineapple.webp"
+              alt="heart_pineapple"
+              style="
+                height: 300px;
+                filter: drop-shadow(1px 10px 10px rgba(0, 0, 0, 0.5));
+              "
+              id="heart_pineapple"
+            />
+          </div>
+          <div class="images_none_2">
+            <img
+              src="../../media/img/heart_nuts.webp"
+              alt="heart_nuts"
+              style="height: 200px"
+              id="heart_nuts"
+            />
+            <br />
+            <img
+              src="../../media/img/heart_pineapple.webp"
+              alt="heart_pineapple"
+              style="height: 200px"
+              id="heart_pineapple"
+            />
+          </div>
+        </div>
       </div>
     </header>
     <section>
