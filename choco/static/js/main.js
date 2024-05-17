@@ -111,3 +111,111 @@ input_category_standard.onclick = active_category_standard;
 input_category_animals.onclick = active_category_animals;
 input_category_items.onclick = active_category_items;
 input_category_all.onclick = active_category_all;
+
+// Viewing chocolate additives (header)
+
+let but_left = document.querySelector(".but_left");
+let but_right = document.querySelector(".but_right");
+
+let img_heart_raspberries = document.getElementById("heart_raspberries");
+let img_heart_heart_nuts = document.getElementById("heart_nuts");
+let img_heart_pineapple = document.getElementById("heart_pineapple");
+
+let span_taste = document.querySelector(".taste");
+
+let slider = 1;
+
+function but_right_active() {
+  if (slider === 1) {
+    img_heart_raspberries.setAttribute(
+      "src",
+      "../../media/img/heart_nuts.webp"
+    );
+    img_heart_heart_nuts.setAttribute(
+      "src",
+      "../../media/img/heart_pineapple.webp"
+    );
+    img_heart_pineapple.setAttribute(
+      "src",
+      "../../media/img/heart_raspberries.png"
+    );
+    slider = 2;
+    span_taste.style.color = "rgb(156, 90, 54)";
+    span_taste.innerHTML = "орехами";
+  } else if (slider === 2) {
+    img_heart_raspberries.setAttribute(
+      "src",
+      "../../media/img/heart_pineapple.webp"
+    );
+    img_heart_heart_nuts.setAttribute(
+      "src",
+      "../../media/img/heart_raspberries.png"
+    );
+    img_heart_pineapple.setAttribute("src", "../../media/img/heart_nuts.webp");
+    slider = 3;
+    span_taste.style.color = "rgb(253, 196, 1)";
+    span_taste.innerHTML = "ананасом";
+  } else {
+    img_heart_raspberries.setAttribute(
+      "src",
+      "../../media/img/heart_raspberries.png"
+    );
+    img_heart_heart_nuts.setAttribute("src", "../../media/img/heart_nuts.webp");
+    img_heart_pineapple.setAttribute(
+      "src",
+      "../../media/img/heart_pineapple.webp"
+    );
+    slider = 1;
+    span_taste.style.color = "rgb(214, 80, 97)";
+    span_taste.innerHTML = "малиной";
+  }
+}
+
+function but_left_active() {
+  if (slider === 1) {
+    img_heart_raspberries.setAttribute(
+      "src",
+      "../../media/img/heart_pineapple.webp"
+    );
+    img_heart_heart_nuts.setAttribute(
+      "src",
+      "../../media/img/heart_raspberries.png"
+    );
+    img_heart_pineapple.setAttribute("src", "../../media/img/heart_nuts.webp");
+    slider = 2;
+    span_taste.style.color = "rgb(253, 196, 1)";
+    span_taste.innerHTML = "ананасом";
+  } else if (slider === 2) {
+    img_heart_raspberries.setAttribute(
+      "src",
+      "../../media/img/heart_nuts.webp"
+    );
+    img_heart_heart_nuts.setAttribute(
+      "src",
+      "../../media/img/heart_pineapple.webp"
+    );
+    img_heart_pineapple.setAttribute(
+      "src",
+      "../../media/img/heart_raspberries.png"
+    );
+    slider = 3;
+    span_taste.style.color = "rgb(156, 90, 54)";
+    span_taste.innerHTML = "орехами";
+  } else {
+    img_heart_raspberries.setAttribute(
+      "src",
+      "../../media/img/heart_raspberries.png"
+    );
+    img_heart_heart_nuts.setAttribute("src", "../../media/img/heart_nuts.webp");
+    img_heart_pineapple.setAttribute(
+      "src",
+      "../../media/img/heart_pineapple.webp"
+    );
+    slider = 1;
+    span_taste.style.color = "rgb(214, 80, 97)";
+    span_taste.innerHTML = "малиной";
+  }
+}
+
+but_right.onclick = but_right_active;
+but_left.onclick = but_left_active;

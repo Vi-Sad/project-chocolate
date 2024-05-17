@@ -1,29 +1,30 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Личный кабинет</title>
     <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
-</head>
-<body>
-<h2>Ваши личные данные</h2>
-{% for i in users %}
-{% if i.name == user_active %}
-<p>Имя: {{ i.name }}</p>
-<p>Email: {{ i.email }}</p>
-<p>Пароль: {{ i.password }}</p>
-{% endif %}
-{% endfor %}
-<a href="{% url 'favourites' user_active %}">
-    <button>Избранное</button>
-</a>
-<a href="{% url 'basket' user_active %}">
-    <button>Корзина</button>
-</a>
-<a href="{% url 'main_user' user_active %}">
-    <button>Вернуться</button>
-</a>
-{% include 'main/footer.html' %}
-</body>
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  </head>
+  <body>
+    <div class="content">
+      <h2>Ваши личные данные</h2>
+      {% for i in users %} {% if i.name == user_active %}
+      <p>Имя: {{ i.name }}</p>
+      <p>Email: {{ i.email }}</p>
+      <p>Пароль: {{ i.password }}</p>
+      {% endif %} {% endfor %}
+      <a href="{% url 'favourites' user_active %}">
+        <button>Избранное</button>
+      </a>
+      <a href="{% url 'basket' user_active %}">
+        <button>Корзина</button>
+      </a>
+      <a href="{% url 'main_user' user_active %}">
+        <button>Вернуться</button>
+      </a>
+    </div>
+    {% include 'main/footer.html' %}
+  </body>
 </html>

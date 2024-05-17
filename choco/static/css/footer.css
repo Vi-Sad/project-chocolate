@@ -3,6 +3,8 @@ footer {
   color: white;
   text-align: center;
   padding-top: 20px;
+  width: 100%;
+  line-height: 0;
 }
 
 footer a {
@@ -19,9 +21,7 @@ footer a:active {
 
 footer img {
   height: 40px;
-  text-align: center;
   vertical-align: middle;
-  margin-left: 20px;
 }
 
 footer > div {
@@ -39,4 +39,5 @@ footer a {
 
 footer p {
   color: white;
+  text-align: center;
 }

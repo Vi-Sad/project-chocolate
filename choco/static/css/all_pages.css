@@ -3,6 +3,24 @@
   color: rgb(55, 55, 55);
   font-weight: 100;
   line-height: 2;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1 0 auto;
 }
 
 h1 {
@@ -20,4 +38,10 @@ button {
 
 button:hover {
   cursor: pointer;
+}
+
+.main_icon_text {
+  text-align: center;
+  line-height: 0;
+  float: left;
 }

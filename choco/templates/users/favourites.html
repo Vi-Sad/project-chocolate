@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Избранное</title>
     <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
-</head>
-<body>
-<h2>Избранные товары</h2>
-{% if favourites|length == 0 %}
-<p>Здесь пока ничего нет</p>
-{% else %}
-{% for i in favourites %}
-{% for j in products %}
-{% if j.product_name == i.product_name %}
-<img src="{{ j.image.url }}" alt="chocolate" style="height: 100px">
-{% endif %}
-{% endfor %}
-<p>{{ i.product_name }}</p>
-<a href="{% url 'info_product' i.id_product %}">
-    <button>Подробнее</button>
-</a>
-{% endfor %}
-{% endif %}
-<br>
-<a href="{% url 'account' user_active %}">
-    <button>Вернуться</button>
-</a>
-{% include 'main/footer.html' %}
-</body>
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  </head>
+  <body>
+    <div class="content">
+      <h2>Избранные товары</h2>
+      {% if favourites|length == 0 %}
+      <p>Здесь пока ничего нет</p>
+      {% else %} 
+      {% for i in favourites %} 
+      {% for j in products %} 
+      {% if j.product_name == i.product_name %}
+      <img src="{{ j.image.url }}" alt="chocolate" style="height: 100px" />
+      {% endif %} 
+      {% endfor %}
+      <p>{{ i.product_name }}</p>
+      <a href="{% url 'info_product' i.id_product %}">
+        <button>Подробнее</button>
+      </a>
+      {% endfor %} 
+      {% endif %}
+      <br />
+      <a href="{% url 'account' user_active %}">
+        <button>Вернуться</button>
+      </a>
+    </div>
+    {% include 'main/footer.html' %}
+  </body>
 </html>
