@@ -1,13 +1,15 @@
 <section id="buy_products" style="display: none">
-  <h2>Мои товары:</h2>
   {% if basket|length == 0 %}
   <p>Корзина пуста</p>
   {% else %} {% for i in basket %}
+  <h3>Мои товары:</h3>
   <p>
     • {{ i.product_name }} × {{ i.count }} = {% widthratio i.price 1 i.count %}
     руб.
   </p>
   {% endfor %}
+  <br />
+  <hr />
   <br />
   <p>Всего: {{ total }} руб.</p>
   <button>Купить</button>

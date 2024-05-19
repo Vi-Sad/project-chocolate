@@ -9,6 +9,7 @@ class User(models.Model):
     name = models.CharField(max_length=20, unique=True)
     email = models.CharField(max_length=40, unique=True)
     password = models.CharField(max_length=20)
+    date_registration = models.DateField(default=None)
 
     def __str__(self):
         return self.name

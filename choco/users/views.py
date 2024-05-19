@@ -23,19 +23,22 @@ def registration_check(request):
     name = request.POST['name']
     email = request.POST['email']
     password = request.POST['password']
-    form = FormUser(request.POST)
     if len(name) == 0 or len(email) == 0 or len(password) == 0:
         message = 'Поля не могут быть пустыми'
         url = 'registration'
-    elif all([x.name != name or x.email != email for x in users]) and form.is_valid():
-        User.objects.create(name=name, email=email, password=password)
-        message = 'Вы успешны зарегистрированы. Попробуйте войти'
-        url = 'main'
+    elif all([x.name != name or x.email != email for x in users]):
+        if is_valid_password(password) and is_valid_email(email):
+            User.objects.create(name=name, email=email, password=password, date_registration=datetime.now())
+            url = 'main'
+            message = 'Вы успешны зарегистрированы. Попробуйте войти'
+        else:
+            url = 'registration'
+            message = 'Ваш email или пароль не соответствуют требованиям'
     else:
         if any([x.name == name for x in users]):
             message = f'Пользователь с именем "{name}" уже занят'
         else:
-            message = f'Почта уже используется другим пользователем'
+            message = f'Почта уже используется'
         url = 'registration'
     return render(request, 'users/registration_check.html', context={'message': message, 'url': url})
 
