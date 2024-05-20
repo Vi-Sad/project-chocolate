@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Добавить в избранное</title>
+    <title>Добавление товара в избранное</title>
     <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
 </head>
 <body>
 <p>{{ message }}</p>
 <a href="{% url 'main_user' user_active %}">
-    <input type="button" value="Вернуться">
+    <input type="button" value="Вернуться на Главную">
 </a>
 <a href="{% url 'favourites' user_active %}">
     <input type="button" value="Избранное">

@@ -91,7 +91,7 @@ def view_favourites(request, name):
 def view_basket(request, name):
     return render(request, 'users/basket.html',
                   context={'basket': basket.filter(name=name, basket=True), 'user_active': user_active,
-                           'products': products.all()})
+                           'products': products.all(), 'start_url': start_url})
 
 
 def add_basket(request, name, id):
@@ -112,6 +112,11 @@ def add_basket(request, name, id):
             else:
                 message = 'Товар уже есть в корзине'
     return render(request, 'users/add_basket.html', context={'user_active': user_active, 'message': message})
+
+
+def delete_basket(request, name, id):
+    basket.filter(id=id, name=name).delete()
+    return render(request, 'users/delete_basket.html', context={'user_active': user_active})
 
 
 def add_favourites(request, name, id):
