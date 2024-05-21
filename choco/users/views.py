@@ -15,10 +15,6 @@ user_active = None
 start_url = 'http://127.0.0.1:8000/'
 
 
-def registration(request):
-    return render(request, 'users/registration.html')
-
-
 def registration_check(request):
     name = request.POST['name']
     email = request.POST['email']
@@ -41,10 +37,6 @@ def registration_check(request):
             message = f'Почта уже используется'
         url = 'registration'
     return render(request, 'users/registration_check.html', context={'message': message, 'url': url})
-
-
-def login(request):
-    return render(request, 'users/login.html')
 
 
 def login_check(request):

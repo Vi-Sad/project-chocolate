@@ -2,11 +2,12 @@ from django.urls import path, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 import users.views as users
+from django.views.generic import TemplateView
 
 urlpatterns = [
-    path('registration/', users.registration, name='registration'),
+    path('registration/', TemplateView.as_view(template_name='users/registration.html'), name='registration'),
     path('registration/check/', users.registration_check, name='registration_check'),
-    path('login/', users.login, name='login'),
+    path('login/', TemplateView.as_view(template_name='users/login.html'), name='login'),
     path('login/check', users.login_check, name='login_check'),
     path('logout/', users.logout, name='logout'),
     path('account/<slug:name>/', users.account, name='account'),
