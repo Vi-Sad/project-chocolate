@@ -23,13 +23,13 @@ def registration_check(request):
         message = 'Поля не могут быть пустыми'
         url = 'registration'
     elif all([x.name != name or x.email != email for x in users]):
-        if is_valid_password(password) and is_valid_email(email):
+        if is_valid_password(password) and is_valid_email(email) and is_valid_name(name):
             User.objects.create(name=name, email=email, password=password, date_registration=datetime.now())
             url = 'main'
             message = 'Вы успешны зарегистрированы. Попробуйте войти'
         else:
             url = 'registration'
-            message = 'Ваш email или пароль не соответствуют требованиям'
+            message = 'Ваша почта, никнейм или пароль не соответствуют требованиям'
     else:
         if any([x.name == name for x in users]):
             message = f'Пользователь с именем "{name}" уже занят'

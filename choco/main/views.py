@@ -23,3 +23,5 @@ def main_user(request, name):
                                                            'basket': basket.filter(name=name, basket=True),
                                                            'total': total})
 
+# class MainUser(ListView):
+#     model =

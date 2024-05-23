@@ -1,22 +1,26 @@
 from django import forms
-
 from .models import *
 
 
 def is_valid_password(password):
-    numbers = '1234567890'
-    for i in numbers:
-        if i not in password and len(password) < 8:
-            return False
-    else:
+    if len(password) >= 8 and not password.isalpha() and password.isascii():
         return True
+    else:
+        return False
 
 
 def is_valid_email(email):
     all_email = ['@yandex.ru', '@gmail.com', '@mail.ru']
     for i in all_email:
-        if i in email:
+        if i in email and email.isascii():
             return True
+    else:
+        return False
+
+
+def is_valid_name(name):
+    if len(name) >= 3 and name.isascii():
+        return True
     else:
         return False
 
