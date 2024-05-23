@@ -18,6 +18,7 @@ urlpatterns = [
     path('chocolate/<slug:name>/favourites/add/id_product=<int:id>/', users.add_favourites, name='add_favourites'),
     path('chocolate/<slug:name>/basket/delete/id_product=<int:id>/', users.delete_basket, name='delete_basket'),
     path('feedback/<slug:name>/id_product=<int:id>/', users.send_feedback, name='send_feedback'),
+    path('account/<slug:name>/delete/', users.account_delete, name='account_delete'),
 ]
 
 if settings.DEBUG:

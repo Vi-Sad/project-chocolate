@@ -6,7 +6,7 @@ from datetime import datetime
 
 # Create your views here.
 
-users = User.objects.all()
+users = User.objects
 products = Product.objects
 basket = Basket.objects
 feedbacks = Feedback.objects
@@ -22,7 +22,7 @@ def registration_check(request):
     if len(name) == 0 or len(email) == 0 or len(password) == 0:
         message = 'Поля не могут быть пустыми'
         url = 'registration'
-    elif all([x.name != name or x.email != email for x in users]):
+    elif all([x.name != name or x.email != email for x in users.all()]):
         if is_valid_password(password) and is_valid_email(email) and is_valid_name(name):
             User.objects.create(name=name, email=email, password=password, date_registration=datetime.now())
             url = 'main'
@@ -31,7 +31,7 @@ def registration_check(request):
             url = 'registration'
             message = 'Ваша почта, никнейм или пароль не соответствуют требованиям'
     else:
-        if any([x.name == name for x in users]):
+        if any([x.name == name for x in users.all()]):
             message = f'Пользователь с именем "{name}" уже занят'
         else:
             message = f'Почта уже используется'
@@ -46,8 +46,8 @@ def login_check(request):
     if len(email) == 0 or len(password) == 0:
         message = 'Поля не могут быть пустыми'
         url = 'user/login/'
-    elif any(x.email == email and x.password == password for x in users):
-        for i in users:
+    elif any(x.email == email and x.password == password for x in users.all()):
+        for i in users.all():
             if i.email == email and i.password == password:
                 user_active = i.name
         message = 'Вы успешно вошли'
@@ -65,7 +65,7 @@ def logout(request):
 
 
 def account(request, name):
-    return render(request, 'users/account.html', context={'users': users, 'user_active': name})
+    return render(request, 'users/account.html', context={'users': users.all(), 'user_active': name})
 
 
 def info_product(request, id):
@@ -145,3 +145,13 @@ def send_feedback(request, name, id):
         message = 'Отзыв обновлен. Спасибо!'
     return render(request, 'users/check_feedback.html', context={'user_active': user_active, 'message': message,
                                                                  'start_url': start_url})
+
+
+def account_delete(request, name):
+    global user_active
+    users.filter(name=name).delete()
+    basket.filter(name=name).delete()
+    feedbacks.filter(name=name).delete()
+    user_active = None
+    return render(request, 'users/account_delete.html')
+
