@@ -20,6 +20,12 @@
           disabled
         />
         <input
+          class="user_hard_id"
+          value="{{ user_hard_id }}"
+          style="width: 0; height: 0; opacity: 0"
+          disabled
+        />
+        <input
           class="id_product"
           value="{{ i.id }}"
           style="width: 0; height: 0; opacity: 0"
@@ -59,7 +65,7 @@
         <button type="submit" id="but_basket">В корзину</button>
         <button type="submit" id="but_favourites">Добавить в избранное</button>
       </form>
-      <a href="{% url 'main_user' user_active %}">
+      <a href="{% url 'main_user' user_active user_hard_id %}">
         <input type="button" value="Вернуться на Главную" />
       </a>
       <h2>Оставить отзыв</h2>

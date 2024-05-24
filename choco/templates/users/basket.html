@@ -23,14 +23,14 @@
     <a href="{% url 'info_product' i.id_product %}">
         <button>Подробнее</button>
     </a>
-    <a href="{% url 'delete_basket' user_active i.id %}" id="a_delete_basket">
+    <a href="{% url 'delete_basket' user_active i.id user_hard_id %}" id="a_delete_basket">
         <button>Удалить из корзины</button>
     </a>
     <br/>
     {% endfor %}
     {% endif %}
     <br/>
-    <a href="{% url 'account' user_active %}">
+    <a href="{% url 'account' user_active user_hard_id %}">
         <button>Вернуться</button>
     </a>
 </div>

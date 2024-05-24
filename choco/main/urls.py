@@ -5,7 +5,7 @@ import main.views as main
 
 urlpatterns = [
     path('', main.main, name='main'),
-    path('user_active/<slug:name>/', main.main_user, name='main_user'),
+    path('user_active/<slug:name>/<slug:hard_id>/', main.main_user, name='main_user'),
 ]
 
 if settings.DEBUG:

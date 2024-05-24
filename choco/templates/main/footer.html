@@ -1,7 +1,7 @@
 <footer>
   <div>
     <div class="main_icon_text">
-      <img src="../../../media/icons/icon_main_light.png" alt="icon_main" />
+      <img src="../../../../media/icons/icon_main_light.png" alt="icon_main" />
       <p>~ЧоКо~</p>
     </div>
     <div>
@@ -9,7 +9,7 @@
       {% if user_active == None %}
       <a href="{% url 'main' %}#all_products">Каталог</a>
       {% else %}
-      <a href="{% url 'main_user' user_active %}#all_products">Каталог</a>
+      <a href="{% url 'main_user' user_active user_hard_id %}#all_products">Каталог</a>
       {% endif %}
       <a href="">Отзывы</a>
       <a href="">Контакты</a>

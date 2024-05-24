@@ -1,13 +1,13 @@
 <nav>
   <div class="main_icon_text">
-    <img src="../../media/icons/icon_main.png" alt="icon_main" />
+    <img src="../../../media/icons/icon_main.png" alt="icon_main" />
     <p class="a_icon_text">~ЧоКо~</p>
   </div>
   <div>
-    {% if user_active == None %}
+    {% if user_active == None and user_hard_id == None %}
     <a href="{% url 'main' %}">Главная</a>
     {% else %}
-    <a href="{% url 'main_user' user_active %}">Главная</a>
+    <a href="{% url 'main_user' user_active user_hard_id %}">Главная</a>
     {% endif %}
     <a href="">Наши контакты</a>
     <a href="#all_products">Наша продукция</a>
@@ -18,7 +18,8 @@
     <a class="login_and_registration" href="{% url 'registration' %}"
       >Зарегистрироваться</a
     >
-    {% for i in users %} {% if i.name == user_active %}
+    {% for i in users %}
+    {% if i.name == user_active %}
     <style>
       .login_and_registration {
         display: none;
@@ -26,11 +27,12 @@
     </style>
     <a href="{% url 'logout' %}">Выйти</a>
     <span>|</span>
-    <a href="{% url 'account' user_active %}">Личный кабинет</a>
+    <a href="{% url 'account' user_active user_hard_id %}">Личный кабинет</a>
     <button id="buy" style="background-color: rgba(255, 255, 255, 0)">
-      <img src="../../media/icons/icon_basket.png" alt="icon_basket" />
+      <img src="../../../media/icons/icon_basket.png" alt="icon_basket" />
       <sup>{{ basket|length }}</sup>
     </button>
-    {% endif %} {% endfor %}
+    {% endif %}
+    {% endfor %}
   </div>
 </nav>

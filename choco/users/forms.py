@@ -1,5 +1,6 @@
 from django import forms
 from .models import *
+import random
 
 
 def is_valid_password(password):
@@ -30,6 +31,15 @@ class FormUser(forms.ModelForm):
         model = User
         fields = ['name', 'password', 'email']
         widgets = {}
+
+
+def user_url(name):
+    all_signs = 'abcdefghijklmnopqrstuvwxyz0123456789'
+    all_signs = list(all_signs)
+    random.shuffle(all_signs)
+    all_signs.insert(random.randint(1, 35), name.lower())
+    hard_id_user = ''.join(all_signs)
+    return hard_id_user
 
 
 class FormBasket(forms.ModelForm):

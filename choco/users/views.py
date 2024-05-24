@@ -11,7 +11,7 @@ products = Product.objects
 basket = Basket.objects
 feedbacks = Feedback.objects
 
-user_active = None
+user_active, user_hard_id = None, None
 start_url = 'http://127.0.0.1:8000/'
 
 
@@ -24,23 +24,22 @@ def registration_check(request):
         url = 'registration'
     elif all([x.name != name or x.email != email for x in users.all()]):
         if is_valid_password(password) and is_valid_email(email) and is_valid_name(name):
-            User.objects.create(name=name, email=email, password=password, date_registration=datetime.now())
+            hard_id = user_url(name)
+            User.objects.create(name=name, email=email, password=password, date_registration=datetime.now(),
+                                hard_id=hard_id)
             url = 'main'
             message = 'Вы успешны зарегистрированы. Попробуйте войти'
         else:
             url = 'registration'
-            message = 'Ваша почта, никнейм или пароль не соответствуют требованиям'
+            message = 'Ваша эл. почта, никнейм или пароль не соответствуют требованиям'
     else:
-        if any([x.name == name for x in users.all()]):
-            message = f'Пользователь с именем "{name}" уже занят'
-        else:
-            message = f'Почта уже используется'
+        message = 'Почта уже используется'
         url = 'registration'
     return render(request, 'users/registration_check.html', context={'message': message, 'url': url})
 
 
 def login_check(request):
-    global user_active
+    global user_active, user_hard_id
     email = request.POST['email']
     password = request.POST['password']
     if len(email) == 0 or len(password) == 0:
@@ -49,109 +48,115 @@ def login_check(request):
     elif any(x.email == email and x.password == password for x in users.all()):
         for i in users.all():
             if i.email == email and i.password == password:
-                user_active = i.name
+                user_active, user_hard_id = i.name, i.hard_id
         message = 'Вы успешно вошли'
-        url = f'user_active/{user_active}/'
+        url = f'{start_url}/user_active/{user_active}/{user_hard_id}/'
     else:
-        url = 'user/login/'
+        url = f'{start_url}/user/login/'
         message = 'Не верный логин или пароль'
-    return render(request, 'users/login_check.html', context={'message': message, 'url': url})
+    return render(request, 'users/login_check.html', context={'message': message, 'url': url, 'start_url': start_url})
 
 
 def logout(request):
-    global user_active
+    global user_active, user_hard_id
     user_active = None
+    user_hard_id = None
     return render(request, 'users/logout.html')
 
 
-def account(request, name):
-    return render(request, 'users/account.html', context={'users': users.all(), 'user_active': name})
+def account(request, name, hard_id):
+    return render(request, 'users/account.html', context={'users': users.all(), 'user_active': name,
+                                                          'user_hard_id': hard_id})
 
 
 def info_product(request, id):
     return render(request, 'main/info_product.html',
                   context={'products': products.filter(id=id), 'user_active': user_active,
-                           'feedbacks': feedbacks.filter(id_product=id), 'id': id, 'start_url': start_url})
+                           'feedbacks': feedbacks.filter(id_product=id), 'id': id, 'start_url': start_url,
+                           'user_hard_id': user_hard_id})
 
 
-def view_favourites(request, name):
+def view_favourites(request, name, hard_id):
     return render(request, 'users/favourites.html',
-                  context={'favourites': basket.filter(name=name, favourites=True), 'user_active': user_active,
-                           'products': products.all()})
+                  context={'favourites': basket.filter(name=name, favourites=True, hard_id=hard_id),
+                           'user_active': user_active, 'products': products.all(), 'user_hard_id': hard_id})
 
 
-def view_basket(request, name):
+def view_basket(request, name, hard_id):
     return render(request, 'users/basket.html',
-                  context={'basket': basket.filter(name=name, basket=True), 'user_active': user_active,
-                           'products': products.all(), 'start_url': start_url})
+                  context={'basket': basket.filter(name=name, basket=True, hard_id=hard_id), 'user_active': user_active,
+                           'products': products.all(), 'start_url': start_url, 'user_hard_id': hard_id})
 
 
-def add_basket(request, name, id):
+def add_basket(request, name, id, hard_id):
     count_product = request.POST.get('count_product')
-    existence = basket.filter(id_product=id, name=name).exists()
+    existence = basket.filter(id_product=id, name=name, hard_id=hard_id).exists()
     if count_product == '':
         message = 'Упс! Что-то пошло не так'
     else:
         if not existence:
             for i in products.filter(id=id):
                 basket.create(name=name, id_product=id, count=count_product, product_name=i.product_name,
-                              favourites=False, basket=True, price=i.price)
+                              favourites=False, basket=True, price=i.price, hard_id=hard_id)
             message = 'Товар успешно добавлен в корзину'
         else:
-            if basket.filter(id_product=id, favourites=True, name=name).exists():
-                basket.filter(id_product=id).update(basket=True)
+            if basket.filter(id_product=id, favourites=True, name=name, hard_id=hard_id).exists():
+                basket.filter(id_product=id, hard_id=hard_id).update(basket=True)
                 message = 'Товар успешно добавлен в корзину'
             else:
                 message = 'Товар уже есть в корзине'
-    return render(request, 'users/add_basket.html', context={'user_active': user_active, 'message': message})
+    return render(request, 'users/add_basket.html', context={'user_active': user_active, 'message': message,
+                                                             'user_hard_id': hard_id})
 
 
-def delete_basket(request, name, id):
-    basket.filter(id=id, name=name).delete()
-    return render(request, 'users/delete_basket.html', context={'user_active': user_active})
+def delete_basket(request, name, id, hard_id):
+    basket.filter(id=id, name=name, hard_id=hard_id).delete()
+    return render(request, 'users/delete_basket.html', context={'user_active': user_active, 'user_hard_id': hard_id})
 
 
-def add_favourites(request, name, id):
+def add_favourites(request, name, id, hard_id):
     count_product = request.POST.get('count_product')
-    existence = basket.filter(name=name, id_product=id).exists()
+    existence = basket.filter(name=name, id_product=id, hard_id=hard_id).exists()
     if count_product == '':
         message = 'Упс! Что-то пошло не так'
     else:
-        if basket.filter(name=name, id_product=id, favourites=True).exists():
+        if basket.filter(name=name, id_product=id, favourites=True, hard_id=hard_id).exists():
             message = 'Товар уже есть в Избранном'
         elif existence:
-            basket.filter(id_product=id).update(favourites=True)
+            basket.filter(id_product=id, hard_id=hard_id).update(favourites=True)
             message = 'Товар успешно добавлен в Избранное'
         else:
             for i in products.filter(id=id):
                 basket.create(name=name, id_product=id, count=count_product, product_name=i.product_name,
-                              favourites=True, basket=False)
+                              favourites=True, basket=False, hard_id=hard_id)
             message = 'Товар успешно добавлен в Избранное'
-    return render(request, 'users/add_favourites.html', context={'user_active': user_active, 'message': message})
+    return render(request, 'users/add_favourites.html', context={'user_active': user_active, 'message': message,
+                                                                 'user_hard_id': hard_id})
 
 
-def send_feedback(request, name, id):
+def send_feedback(request, name, id, hard_id):
     score = request.POST.get('score')
     message = request.POST.get('message')
     anonim = request.POST.get('anonim')
-    existence = feedbacks.filter(name=name, id_product=id).exists()
+    existence = feedbacks.filter(name=name, id_product=id, hard_id=hard_id).exists()
     anonim = True if anonim == 'on' else False
     if not existence:
-        feedbacks.create(name=name, id_product=id, message=message, score=score, anonim=anonim, date=datetime.now())
+        feedbacks.create(name=name, id_product=id, message=message, score=score, anonim=anonim, date=datetime.now(),
+                         hard_id=hard_id)
         message = 'Спасибо за отзыв!'
     else:
-        feedbacks.filter(name=name, id_product=id).update(message=message, score=score, anonim=anonim,
-                                                          date=datetime.now())
+        feedbacks.filter(name=name, id_product=id, hard_id=hard_id).update(message=message, score=score, anonim=anonim,
+                                                                           date=datetime.now())
         message = 'Отзыв обновлен. Спасибо!'
     return render(request, 'users/check_feedback.html', context={'user_active': user_active, 'message': message,
-                                                                 'start_url': start_url})
+                                                                 'start_url': start_url, 'user_hard_id': hard_id})
 
 
-def account_delete(request, name):
-    global user_active
-    users.filter(name=name).delete()
-    basket.filter(name=name).delete()
-    feedbacks.filter(name=name).delete()
-    user_active = None
+def account_delete(request, name, hard_id):
+    global user_active, user_hard_id
+    users.filter(name=name, hard_id=hard_id).delete()
+    basket.filter(name=name, hard_id=hard_id).delete()
+    feedbacks.filter(name=name, hard_id=hard_id).delete()
+    user_active, user_hard_id = None, None
     return render(request, 'users/account_delete.html')
 

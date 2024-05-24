@@ -10,7 +10,7 @@
 <h2>Регистрация</h2>
 <form method="post" action="{% url 'registration_check' %}">
     {% csrf_token %}
-    <label>Придумайте никнейм</label>
+    <label>Введите имя</label>
     <input type="text" name="name">
     <p>*Никнейм должен быть более 3 символов</p>
     <p>*Никнейм должен содержать латинские буквы</p>
