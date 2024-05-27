@@ -1,48 +1,69 @@
-<div class="category_festive" style="{display: none;}">
+<div class="category_all">
+  <div class="display">
     {% for i in products %}
-    {% if i.category == 'Праздничные' %}
-    <br>
-    <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
-    <p>{{ i.product_name }}</p>
-    <a href="{% url 'info_product' i.id %}">
+    <div class="card_chocolate">
+      <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
+      <p>{{ i.product_name }}</p>
+      <a href="{% url 'info_product' i.id %}">
         <button>Подробнее</button>
-    </a>
-    {% endif %}
+      </a>
+    </div>
     {% endfor %}
+  </div>
 </div>
-<div class="category_standard" style="{display: none;}">
-    {% for i in products %}
-    {% if i.category == 'Стандартные' %}
-    <br>
-    <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
-    <p>{{ i.product_name }}</p>
-    <a href="{% url 'info_product' i.id %}">
+
+<div class="category_festive">
+  <div class="display">
+    {% for i in products %} {% if i.category == 'Праздничные' %}
+    <div class="card_chocolate">
+      <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
+      <p>{{ i.product_name }}</p>
+      <a href="{% url 'info_product' i.id %}">
         <button>Подробнее</button>
-    </a>
-    {% endif %}
-    {% endfor %}
+      </a>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
 </div>
-<div class="category_animals" style="{display: none;}">
-    {% for i in products %}
-    {% if i.category == 'Животные' %}
-    <br>
-    <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
-    <p>{{ i.product_name }}</p>
-    <a href="{% url 'info_product' i.id %}">
+
+<div class="category_standard">
+  <div class="display">
+    {% for i in products %} {% if i.category == 'Стандартные' %}
+    <div class="card_chocolate">
+      <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
+      <p>{{ i.product_name }}</p>
+      <a href="{% url 'info_product' i.id %}">
         <button>Подробнее</button>
-    </a>
-    {% endif %}
-    {% endfor %}
+      </a>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
 </div>
-<div class="category_items" style="{display: none;}">
-    {% for i in products %}
-    {% if i.category == 'Предметы' %}
-    <br>
-    <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px"/>
-    <p>{{ i.product_name }}</p>
-    <a href="{% url 'info_product' i.id %}">
+
+<div class="category_animals">
+  <div class="display">
+    {% for i in products %} {% if i.category == 'Животные' %}
+    <div class="card_chocolate">
+      <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
+      <p>{{ i.product_name }}</p>
+      <a href="{% url 'info_product' i.id %}">
         <button>Подробнее</button>
-    </a>
-    {% endif %}
-    {% endfor %}
+      </a>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
+</div>
+
+<div class="category_items">
+  <div class="display">
+    {% for i in products %} {% if i.category == 'Предметы' %}
+    <div class="card_chocolate">
+      <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
+      <p>{{ i.product_name }}</p>
+      <a href="{% url 'info_product' i.id %}">
+        <button>Подробнее</button>
+      </a>
+    </div>
+    {% endif %} {% endfor %}
+  </div>
 </div>

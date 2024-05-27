@@ -24,8 +24,7 @@
           ></path>
         </svg>
       </div>
-      {% include 'main/nav.html' %} 
-      {% include 'users/buy.html' %}
+      {% include 'main/nav.html' %} {% include 'users/buy.html' %}
       <header>
         <h2 class="hello_user">
           Добро пожаловать{% block user_active %}{% endblock user_active %}!
@@ -224,18 +223,7 @@
       </section>
       <section>
         <h2 id="all_products">Каталог вкусняшек</h2>
-        <div>
-          <div>
-            <img src="" alt="img" />
-            <input
-              type="submit"
-              value="Все"
-              name="category"
-              style="color: grey"
-              id="all"
-              disabled
-            />
-          </div>
+        <div class="category_chocolate">
           <div>
             <img src="" alt="img" />
             <input
@@ -268,8 +256,11 @@
             <input type="submit" value="Предметы" name="category" id="items" />
           </div>
         </div>
-        {% include 'main/categories.html' %}
-        <button>Больше товаров</button>
+        <p class="not_category_arrows">↖ ↑ ↗</p>
+        <p class="not_category">Выберайте категорию</p>
+        <div class="all_cards_chocolate">
+          {% include 'main/categories.html' %}
+        </div>
       </section>
       <section>
         <div>

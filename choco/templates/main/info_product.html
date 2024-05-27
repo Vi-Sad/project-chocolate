@@ -69,7 +69,8 @@
         <input type="button" value="Вернуться на Главную" />
       </a>
       <h2>Оставить отзыв</h2>
-      {% include 'users/send_feedback.html' %} {% endif %}
+      {% include 'users/send_feedback.html' %}
+      {% endif %}
       <h2>Отзывы:</h2>
       <div>
         {% if feedbacks|length == 0 %}
@@ -83,7 +84,8 @@
         <p>{{ i.name }}</p>
         {% endif %}
         <p>{{ i.message }}</p>
-        {% endfor %} {% endif %}
+        {% endfor %}
+        {% endif %}
       </div>
     </div>
     {% include 'main/footer.html' %}
