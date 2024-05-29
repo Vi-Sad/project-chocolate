@@ -1,4 +1,7 @@
 from django.shortcuts import render
+from django.views.generic import CreateView
+from django.contrib.auth.views import LoginView, LogoutView
+
 from .models import *
 from main.models import *
 from .forms import *
@@ -15,15 +18,21 @@ user_active, user_hard_id = None, None
 start_url = 'http://127.0.0.1:8000/'
 
 
+class Registration(CreateView):
+    form_class = FormRegistration
+    template_name = 'users/registration.html'
+
+
 def registration_check(request):
-    name = request.POST['name']
+    name = request.POST['username']
     email = request.POST['email']
-    password = request.POST['password']
+    password = request.POST['password1']
+    password_2 = request.POST['password2']
     if len(name) == 0 or len(email) == 0 or len(password) == 0:
         message = 'Поля не могут быть пустыми'
         url = 'registration'
     elif all([x.name != name or x.email != email for x in users.all()]):
-        if is_valid_password(password) and is_valid_email(email) and is_valid_name(name):
+        if is_valid_password(password, password_2) and is_valid_email(email) and is_valid_name(name):
             hard_id = user_url(name)
             User.objects.create(name=name, email=email, password=password, date_registration=datetime.now(),
                                 hard_id=hard_id)
@@ -38,16 +47,22 @@ def registration_check(request):
     return render(request, 'users/registration_check.html', context={'message': message, 'url': url})
 
 
+class Login(LoginView):
+    form_class = FormLogin
+    template_name = 'users/login.html'
+    extra_context = {'form': form_class}
+
+
 def login_check(request):
     global user_active, user_hard_id
-    email = request.POST['email']
+    login = request.POST['username']
     password = request.POST['password']
-    if len(email) == 0 or len(password) == 0:
+    if len(login) == 0 or len(password) == 0:
         message = 'Поля не могут быть пустыми'
         url = 'user/login/'
-    elif any(x.email == email and x.password == password for x in users.all()):
+    elif any((x.email == login or x.name == login) and x.password == password for x in users.all()):
         for i in users.all():
-            if i.email == email and i.password == password:
+            if (i.email == login or i.name == login) and i.password == password:
                 user_active, user_hard_id = i.name, i.hard_id
         message = 'Вы успешно вошли'
         url = f'{start_url}/user_active/{user_active}/{user_hard_id}/'
@@ -57,16 +72,12 @@ def login_check(request):
     return render(request, 'users/login_check.html', context={'message': message, 'url': url, 'start_url': start_url})
 
 
-def logout(request):
-    global user_active, user_hard_id
-    user_active = None
-    user_hard_id = None
-    return render(request, 'users/logout.html')
-
-
 def account(request, name, hard_id):
-    return render(request, 'users/account.html', context={'users': users.all(), 'user_active': name,
-                                                          'user_hard_id': hard_id})
+    if users.filter(hard_id=hard_id, name=name).exists():
+        return render(request, 'users/account.html', context={'users': users.all(), 'user_active': name,
+                                                              'user_hard_id': hard_id})
+    else:
+        return render(request, 'main/error_404.html', status=404)
 
 
 def info_product(request, id):
@@ -77,15 +88,22 @@ def info_product(request, id):
 
 
 def view_favourites(request, name, hard_id):
-    return render(request, 'users/favourites.html',
-                  context={'favourites': basket.filter(name=name, favourites=True, hard_id=hard_id),
-                           'user_active': user_active, 'products': products.all(), 'user_hard_id': hard_id})
+    if users.filter(hard_id=hard_id, name=name).exists():
+        return render(request, 'users/favourites.html',
+                      context={'favourites': basket.filter(name=name, favourites=True, hard_id=hard_id),
+                               'user_active': user_active, 'products': products.all(), 'user_hard_id': hard_id})
+    else:
+        return render(request, 'main/error_404.html', status=404)
 
 
 def view_basket(request, name, hard_id):
-    return render(request, 'users/basket.html',
-                  context={'basket': basket.filter(name=name, basket=True, hard_id=hard_id), 'user_active': user_active,
-                           'products': products.all(), 'start_url': start_url, 'user_hard_id': hard_id})
+    if users.filter(hard_id=hard_id, name=name).exists():
+        return render(request, 'users/basket.html',
+                      context={'basket': basket.filter(name=name, basket=True, hard_id=hard_id),
+                               'user_active': user_active,
+                               'products': products.all(), 'start_url': start_url, 'user_hard_id': hard_id})
+    else:
+        return render(request, 'main/error_404.html', status=404)
 
 
 def add_basket(request, name, id, hard_id):
@@ -159,4 +177,3 @@ def account_delete(request, name, hard_id):
     feedbacks.filter(name=name, hard_id=hard_id).delete()
     user_active, user_hard_id = None, None
     return render(request, 'users/account_delete.html')
-

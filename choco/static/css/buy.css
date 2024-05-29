@@ -22,17 +22,26 @@
   border-radius: 10px;
 }
 
-#buy_products button {
+#buy_products .but_buy_basket {
   color: rgb(156, 90, 54);
   border-radius: 20px;
   border: 3px solid rgb(235, 222, 215);
 }
 
-#buy_products button:hover {
+#buy_products .but_buy_basket:hover {
   transform: scale(1.05);
 }
 
-#buy_products button:active {
+#buy_products .but_buy_basket:active {
   color: grey;
   transform: scale(0.98);
+}
+
+#buy_products .but_del_basket {
+  border: none;
+  border-radius: 50px;
+  transform: scale(0.5);
+  color: rgb(156, 90, 54);
+  font-size: 25px;
+  padding: 0px 15px;
 }

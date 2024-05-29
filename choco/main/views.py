@@ -2,12 +2,17 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from users.models import *
 from .models import *
+from django.http import Http404
 
 # Create your views here.
 
 users = User.objects
 products = Product.objects.all()
 basket = Basket.objects
+
+
+def error_404(request, exception):
+    return render(request, 'main/error_404.html', status=404)
 
 
 def main(request):
@@ -27,6 +32,3 @@ def main_user(request, name, hard_id):
                                                                'total': total, 'user_hard_id': hard_id})
     else:
         return render(request, 'main/error_404.html', status=404)
-
-# class MainUser(ListView):
-#     model =

@@ -1,15 +1,15 @@
-from django.urls import path, re_path
+from django.urls import include, path
 from django.conf import settings
-from django.conf.urls.static import static
 import users.views as users
 from django.views.generic import TemplateView
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('registration/', TemplateView.as_view(template_name='users/registration.html'), name='registration'),
+    path('registration/', users.Registration.as_view(), name='registration'),
     path('registration/check/', users.registration_check, name='registration_check'),
-    path('login/', TemplateView.as_view(template_name='users/login.html'), name='login'),
+    path('login/', users.Login.as_view(), name='login'),
     path('login/check', users.login_check, name='login_check'),
-    path('logout/', users.logout, name='logout'),
+    path('logout/', TemplateView.as_view(template_name='users/logout.html'), name='logout'),
     path('account/<slug:name>/<slug:hard_id>/', users.account, name='account'),
     path('chocolate/id_product=<int:id>/', users.info_product, name='info_product'),
     path('chocolate/<slug:name>/favourites/<slug:hard_id>/', users.view_favourites, name='favourites'),
@@ -22,6 +22,8 @@ urlpatterns = [
     path('feedback/<slug:name>/id_product=<int:id>/<slug:hard_id>/', users.send_feedback, name='send_feedback'),
     path('account/<slug:name>/delete/<slug:hard_id>/', users.account_delete, name='account_delete'),
 ]
+
+handler404 = 'main.views.error_404'
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -4,21 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Вход</title>
-    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}"/>
 </head>
 <body>
 <h2>Вход</h2>
 <form method="post" action="{% url 'login_check' %}">
     {% csrf_token %}
-    <label>Логин</label>
-    <input name="email">
-    <br><br>
-    <label>Пароль</label>
-    <input name="password">
-    <br><br>
+    {{ form.as_p }}
     <button type="submit">Войти</button>
 </form>
-<br>
 <a href="{% url 'main' %}">
     <button>Вернуться</button>
 </a>

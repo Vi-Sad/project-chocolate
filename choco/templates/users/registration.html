@@ -4,29 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
-    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}"/>
 </head>
 <body>
 <h2>Регистрация</h2>
 <form method="post" action="{% url 'registration_check' %}">
     {% csrf_token %}
-    <label>Введите имя</label>
-    <input type="text" name="name">
-    <p>*Никнейм должен быть более 3 символов</p>
-    <p>*Никнейм должен содержать латинские буквы</p>
-    <br>
-    <label>Введите эл. почту</label>
+    <label>Введите эл. почту:</label>
     <input type="email" name="email">
-    <p>*Yandex, Google, Mail</p>
+    {% for i in form %}
     <br>
-    <label>Придумайте пароль</label>
-    <input type="password" name="password">
-    <p>*Пароль должен быть более 8 символов</p>
-    <p>*Пароль должен содержать латинские буквы и цифры</p>
+    <label class="form-label" for="{{ i.id_for_label }}">{{ i.label }}:</label>
+    <span>{{ i }}</span>
+    {% endfor %}
     <br>
     <button type="submit">Зарегистрироваться</button>
 </form>
-<a href="{% url 'main' %}">
+<a href="{% url 'main' %}" style="width: max-content;">
     <button>Вернуться</button>
 </a>
 <p>Зарегистрируйтесь, чтобы можно было заказать</p>

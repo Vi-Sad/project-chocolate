@@ -4,10 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Ошибка 404</title>
-  <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}"/>
 </head>
 <body>
-<p>404</p>
-<p>Страница не найдена</p>
+<p>Ошибка 404</p>
+<p>Страница не найдена или не существует</p>
+<a href="{% url 'main' %}">
+    <input type="button" value="Вернуться на Главную"/>
+</a>
 </body>
 </html>

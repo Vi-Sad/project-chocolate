@@ -101,15 +101,15 @@ function but_right_active() {
   if (slider === 1) {
     img_heart_raspberries.setAttribute(
       "src",
-      "../../media/img/heart_nuts.webp"
+      "../../../media/img/heart_nuts.webp"
     );
     img_heart_heart_nuts.setAttribute(
       "src",
-      "../../media/img/heart_pineapple.webp"
+      "../../../media/img/heart_pineapple.webp"
     );
     img_heart_pineapple.setAttribute(
       "src",
-      "../../media/img/heart_raspberries.png"
+      "../../../media/img/heart_raspberries.png"
     );
     slider = 2;
     span_taste.style.color = "rgb(156, 90, 54)";
@@ -117,25 +117,25 @@ function but_right_active() {
   } else if (slider === 2) {
     img_heart_raspberries.setAttribute(
       "src",
-      "../../media/img/heart_pineapple.webp"
+      "../../../media/img/heart_pineapple.webp"
     );
     img_heart_heart_nuts.setAttribute(
       "src",
-      "../../media/img/heart_raspberries.png"
+      "../../../media/img/heart_raspberries.png"
     );
-    img_heart_pineapple.setAttribute("src", "../../media/img/heart_nuts.webp");
+    img_heart_pineapple.setAttribute("src", "../../../media/img/heart_nuts.webp");
     slider = 3;
     span_taste.style.color = "rgb(253, 196, 1)";
     span_taste.innerHTML = "ананасом";
   } else {
     img_heart_raspberries.setAttribute(
       "src",
-      "../../media/img/heart_raspberries.png"
+      "../../../media/img/heart_raspberries.png"
     );
-    img_heart_heart_nuts.setAttribute("src", "../../media/img/heart_nuts.webp");
+    img_heart_heart_nuts.setAttribute("src", "../../../media/img/heart_nuts.webp");
     img_heart_pineapple.setAttribute(
       "src",
-      "../../media/img/heart_pineapple.webp"
+      "../../../media/img/heart_pineapple.webp"
     );
     slider = 1;
     span_taste.style.color = "rgb(214, 80, 97)";
@@ -147,28 +147,28 @@ function but_left_active() {
   if (slider === 1) {
     img_heart_raspberries.setAttribute(
       "src",
-      "../../media/img/heart_pineapple.webp"
+      "../../../media/img/heart_pineapple.webp"
     );
     img_heart_heart_nuts.setAttribute(
       "src",
-      "../../media/img/heart_raspberries.png"
+      "../../../media/img/heart_raspberries.png"
     );
-    img_heart_pineapple.setAttribute("src", "../../media/img/heart_nuts.webp");
+    img_heart_pineapple.setAttribute("src", "../../../media/img/heart_nuts.webp");
     slider = 2;
     span_taste.style.color = "rgb(253, 196, 1)";
     span_taste.innerHTML = "ананасом";
   } else if (slider === 2) {
     img_heart_raspberries.setAttribute(
       "src",
-      "../../media/img/heart_nuts.webp"
+      "../../../media/img/heart_nuts.webp"
     );
     img_heart_heart_nuts.setAttribute(
       "src",
-      "../../media/img/heart_pineapple.webp"
+      "../../../media/img/heart_pineapple.webp"
     );
     img_heart_pineapple.setAttribute(
       "src",
-      "../../media/img/heart_raspberries.png"
+      "../../../media/img/heart_raspberries.png"
     );
     slider = 3;
     span_taste.style.color = "rgb(156, 90, 54)";
@@ -176,12 +176,12 @@ function but_left_active() {
   } else {
     img_heart_raspberries.setAttribute(
       "src",
-      "../../media/img/heart_raspberries.png"
+      "../../../media/img/heart_raspberries.png"
     );
-    img_heart_heart_nuts.setAttribute("src", "../../media/img/heart_nuts.webp");
+    img_heart_heart_nuts.setAttribute("src", "../../../media/img/heart_nuts.webp");
     img_heart_pineapple.setAttribute(
       "src",
-      "../../media/img/heart_pineapple.webp"
+      "../../../media/img/heart_pineapple.webp"
     );
     slider = 1;
     span_taste.style.color = "rgb(214, 80, 97)";
