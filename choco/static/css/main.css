@@ -193,7 +193,6 @@ header {
   text-align: center;
 }
 
-.category_all,
 .category_festive,
 .category_standard,
 .category_animals,
@@ -206,14 +205,4 @@ header {
   justify-content: space-between;
   justify-items: center;
   grid-template-columns: repeat(auto-fill, minmax(30%, 3fr));
-}
-
-.not_category,
-.not_category_arrows {
-  text-align: center;
-}
-
-.not_category_arrows {
-  font-weight: bold;
-  font-size: 25px;
 }

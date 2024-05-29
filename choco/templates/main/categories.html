@@ -1,22 +1,8 @@
-<div class="category_all">
-  <div class="display">
-    {% for i in products %}
-    <div class="card_chocolate">
-      <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
-      <p>{{ i.product_name }}</p>
-      <a href="{% url 'info_product' i.id %}">
-        <button>Подробнее</button>
-      </a>
-    </div>
-    {% endfor %}
-  </div>
-</div>
-
 <div class="category_festive">
   <div class="display">
     {% for i in products %} {% if i.category == 'Праздничные' %}
     <div class="card_chocolate">
-      <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
+      <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px" />
       <p>{{ i.product_name }}</p>
       <a href="{% url 'info_product' i.id %}">
         <button>Подробнее</button>
@@ -30,7 +16,7 @@
   <div class="display">
     {% for i in products %} {% if i.category == 'Стандартные' %}
     <div class="card_chocolate">
-      <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
+      <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px" />
       <p>{{ i.product_name }}</p>
       <a href="{% url 'info_product' i.id %}">
         <button>Подробнее</button>
@@ -44,7 +30,7 @@
   <div class="display">
     {% for i in products %} {% if i.category == 'Животные' %}
     <div class="card_chocolate">
-      <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
+      <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px" />
       <p>{{ i.product_name }}</p>
       <a href="{% url 'info_product' i.id %}">
         <button>Подробнее</button>
@@ -58,7 +44,7 @@
   <div class="display">
     {% for i in products %} {% if i.category == 'Предметы' %}
     <div class="card_chocolate">
-      <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
+      <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px" />
       <p>{{ i.product_name }}</p>
       <a href="{% url 'info_product' i.id %}">
         <button>Подробнее</button>
