@@ -1,0 +1,29 @@
+/* section "Каталог вкусняшек" */
+
+.category_chocolate {
+  display: flex;
+  justify-content: space-between;
+}
+
+.card_chocolate {
+  background-color: rgb(235, 222, 215);
+  width: max-content;
+  margin: 30px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.category_festive,
+.category_standard,
+.category_animals,
+.category_items {
+  display: none;
+}
+
+.display {
+  display: grid;
+  justify-content: space-between;
+  justify-items: center;
+  grid-template-columns: repeat(auto-fill, minmax(30%, 3fr));
+}

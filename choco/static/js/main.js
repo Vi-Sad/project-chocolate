@@ -147,7 +147,7 @@ function but_right_active() {
     );
     slider = 2;
     span_taste.style.color = "rgb(156, 90, 54)";
-    span_taste.innerHTML = "орехами";
+    span_taste.innerHTML = "орехом";
   } else if (slider === 2) {
     img_heart_raspberries.setAttribute(
       "src",
@@ -215,7 +215,7 @@ function but_left_active() {
     );
     slider = 3;
     span_taste.style.color = "rgb(156, 90, 54)";
-    span_taste.innerHTML = "орехами";
+    span_taste.innerHTML = "орехом";
   } else {
     img_heart_raspberries.setAttribute(
       "src",
