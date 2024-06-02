@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 import main.views as main
 
 urlpatterns = [
-    path('', main.main, name='main'),
+    path('', main.MainView.as_view(), name='main'),
     path('user_active/<slug:name>/<slug:hard_id>/', main.main_user, name='main_user'),
 ]
 

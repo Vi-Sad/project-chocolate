@@ -264,6 +264,7 @@
         <div class="category_all">
             <div class="display">
                 {% for i in products %}
+                {% if i.new == False %}
                 <div class="card_chocolate">
                     <img
                             src="{{ i.image.url }}"
@@ -275,6 +276,7 @@
                         <button>Подробнее</button>
                     </a>
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>

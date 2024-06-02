@@ -1,6 +1,6 @@
 <div class="category_festive">
     <div class="display">
-        {% for i in products %} {% if i.category == 'Праздничные' %}
+        {% for i in products %} {% if i.category == 'Праздничные' and i.new == False %}
         <div class="card_chocolate">
             <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px"/>
             <p>{{ i.product_name }}</p>
@@ -14,7 +14,7 @@
 
 <div class="category_standard">
     <div class="display">
-        {% for i in products %} {% if i.category == 'Стандартные' %}
+        {% for i in products %} {% if i.category == 'Стандартные' and i.new == False %}
         <div class="card_chocolate">
             <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px"/>
             <p>{{ i.product_name }}</p>
@@ -28,7 +28,7 @@
 
 <div class="category_animals">
     <div class="display">
-        {% for i in products %} {% if i.category == 'Животные' %}
+        {% for i in products %} {% if i.category == 'Животные' and i.new == False %}
         <div class="card_chocolate">
             <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px"/>
             <p>{{ i.product_name }}</p>
@@ -42,7 +42,7 @@
 
 <div class="category_items">
     <div class="display">
-        {% for i in products %} {% if i.category == 'Предметы' %}
+        {% for i in products %} {% if i.category == 'Предметы' and i.new == False %}
         <div class="card_chocolate">
             <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px"/>
             <p>{{ i.product_name }}</p>

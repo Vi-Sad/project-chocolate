@@ -6,7 +6,7 @@ from .models import *
 # Create your views here.
 
 users = User.objects
-products = Product.objects.all()
+products = Product.objects.filter(new=False)
 basket = Basket.objects
 new_products = Product.objects.filter(new=True)
 
@@ -15,9 +15,12 @@ def error_404(request, exception):
     return render(request, 'main/error_404.html', status=404)
 
 
-def main(request):
-    return render(request, 'main/main.html',
-                  context={'users': users.all(), 'products': products, 'new_products': new_products})
+class MainView(ListView):
+    model = Product
+    template_name = 'main/main.html'
+    context_object_name = 'products'
+    # paginate_by = 3
+    extra_context = {'users': users.all(), 'new_products': new_products}
 
 
 def main_user(request, name, hard_id):
