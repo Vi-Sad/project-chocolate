@@ -1,383 +1,371 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>ЧоКо - Шоколад ручной работы</title>
     <link
-      href="../../../media/icons/icon_main.png"
-      type="png"
-      rel="Website Icon"
+            href="../../../media/icons/icon_main.png"
+            type="png"
+            rel="Website Icon"
     />
-    <link rel="stylesheet" href="{% static 'css/main.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/categories.css' %}" />
-  </head>
-  <body>
-    <div class="content">
-      <div class="div_background">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/buy.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/categories.css' %}"/>
+</head>
+<body>
+<div class="content">
+    <div class="div_background">
         <svg
-          viewBox="0 0 500 500"
-          preserveAspectRatio="xMinYMin meet"
-          style="z-index: -3"
+                viewBox="0 0 500 500"
+                preserveAspectRatio="xMinYMin meet"
+                style="z-index: -3"
         >
-          <path
-            d="M0, 100 C150, 300 350, 0 500, 100 L500, 00 L0, 0 Z"
-            style="stroke: none; fill: rgba(156, 90, 54, 0.2)"
-          ></path>
+            <path
+                    d="M0, 100 C150, 300 350, 0 500, 100 L500, 00 L0, 0 Z"
+                    style="stroke: none; fill: rgba(156, 90, 54, 0.2)"
+            ></path>
         </svg>
-      </div>
-      {% include 'main/nav.html' %} {% include 'users/buy.html' %}
-      <header>
+    </div>
+    {% include 'main/nav.html' %} {% include 'users/buy.html' %}
+    <header>
         <h2 class="hello_user">
-          Добро пожаловать{% block user_active %}{% endblock user_active %}!
+            Добро пожаловать{% block user_active %}{% endblock user_active %}!
         </h2>
         <div class="icon_slogan_img">
-          <div class="div_main_left">
-            <div class="main_icon">
-              <img
-                class="icon_main"
-                src="../../../media/icons/icon_main.png"
-                alt="icon_main"
-              />
-              <h1>~ЧоКо~</h1>
+            <div class="div_main_left">
+                <div class="main_icon">
+                    <img
+                            class="icon_main"
+                            src="../../../media/icons/icon_main.png"
+                            alt="icon_main"
+                    />
+                    <h1>~ЧоКо~</h1>
+                </div>
+                <p>шоколад ручной работы</p>
+                <p class="slogan">Мы сделаем Вашу жизнь ярче и слаще!</p>
+                <div>
+                    <button class="but_choco">Выбрать шоколад</button>
+                    <button class="but_create_choco">Создать свой</button>
+                </div>
             </div>
-            <p>шоколад ручной работы</p>
-            <p class="slogan">Мы сделаем Вашу жизнь ярче и слаще!</p>
-            <div>
-              <button class="but_choco">Выбрать шоколад</button>
-              <button class="but_create_choco">Создать свой</button>
-            </div>
-          </div>
-          <div class="div_images_taste">
-            <div>
-              <img
-                src="../../../media/img/heart_raspberries.png"
-                alt="heart_raspberries"
-                style="
+            <div class="div_images_taste">
+                <div>
+                    <img
+                            src="../../../media/img/heart_raspberries.png"
+                            alt="heart_raspberries"
+                            style="
                   height: 400px;
                   width: 400px;
                   filter: drop-shadow(1px 10px 10px rgba(0, 0, 0, 0.5));
                   z-index: -1;
                 "
-                id="heart_raspberries"
-              />
-              <div class="div_taste">
-                <p>Шоколад с <span class="taste">малиной</span></p>
-                <input class="arrows but_left" type="button" value="&#10229;" />
-                <input
-                  class="arrows but_right"
-                  type="button"
-                  value="&#10230;"
-                />
-              </div>
-            </div>
-            <div class="images_none">
-              <img
-                src="../../../media/img/heart_nuts.webp"
-                alt="heart_nuts"
-                style="
+                            id="heart_raspberries"
+                    />
+                    <div class="div_taste">
+                        <p>Шоколад с <span class="taste">малиной</span></p>
+                        <input class="arrows but_left" type="button" value="&#10229;"/>
+                        <input
+                                class="arrows but_right"
+                                type="button"
+                                value="&#10230;"
+                        />
+                    </div>
+                </div>
+                <div class="images_none">
+                    <img
+                            src="../../../media/img/heart_nuts.webp"
+                            alt="heart_nuts"
+                            style="
                   height: 300px;
                   filter: drop-shadow(1px 10px 10px rgba(0, 0, 0, 0.5));
                 "
-                id="heart_nuts"
-              />
-              <br />
-              <img
-                src="../../../media/img/heart_pineapple.webp"
-                alt="heart_pineapple"
-                style="
+                            id="heart_nuts"
+                    />
+                    <br/>
+                    <img
+                            src="../../../media/img/heart_pineapple.webp"
+                            alt="heart_pineapple"
+                            style="
                   height: 300px;
                   filter: drop-shadow(1px 10px 10px rgba(0, 0, 0, 0.5));
                 "
-                id="heart_pineapple"
-              />
+                            id="heart_pineapple"
+                    />
+                </div>
+                <div class="images_none_2">
+                    <img
+                            src="../../../media/img/heart_nuts.webp"
+                            alt="heart_nuts"
+                            style="height: 200px"
+                            id="heart_nuts"
+                    />
+                    <br/>
+                    <img
+                            src="../../../media/img/heart_pineapple.webp"
+                            alt="heart_pineapple"
+                            style="height: 200px"
+                            id="heart_pineapple"
+                    />
+                </div>
             </div>
-            <div class="images_none_2">
-              <img
-                src="../../../media/img/heart_nuts.webp"
-                alt="heart_nuts"
-                style="height: 200px"
-                id="heart_nuts"
-              />
-              <br />
-              <img
-                src="../../../media/img/heart_pineapple.webp"
-                alt="heart_pineapple"
-                style="height: 200px"
-                id="heart_pineapple"
-              />
-            </div>
-          </div>
         </div>
-      </header>
-      <section>
+    </header>
+    <section>
         <h2>Почему у нас вкусно?</h2>
         <div class="div_page_2">
-          <div class="advantages advantages_1">
-            <div class="icons_page_2">
-              <img
-                src="../../../media/icons/icon_raspberry.png"
-                alt="icon"
-                style="height: 64px"
-              />
-              <span>Качественные продукты</span>
+            <div class="advantages advantages_1">
+                <div class="icons_page_2">
+                    <img
+                            src="../../../media/icons/icon_raspberry.png"
+                            alt="icon"
+                            style="height: 64px"
+                    />
+                    <span>Качественные продукты</span>
+                </div>
+                <div class="icons_page_2">
+                    <img
+                            src="../../../media/icons/icon_recipe.png"
+                            alt="icon"
+                            style="height: 64px"
+                    />
+                    <span>Уникальные рецепты</span>
+                </div>
+                <div class="icons_page_2">
+                    <img
+                            src="../../../media/icons/icon_gift.png"
+                            alt="icon"
+                            style="height: 64px"
+                    />
+                    <span>Красивая подарочная упаковка</span>
+                </div>
             </div>
-            <div class="icons_page_2">
-              <img
-                src="../../../media/icons/icon_recipe.png"
-                alt="icon"
-                style="height: 64px"
-              />
-              <span>Уникальные рецепты</span>
+            <img
+                    src="../../../media/img/chocolate_with_strawberries.jpg"
+                    alt="img"
+                    class="img_chocolate_with_strawberries"
+            />
+            <div class="advantages advantages_2">
+                <div class="icons_page_2">
+                    <span>Отличное оборудование</span>
+                    <img
+                            src="../../../media/icons/icon_equipment.png"
+                            alt="icon"
+                            style="height: 64px"
+                    />
+                </div>
+                <div class="icons_page_2">
+                    <span>Доступные цены</span>
+                    <img
+                            src="../../../media/icons/icon_money.png"
+                            alt="icon"
+                            style="height: 64px"
+                    />
+                </div>
+                <div class="icons_page_2">
+                    <span>Скидка на День рождение</span>
+                    <img
+                            src="../../../media/icons/icon_discount.png"
+                            alt="icon"
+                            style="height: 64px"
+                    />
+                </div>
             </div>
-            <div class="icons_page_2">
-              <img
-                src="../../../media/icons/icon_gift.png"
-                alt="icon"
-                style="height: 64px"
-              />
-              <span>Красивая подарочная упаковка</span>
-            </div>
-          </div>
-          <img
-            src="../../../media/img/chocolate_with_strawberries.jpg"
-            alt="img"
-            class="img_chocolate_with_strawberries"
-          />
-          <div class="advantages advantages_2">
-            <div class="icons_page_2">
-              <span>Отличное оборудование</span>
-              <img
-                src="../../../media/icons/icon_equipment.png"
-                alt="icon"
-                style="height: 64px"
-              />
-            </div>
-            <div class="icons_page_2">
-              <span>Доступные цены</span>
-              <img
-                src="../../../media/icons/icon_money.png"
-                alt="icon"
-                style="height: 64px"
-              />
-            </div>
-            <div class="icons_page_2">
-              <span>Скидка на День рождение</span>
-              <img
-                src="../../../media/icons/icon_discount.png"
-                alt="icon"
-                style="height: 64px"
-              />
-            </div>
-          </div>
         </div>
-      </section>
-      <section>
+    </section>
+    <section>
         <h2>Попробуйте наши новинки!</h2>
-        <div>
-          <div>
-            <img src="" alt="img" />
-            <p>Новый шоколад 1</p>
-            <p>Описание и содержимое нового шоколада 1</p>
-            <p>Грамм/Цена</p>
-            <button>В корзину</button>
-          </div>
-          <div>
-            <img src="" alt="img" />
-            <p>Новый шоколад 2</p>
-            <p>Описание и содержимое нового шоколада 2</p>
-            <p>Грамм/Цена</p>
-            <button>В корзину</button>
-          </div>
-          <div>
-            <img src="" alt="img" />
-            <p>Новый шоколад 3</p>
-            <p>Описание и содержимое нового шоколада 3</p>
-            <p>Грамм/Цена</p>
-            <button>В корзину</button>
-          </div>
-        </div>
-      </section>
-      <section>
-        <h2>Как мы работаем?</h2>
-        <div>
-          <div>
-            <p>01</p>
-            <p>Получаем заказ</p>
-            <p>Получаем заказ и связываемся с Вами для уточнения деталей</p>
-          </div>
-          <div>
-            <p>02</p>
-            <p>Готовим заказ</p>
-            <p>Готовим заказ в строгом соответствии с пожеланиями клиента</p>
-          </div>
-          <div>
-            <p>03</p>
-            <p>Отправляем заказ</p>
-            <p>Отправляем Ваш заказ ранее утвержденным Вами способом</p>
-          </div>
-          <div>
-            <p>04</p>
-            <p>Доставка и оплата</p>
-            <p>Наш курьер доставит товар по вашему адресу прямо в руки</p>
-          </div>
-        </div>
-      </section>
-      <section>
-        <h2 id="all_products">Каталог вкусняшек</h2>
-        <div class="category_chocolate">
-          <div>
-            <img src="" alt="img" />
-            <input
-              type="submit"
-              value="Все"
-              name="category"
-              id="all"
-              style="color: grey"
-              disabled
-            />
-          </div>
-          <div>
-            <img src="" alt="img" />
-            <input
-              type="submit"
-              value="Праздничные"
-              name="category"
-              id="festive"
-            />
-          </div>
-          <div>
-            <img src="" alt="img" />
-            <input
-              type="submit"
-              value="Стандартные"
-              name="category"
-              id="standard"
-            />
-          </div>
-          <div>
-            <img src="" alt="img" />
-            <input
-              type="submit"
-              value="Животные"
-              name="category"
-              id="animals"
-            />
-          </div>
-          <div>
-            <img src="" alt="img" />
-            <input type="submit" value="Предметы" name="category" id="items" />
-          </div>
-        </div>
-        <div class="category_all">
-          <div class="display">
-            {% for i in products %}
+        <div class="display">
+            {% for i in new_products %}
             <div class="card_chocolate">
-              <img
-                src="{{ i.image.url }}"
-                alt="chocolate"
-                style="height: 200px"
-              />
-              <p>{{ i.product_name }}</p>
-              <a href="{% url 'info_product' i.id %}">
-                <button>Подробнее</button>
-              </a>
+                <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px"/>
+                <p>{{ i.product_name }}</p>
+                <a href="{% url 'info_product' i.id %}">
+                    <button>Подробнее</button>
+                </a>
             </div>
             {% endfor %}
-          </div>
+        </div>
+    </section>
+    <section>
+        <h2>Как мы работаем?</h2>
+        <div>
+            <div>
+                <p>01</p>
+                <p>Получаем заказ</p>
+                <p>Получаем заказ и связываемся с Вами для уточнения деталей</p>
+            </div>
+            <div>
+                <p>02</p>
+                <p>Готовим заказ</p>
+                <p>Готовим заказ в строгом соответствии с пожеланиями клиента</p>
+            </div>
+            <div>
+                <p>03</p>
+                <p>Отправляем заказ</p>
+                <p>Отправляем Ваш заказ ранее утвержденным Вами способом</p>
+            </div>
+            <div>
+                <p>04</p>
+                <p>Доставка и оплата</p>
+                <p>Наш курьер доставит товар по вашему адресу прямо в руки</p>
+            </div>
+        </div>
+    </section>
+    <section>
+        <h2 id="all_products">Каталог вкусняшек</h2>
+        <div class="category_chocolate">
+            <div>
+                <img src="" alt="img"/>
+                <input
+                        type="submit"
+                        value="Все"
+                        name="category"
+                        id="all"
+                        style="color: grey"
+                        disabled
+                />
+            </div>
+            <div>
+                <img src="" alt="img"/>
+                <input
+                        type="submit"
+                        value="Праздничные"
+                        name="category"
+                        id="festive"
+                />
+            </div>
+            <div>
+                <img src="" alt="img"/>
+                <input
+                        type="submit"
+                        value="Стандартные"
+                        name="category"
+                        id="standard"
+                />
+            </div>
+            <div>
+                <img src="" alt="img"/>
+                <input
+                        type="submit"
+                        value="Животные"
+                        name="category"
+                        id="animals"
+                />
+            </div>
+            <div>
+                <img src="" alt="img"/>
+                <input type="submit" value="Предметы" name="category" id="items"/>
+            </div>
+        </div>
+        <div class="category_all">
+            <div class="display">
+                {% for i in products %}
+                <div class="card_chocolate">
+                    <img
+                            src="{{ i.image.url }}"
+                            alt="chocolate"
+                            style="height: 200px"
+                    />
+                    <p>{{ i.product_name }}</p>
+                    <a href="{% url 'info_product' i.id %}">
+                        <button>Подробнее</button>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         <div class="all_categories">{% include 'main/categories.html' %}</div>
-      </section>
-      <section>
+    </section>
+    <section>
         <div>
-          <h2>Закажите индивидуальный набор шоколадок</h2>
-          <p>Заполните форму для составления Вашего заказа</p>
-          <form>
-            <input type="text" placeholder="Эвелина" disabled />
-            <img src="" alt="icon" />
-            <br />
-            <input type="tel" placeholder="+7(900)000-00-00" disabled />
-            <img src="" alt="icon" />
-            <br />
-          </form>
-          <button>Больше товаров</button>
+            <h2>Закажите индивидуальный набор шоколадок</h2>
+            <p>Заполните форму для составления Вашего заказа</p>
+            <form>
+                <input type="text" placeholder="Эвелина" disabled/>
+                <img src="" alt="icon"/>
+                <br/>
+                <input type="tel" placeholder="+7(900)000-00-00" disabled/>
+                <img src="" alt="icon"/>
+                <br/>
+            </form>
+            <button>Больше товаров</button>
         </div>
         <div>
-          <img src="" alt="img" />
+            <img src="" alt="img"/>
         </div>
-      </section>
-      <section>
+    </section>
+    <section>
         <h2>Отзывы наших сладкоежек</h2>
         <div>
-          <div>
             <div>
-              <img src="" alt="img" />
+                <div>
+                    <img src="" alt="img"/>
+                </div>
+                <div>
+                    <img src="" alt="img"/>
+                </div>
+                <div>
+                    <img src="" alt="img"/>
+                </div>
             </div>
             <div>
-              <img src="" alt="img" />
+                <div>
+                    <img src="" alt="img"/>
+                </div>
+                <div>
+                    <img src="" alt="img"/>
+                </div>
             </div>
             <div>
-              <img src="" alt="img" />
+                <div>
+                    <img src="" alt="img"/>
+                </div>
+                <div>
+                    <img src="" alt="img"/>
+                </div>
+                <div>
+                    <button>Больше отзывов</button>
+                </div>
             </div>
-          </div>
-          <div>
-            <div>
-              <img src="" alt="img" />
-            </div>
-            <div>
-              <img src="" alt="img" />
-            </div>
-          </div>
-          <div>
-            <div>
-              <img src="" alt="img" />
-            </div>
-            <div>
-              <img src="" alt="img" />
-            </div>
-            <div>
-              <button>Больше отзывов</button>
-            </div>
-          </div>
         </div>
-      </section>
-      <section>
+    </section>
+    <section>
         <h2>Мы в Telegramm</h2>
         <div>
-          <div>
-            <img src="" alt="img" />
-            <img src="" alt="img" />
-            <img src="" alt="img" />
-          </div>
-          <div>
-            <img src="" alt="img" />
-            <img src="" alt="img" />
-            <img src="" alt="img" />
-          </div>
+            <div>
+                <img src="" alt="img"/>
+                <img src="" alt="img"/>
+                <img src="" alt="img"/>
+            </div>
+            <div>
+                <img src="" alt="img"/>
+                <img src="" alt="img"/>
+                <img src="" alt="img"/>
+            </div>
         </div>
         <button>Подписаться</button>
-      </section>
-      <section>
+    </section>
+    <section>
         <h2>Время оформить заказ!</h2>
         <form>
-          <input type="text" placeholder="Ваше имя" />
-          <br />
-          <input type="tel" placeholder="Номер телефона" />
-          <br />
-          <button type="submit">Отправить</button>
-          <p>
-            Нажимая на кнопку, Вы даете согласие на обработку Ваших персональных
-            данных
-          </p>
+            <input type="text" placeholder="Ваше имя"/>
+            <br/>
+            <input type="tel" placeholder="Номер телефона"/>
+            <br/>
+            <button type="submit">Отправить</button>
+            <p>
+                Нажимая на кнопку, Вы даете согласие на обработку Ваших персональных
+                данных
+            </p>
         </form>
-      </section>
-    </div>
-    {% include 'main/footer.html' %}
-    <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/buy.js' %}"></script>
-  </body>
+    </section>
+</div>
+{% include 'main/footer.html' %}
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/buy.js' %}"></script>
+</body>
 </html>

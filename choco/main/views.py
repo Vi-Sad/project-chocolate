@@ -2,13 +2,13 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from users.models import *
 from .models import *
-from django.http import Http404
 
 # Create your views here.
 
 users = User.objects
 products = Product.objects.all()
 basket = Basket.objects
+new_products = Product.objects.filter(new=True)
 
 
 def error_404(request, exception):
@@ -17,7 +17,7 @@ def error_404(request, exception):
 
 def main(request):
     return render(request, 'main/main.html',
-                  context={'users': users.all(), 'products': products})
+                  context={'users': users.all(), 'products': products, 'new_products': new_products})
 
 
 def main_user(request, name, hard_id):
@@ -29,6 +29,7 @@ def main_user(request, name, hard_id):
                                                                'products': products,
                                                                'basket': basket.filter(name=name, basket=True,
                                                                                        hard_id=hard_id),
-                                                               'total': total, 'user_hard_id': hard_id})
+                                                               'total': total, 'user_hard_id': hard_id,
+                                                               'new_products': new_products})
     else:
         return render(request, 'main/error_404.html', status=404)

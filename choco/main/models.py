@@ -12,6 +12,7 @@ class Product(models.Model):
     price = models.IntegerField(default=0)
     grams = models.IntegerField(default=0)
     image = models.ImageField(upload_to='img/', blank=True, null=True)
+    new = models.BooleanField(default=False)
 
     def __str__(self):
         return self.product_name
