@@ -10,26 +10,22 @@
 <body>
 <div class="content">
     <h2>Ваши личные данные</h2>
-    {% for i in users %}
-    {% if i.name == user_active and i.hard_id == user_hard_id %}
-    <p>ID: {{ i.hard_id }}</p>
-    <p>Имя: {{ i.name }}</p>
-    <p>Эл. почта: {{ i.email }}</p>
-    <p>Пароль: {{ i.password }}</p>
-    <p>Дата регистрации: {{ i.date_registration }}</p>
-    {% endif %}
-    {% endfor %}
-    <a href="{% url 'favourites' user_active user_hard_id %}">
+    <p>Имя: {{ user.name }}</p>
+    <p>ID: {{ user.hard_id }}</p>
+    <p>Эл. почта: {{ user.email }}</p>
+    <p>Пароль: {{ user.password }}</p>
+    <p>Дата регистрации: {{ user.date_registration }}</p>
+    <a href="{% url 'favourites' user.name user.hard_id %}">
         <button>Избранное</button>
     </a>
-    <a href="{% url 'basket' user_active user_hard_id %}">
+    <a href="{% url 'basket' user.name user.hard_id %}">
         <button>Корзина</button>
     </a>
-    <a href="{% url 'main_user' user_active user_hard_id %}">
+    <a href="{% url 'main_user' user.name user.hard_id %}">
         <button>Вернуться</button>
     </a>
 </div>
-<a href="{% url 'account_delete' user_active user_hard_id %}">Удалить аккаунт</a>
+<a href="{% url 'account_delete' user.name user.hard_id %}">Удалить аккаунт</a>
 {% include 'main/footer.html' %}
 </body>
 </html>

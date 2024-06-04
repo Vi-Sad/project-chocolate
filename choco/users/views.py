@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 
 from main.models import *
@@ -72,12 +72,22 @@ def login_check(request):
     return render(request, 'users/login_check.html', context={'message': message, 'url': url, 'start_url': start_url})
 
 
-def account(request, name, hard_id):
-    if users.filter(hard_id=hard_id, name=name).exists():
-        return render(request, 'users/account.html', context={'users': users.all(), 'user_active': name,
-                                                              'user_hard_id': hard_id})
-    else:
-        return render(request, 'main/error_404.html', status=404)
+# def account(request, name, hard_id):
+#     if users.filter(hard_id=hard_id, name=name).exists():
+#         return render(request, 'users/account.html', context={'users': users.all(), 'user_active': name,
+#                                                               'user_hard_id': hard_id})
+#     else:
+#         return render(request, 'main/error_404.html', status=404)
+
+
+class AccountView(DetailView):
+    model = User
+    queryset = User.objects.all()
+    template_name = 'users/account.html'
+    context_object_name = 'user'
+    slug_field = 'hard_id'
+    slug_url_kwarg = 'hard_id'
+    extra_context = {'user_active': user_active, 'user_hard_id': user_hard_id}
 
 
 def info_product(request, id):
@@ -91,7 +101,7 @@ def view_favourites(request, name, hard_id):
     if users.filter(hard_id=hard_id, name=name).exists():
         return render(request, 'users/favourites.html',
                       context={'favourites': basket.filter(name=name, favourites=True, hard_id=hard_id),
-                               'user_active': user_active, 'products': products.all(), 'user_hard_id': hard_id})
+                               'user_active': name, 'products': products.all(), 'user_hard_id': hard_id})
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -100,8 +110,8 @@ def view_basket(request, name, hard_id):
     if users.filter(hard_id=hard_id, name=name).exists():
         return render(request, 'users/basket.html',
                       context={'basket': basket.filter(name=name, basket=True, hard_id=hard_id),
-                               'user_active': user_active,
-                               'products': products.all(), 'start_url': start_url, 'user_hard_id': hard_id})
+                               'user_active': name, 'products': products.all(),
+                               'start_url': start_url, 'user_hard_id': hard_id})
     else:
         return render(request, 'main/error_404.html', status=404)
 
