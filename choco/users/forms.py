@@ -13,7 +13,7 @@ def is_valid_password(password, password_2):
 
 
 def is_valid_email(email):
-    all_email = ['@yandex.ru', '@gmail.com', '@mail.ru']
+    all_email = ['@yandex.ru', '@gmail.com']
     for i in all_email:
         if i in email and email.isascii():
             return True

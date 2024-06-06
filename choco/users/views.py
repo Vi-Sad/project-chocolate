@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
+from django.core.mail import send_mail
 
 from main.models import *
 from .models import *
 from .forms import *
 from datetime import datetime
+import choco.settings as settings
 
 # Create your views here.
 
@@ -72,14 +74,6 @@ def login_check(request):
     return render(request, 'users/login_check.html', context={'message': message, 'url': url, 'start_url': start_url})
 
 
-# def account(request, name, hard_id):
-#     if users.filter(hard_id=hard_id, name=name).exists():
-#         return render(request, 'users/account.html', context={'users': users.all(), 'user_active': name,
-#                                                               'user_hard_id': hard_id})
-#     else:
-#         return render(request, 'main/error_404.html', status=404)
-
-
 class AccountView(DetailView):
     model = User
     queryset = User.objects.all()
@@ -87,7 +81,6 @@ class AccountView(DetailView):
     context_object_name = 'user'
     slug_field = 'hard_id'
     slug_url_kwarg = 'hard_id'
-    extra_context = {'user_active': user_active, 'user_hard_id': user_hard_id}
 
 
 def info_product(request, id):
@@ -173,8 +166,9 @@ def send_feedback(request, name, id, hard_id):
                          hard_id=hard_id)
         message = 'Спасибо за отзыв!'
     else:
-        feedbacks.filter(name=name, id_product=id, hard_id=hard_id).update(message=message, score=score, anonim=anonim,
-                                                                           date=datetime.now())
+        user_message = ' (изменено) '
+        feedbacks.filter(name=name, id_product=id, hard_id=hard_id).update(message=message + user_message, score=score,
+                                                                           anonim=anonim, date=datetime.now())
         message = 'Отзыв обновлен. Спасибо!'
     return render(request, 'users/check_feedback.html', context={'user_active': user_active, 'message': message,
                                                                  'start_url': start_url, 'user_hard_id': hard_id})
@@ -187,3 +181,35 @@ def account_delete(request, name, hard_id):
     feedbacks.filter(name=name, hard_id=hard_id).delete()
     user_active, user_hard_id = None, None
     return render(request, 'users/account_delete.html')
+
+
+def new_password(request):
+    return render(request, 'users/new_password.html')
+
+
+def new_password_check(request):
+    email = request.POST.get('email')
+    if users.filter(email=email).exists():
+        message = 'Проверьте Вашу эл. почту'
+        for i in users.filter(email=email):
+            url = f'{start_url}/user/update_password/{i.hard_id}/'
+        send_mail('Восстановление пароля', f'Перейдите по ссылке для восстановления аккаунта. Ссылка -> {url}',
+                  settings.EMAIL_HOST_USER, [email])
+    else:
+        message = 'Упс! Что-то пошло не так'
+    return render(request, 'users/new_password_check.html', context={'message': message})
+
+
+def update_password(request, hard_id):
+    return render(request, 'users/update_password.html', context={'hard_id': hard_id})
+
+
+def update_password_check(request, hard_id):
+    password_1 = request.POST.get('password_1')
+    password_2 = request.POST.get('password_2')
+    if is_valid_password(password_1, password_2):
+        message = 'Ваш пароль был успешно обновлен'
+        users.filter(hard_id=hard_id).update(password=password_1)
+    else:
+        message = 'Пароль не соответствует требованиям'
+    return render(request, 'users/update_password_check.html', context={'message': message})
