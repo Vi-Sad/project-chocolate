@@ -234,9 +234,11 @@ def change_password_check(request, hard_id):
         password_1 = request.POST.get('password_1')
         password_2 = request.POST.get('password_2')
         if users.filter(hard_id=hard_id, password=password_0).exists():
-            if is_valid_password(password_1, password_2):
+            if is_valid_password(password_1, password_2) and password_0 != password_1:
                 message = 'Ваш пароль был успешно изменен'
                 users.filter(hard_id=hard_id).update(password=password_1)
+            elif is_valid_password(password_1, password_2) and password_0 == password_1:
+                message = 'Новый пароль не должен совпадать со старым'
             else:
                 message = 'Новые пароли не совпадают'
         else:
