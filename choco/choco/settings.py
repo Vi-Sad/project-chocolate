@@ -125,7 +125,7 @@ MEDIA_URL = 'media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Email yandex.ru
+# yandex.ru
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'sadovskaya.vicka@yandex.ru'
@@ -134,3 +134,11 @@ EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# gmail.com
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'sadovskaya.vicka@gmail.com'
+EMAIL_HOST_PASSWORD = 'hptm ksnk rbut mmev'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

@@ -27,7 +27,7 @@
     </style>
     <a href="{% url 'logout' %}">Выйти</a>
     <span>|</span>
-    <a href="{% url 'account' user_active user_hard_id %}">Личный кабинет</a>
+    <a href="{% url 'account' user_hard_id %}">Личный кабинет</a>
     <button id="buy" style="background-color: rgba(255, 255, 255, 0)">
       <img src="../../../media/icons/icon_basket.png" alt="icon_basket" />
       <sup>{{ basket|length }}</sup>

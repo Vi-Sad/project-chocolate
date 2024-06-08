@@ -193,7 +193,7 @@ def new_password_check(request):
         message = 'Проверьте Вашу эл. почту'
         for i in users.filter(email=email):
             url = f'{start_url}/user/update_password/{i.hard_id}/'
-        send_mail('Восстановление пароля', f'Перейдите по ссылке для восстановления аккаунта. Ссылка -> {url}',
+        send_mail('Восстановление пароля', f'Перейдите по ссылке для восстановления аккаунта.\nСсылка -> {url}',
                   settings.EMAIL_HOST_USER, [email])
     else:
         message = 'Упс! Что-то пошло не так'
@@ -201,15 +201,46 @@ def new_password_check(request):
 
 
 def update_password(request, hard_id):
-    return render(request, 'users/update_password.html', context={'hard_id': hard_id})
+    if users.filter(hard_id=hard_id).exists():
+        return render(request, 'users/update_password.html', context={'hard_id': hard_id})
+    else:
+        return render(request, 'main/error_404.html', status=404)
 
 
 def update_password_check(request, hard_id):
-    password_1 = request.POST.get('password_1')
-    password_2 = request.POST.get('password_2')
-    if is_valid_password(password_1, password_2):
-        message = 'Ваш пароль был успешно обновлен'
-        users.filter(hard_id=hard_id).update(password=password_1)
+    if users.filter(hard_id=hard_id).exists():
+        password_1 = request.POST.get('password_1')
+        password_2 = request.POST.get('password_2')
+        if is_valid_password(password_1, password_2):
+            message = 'Ваш пароль был успешно обновлен'
+            users.filter(hard_id=hard_id).update(password=password_1)
+        else:
+            message = 'Пароль не соответствует требованиям'
+        return render(request, 'users/update_password_check.html', context={'message': message})
     else:
-        message = 'Пароль не соответствует требованиям'
-    return render(request, 'users/update_password_check.html', context={'message': message})
+        return render(request, 'main/error_404.html', status=404)
+
+
+def change_password(request, hard_id):
+    if users.filter(hard_id=hard_id).exists():
+        return render(request, 'users/change_password.html', context={'hard_id': hard_id})
+    else:
+        return render(request, 'main/error_404.html', status=404)
+
+
+def change_password_check(request, hard_id):
+    if users.filter(hard_id=hard_id).exists():
+        password_0 = request.POST.get('password_0')
+        password_1 = request.POST.get('password_1')
+        password_2 = request.POST.get('password_2')
+        if users.filter(hard_id=hard_id, password=password_0).exists():
+            if is_valid_password(password_1, password_2):
+                message = 'Ваш пароль был успешно изменен'
+                users.filter(hard_id=hard_id).update(password=password_1)
+            else:
+                message = 'Новые пароли не совпадают'
+        else:
+            message = 'Текущий пароль введен не верно'
+        return render(request, 'users/change_password_check.html', context={'hard_id': hard_id, 'message': message})
+    else:
+        return render(request, 'main/error_404.html', status=404)

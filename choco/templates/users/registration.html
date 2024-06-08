@@ -10,7 +10,7 @@
 <h2>Регистрация</h2>
 <form method="post" action="{% url 'registration_check' %}">
     {% csrf_token %}
-    <label>Введите эл. почту:</label>
+    <label>Введите эл. почту (Yandex или Google):</label>
     <input type="email" name="email">
     {% for i in form %}
     <br>

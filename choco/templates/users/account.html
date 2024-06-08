@@ -25,6 +25,7 @@
         <button>Вернуться</button>
     </a>
 </div>
+<a href="{% url 'change_password' user.hard_id %}">Изменить пароль</a>
 <a href="{% url 'account_delete' user.name user.hard_id %}">Удалить аккаунт</a>
 {% include 'main/footer.html' %}
 </body>
