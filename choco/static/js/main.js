@@ -172,7 +172,7 @@ let but_left = document.querySelector(".but_left");
 let but_right = document.querySelector(".but_right");
 
 let img_heart_raspberries = document.getElementById("heart_raspberries");
-let img_heart_heart_nuts = document.getElementById("heart_nuts");
+let img_heart_nuts = document.getElementById("heart_nuts");
 let img_heart_pineapple = document.getElementById("heart_pineapple");
 
 let span_taste = document.querySelector(".taste");
@@ -181,105 +181,189 @@ let slider = 1;
 
 function but_right_active() {
   if (slider === 1) {
-    img_heart_raspberries.setAttribute(
-      "src",
-      "../../../media/img/heart_nuts.webp"
-    );
-    img_heart_heart_nuts.setAttribute(
-      "src",
-      "../../../media/img/heart_pineapple.webp"
-    );
-    img_heart_pineapple.setAttribute(
-      "src",
-      "../../../media/img/heart_raspberries.png"
-    );
     slider = 2;
     span_taste.style.color = "rgb(156, 90, 54)";
     span_taste.innerHTML = "орехом";
+
+    img_heart_raspberries.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_raspberries.setAttribute(
+        "src",
+        "../../../media/img/heart_nuts.webp"
+      );
+    }, 500);
+    img_heart_raspberries.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_nuts.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_nuts.setAttribute(
+        "src",
+        "../../../media/img/heart_pineapple.webp"
+      );
+    }, 500);
+    img_heart_nuts.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_pineapple.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_pineapple.setAttribute(
+        "src",
+        "../../../media/img/heart_raspberries.png"
+      );
+    }, 500);
+    img_heart_pineapple.animate({ transform: "scale(1)" }, 1000);
   } else if (slider === 2) {
-    img_heart_raspberries.setAttribute(
-      "src",
-      "../../../media/img/heart_pineapple.webp"
-    );
-    img_heart_heart_nuts.setAttribute(
-      "src",
-      "../../../media/img/heart_raspberries.png"
-    );
-    img_heart_pineapple.setAttribute(
-      "src",
-      "../../../media/img/heart_nuts.webp"
-    );
     slider = 3;
     span_taste.style.color = "rgb(253, 196, 1)";
     span_taste.innerHTML = "ананасом";
+
+    img_heart_raspberries.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_raspberries.setAttribute(
+        "src",
+        "../../../media/img/heart_pineapple.webp"
+      );
+    }, 500);
+    img_heart_raspberries.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_nuts.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_nuts.setAttribute(
+        "src",
+        "../../../media/img/heart_raspberries.png"
+      );
+    }, 500);
+    img_heart_nuts.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_pineapple.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_pineapple.setAttribute(
+        "src",
+        "../../../media/img/heart_nuts.webp"
+      );
+    }, 500);
+    img_heart_pineapple.animate({ transform: "scale(1)" }, 1000);
   } else {
-    img_heart_raspberries.setAttribute(
-      "src",
-      "../../../media/img/heart_raspberries.png"
-    );
-    img_heart_heart_nuts.setAttribute(
-      "src",
-      "../../../media/img/heart_nuts.webp"
-    );
-    img_heart_pineapple.setAttribute(
-      "src",
-      "../../../media/img/heart_pineapple.webp"
-    );
     slider = 1;
     span_taste.style.color = "rgb(214, 80, 97)";
     span_taste.innerHTML = "малиной";
+
+    img_heart_raspberries.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_raspberries.setAttribute(
+        "src",
+        "../../../media/img/heart_raspberries.png"
+      );
+    }, 500);
+    img_heart_raspberries.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_nuts.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_nuts.setAttribute("src", "../../../media/img/heart_nuts.webp");
+    }, 500);
+    img_heart_nuts.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_pineapple.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_pineapple.setAttribute(
+        "src",
+        "../../../media/img/heart_pineapple.webp"
+      );
+    }, 500);
+    img_heart_pineapple.animate({ transform: "scale(1)" }, 1000);
   }
 }
 
 function but_left_active() {
   if (slider === 1) {
-    img_heart_raspberries.setAttribute(
-      "src",
-      "../../../media/img/heart_pineapple.webp"
-    );
-    img_heart_heart_nuts.setAttribute(
-      "src",
-      "../../../media/img/heart_raspberries.png"
-    );
-    img_heart_pineapple.setAttribute(
-      "src",
-      "../../../media/img/heart_nuts.webp"
-    );
     slider = 2;
     span_taste.style.color = "rgb(253, 196, 1)";
     span_taste.innerHTML = "ананасом";
+
+    img_heart_raspberries.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_raspberries.setAttribute(
+        "src",
+        "../../../media/img/heart_pineapple.webp"
+      );
+    }, 500);
+    img_heart_raspberries.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_nuts.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_nuts.setAttribute(
+        "src",
+        "../../../media/img/heart_raspberries.png"
+      );
+    }, 500);
+    img_heart_nuts.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_pineapple.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_pineapple.setAttribute(
+        "src",
+        "../../../media/img/heart_nuts.webp"
+      );
+    }, 500);
+    img_heart_pineapple.animate({ transform: "scale(1)" }, 1000);
   } else if (slider === 2) {
-    img_heart_raspberries.setAttribute(
-      "src",
-      "../../../media/img/heart_nuts.webp"
-    );
-    img_heart_heart_nuts.setAttribute(
-      "src",
-      "../../../media/img/heart_pineapple.webp"
-    );
-    img_heart_pineapple.setAttribute(
-      "src",
-      "../../../media/img/heart_raspberries.png"
-    );
     slider = 3;
     span_taste.style.color = "rgb(156, 90, 54)";
     span_taste.innerHTML = "орехом";
+
+    img_heart_raspberries.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_raspberries.setAttribute(
+        "src",
+        "../../../media/img/heart_nuts.webp"
+      );
+    }, 500);
+    img_heart_raspberries.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_nuts.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_nuts.setAttribute(
+        "src",
+        "../../../media/img/heart_pineapple.webp"
+      );
+    }, 500);
+    img_heart_nuts.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_pineapple.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_pineapple.setAttribute(
+        "src",
+        "../../../media/img/heart_raspberries.png"
+      );
+    }, 500);
+    img_heart_pineapple.animate({ transform: "scale(1)" }, 1000);
   } else {
-    img_heart_raspberries.setAttribute(
-      "src",
-      "../../../media/img/heart_raspberries.png"
-    );
-    img_heart_heart_nuts.setAttribute(
-      "src",
-      "../../../media/img/heart_nuts.webp"
-    );
-    img_heart_pineapple.setAttribute(
-      "src",
-      "../../../media/img/heart_pineapple.webp"
-    );
     slider = 1;
     span_taste.style.color = "rgb(214, 80, 97)";
     span_taste.innerHTML = "малиной";
+
+    img_heart_raspberries.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_raspberries.setAttribute(
+        "src",
+        "../../../media/img/heart_raspberries.png"
+      );
+    }, 500);
+    img_heart_raspberries.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_nuts.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_nuts.setAttribute("src", "../../../media/img/heart_nuts.webp");
+    }, 500);
+    img_heart_nuts.animate({ transform: "scale(1)" }, 1000);
+
+    img_heart_pineapple.animate({ transform: "scale(-3)" }, 1000);
+    setTimeout(() => {
+      img_heart_pineapple.setAttribute(
+        "src",
+        "../../../media/img/heart_pineapple.webp"
+      );
+    }, 500);
+    img_heart_pineapple.animate({ transform: "scale(1)" }, 1000);
   }
 }
 
