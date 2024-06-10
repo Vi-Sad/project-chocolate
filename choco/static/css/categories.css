@@ -1,6 +1,31 @@
 .category_chocolate {
   display: flex;
   justify-content: space-between;
+  text-align: center;
+  padding: 0 30px;
+  margin: 0 0 100px 0;
+}
+
+.category_chocolate img {
+  filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.5));
+  height: 100px;
+  width: 100px;
+  padding: 20px;
+}
+
+.category_chocolate input {
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.category_chocolate > div {
+  padding: 0 20px;
+  border-radius: 50%;
+}
+
+.category_chocolate > div:hover,
+.category_chocolate input:hover {
+  cursor: pointer;
 }
 
 .card_chocolate {

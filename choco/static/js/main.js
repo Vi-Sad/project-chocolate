@@ -1,5 +1,17 @@
 // Choosing a chocolate category
 
+let section_category_festive = document.querySelector(
+  ".section_category_festive"
+);
+let section_category_standard = document.querySelector(
+  ".section_category_standard"
+);
+let section_category_animals = document.querySelector(
+  ".section_category_animals"
+);
+let section_category_items = document.querySelector(".section_category_items");
+let section_category_all = document.querySelector(".section_category_all");
+
 let input_category_festive = document.getElementById("festive");
 let input_category_standard = document.getElementById("standard");
 let input_category_animals = document.getElementById("animals");
@@ -12,40 +24,58 @@ let div_category_animals = document.querySelector(".category_animals");
 let div_category_items = document.querySelector(".category_items");
 let div_category_all = document.querySelector(".category_all");
 
-function active_category_all() {
-  input_category_festive.disabled = false;
-  input_category_standard.disabled = false;
-  input_category_animals.disabled = false;
-  input_category_items.disabled = false;
-  input_category_all.disabled = true;
+let img_category_festive = document.querySelector(".img_category_festive");
+let img_category_standard = document.querySelector(".img_category_standard");
+let img_category_animals = document.querySelector(".img_category_animalse");
+let img_category_items = document.querySelector(".img_category_items");
+let img_category_all = document.querySelector(".img_category_all");
 
+function active_category_all() {
   div_category_festive.style.display = "none";
   div_category_standard.style.display = "none";
   div_category_animals.style.display = "none";
   div_category_items.style.display = "none";
   div_category_all.style.display = "block";
 
+  section_category_festive.style.transform = "scale(1)";
+  section_category_standard.style.transform = "scale(1)";
+  section_category_animals.style.transform = "scale(1)";
+  section_category_items.style.transform = "scale(1)";
+  section_category_all.style.transform = "scale(1.3)";
+
+  section_category_festive.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_standard.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_animals.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_items.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_all.style.backgroundColor = "rgb(235, 222, 215)";
+
   input_category_festive.style.color = "rgb(55, 55, 55)";
   input_category_standard.style.color = "rgb(55, 55, 55)";
   input_category_animals.style.color = "rgb(55, 55, 55)";
   input_category_items.style.color = "rgb(55, 55, 55)";
-  input_category_all.style.color = "grey";
+  input_category_all.style.color = "rgb(156, 90, 54)";
 }
 
 function active_category_festive() {
-  input_category_festive.disabled = true;
-  input_category_standard.disabled = false;
-  input_category_animals.disabled = false;
-  input_category_items.disabled = false;
-  input_category_all.disabled = false;
-
   div_category_festive.style.display = "block";
   div_category_standard.style.display = "none";
   div_category_animals.style.display = "none";
   div_category_items.style.display = "none";
   div_category_all.style.display = "none";
 
-  input_category_festive.style.color = "grey";
+  section_category_festive.style.transform = "scale(1.3)";
+  section_category_standard.style.transform = "scale(1)";
+  section_category_animals.style.transform = "scale(1)";
+  section_category_items.style.transform = "scale(1)";
+  section_category_all.style.transform = "scale(1)";
+
+  section_category_festive.style.backgroundColor = "rgb(235, 222, 215)";
+  section_category_standard.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_animals.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_items.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_all.style.backgroundColor = "rgb(235, 222, 215, 0)";
+
+  input_category_festive.style.color = "rgb(156, 90, 54)";
   input_category_standard.style.color = "rgb(55, 55, 55)";
   input_category_animals.style.color = "rgb(55, 55, 55)";
   input_category_items.style.color = "rgb(55, 55, 55)";
@@ -53,70 +83,88 @@ function active_category_festive() {
 }
 
 function active_category_standard() {
-  input_category_festive.disabled = false;
-  input_category_standard.disabled = true;
-  input_category_animals.disabled = false;
-  input_category_items.disabled = false;
-  input_category_all.disabled = false;
-
   div_category_festive.style.display = "none";
   div_category_standard.style.display = "block";
   div_category_animals.style.display = "none";
   div_category_items.style.display = "none";
   div_category_all.style.display = "none";
 
+  section_category_festive.style.transform = "scale(1)";
+  section_category_standard.style.transform = "scale(1.3)";
+  section_category_animals.style.transform = "scale(1)";
+  section_category_items.style.transform = "scale(1)";
+  section_category_all.style.transform = "scale(1)";
+
+  section_category_festive.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_standard.style.backgroundColor = "rgb(235, 222, 215)";
+  section_category_animals.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_items.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_all.style.backgroundColor = "rgb(235, 222, 215, 0)";
+
   input_category_festive.style.color = "rgb(55, 55, 55)";
-  input_category_standard.style.color = "grey";
+  input_category_standard.style.color = "rgb(156, 90, 54)";
   input_category_animals.style.color = "rgb(55, 55, 55)";
   input_category_items.style.color = "rgb(55, 55, 55)";
   input_category_all.style.color = "rgb(55, 55, 55)";
 }
 
 function active_category_animals() {
-  input_category_festive.disabled = false;
-  input_category_standard.disabled = false;
-  input_category_animals.disabled = true;
-  input_category_items.disabled = false;
-  input_category_all.disabled = false;
-
   div_category_festive.style.display = "none";
   div_category_standard.style.display = "none";
   div_category_animals.style.display = "block";
   div_category_items.style.display = "none";
   div_category_all.style.display = "none";
 
+  section_category_festive.style.transform = "scale(1)";
+  section_category_standard.style.transform = "scale(1)";
+  section_category_animals.style.transform = "scale(1.3)";
+  section_category_items.style.transform = "scale(1)";
+  section_category_all.style.transform = "scale(1)";
+
+  section_category_festive.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_standard.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_animals.style.backgroundColor = "rgb(235, 222, 215)";
+  section_category_items.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_all.style.backgroundColor = "rgb(235, 222, 215, 0)";
+
   input_category_festive.style.color = "rgb(55, 55, 55)";
   input_category_standard.style.color = "rgb(55, 55, 55)";
-  input_category_animals.style.color = "grey";
+  input_category_animals.style.color = "rgb(156, 90, 54)";
   input_category_items.style.color = "rgb(55, 55, 55)";
   input_category_all.style.color = "rgb(55, 55, 55)";
 }
 
 function active_category_items() {
-  input_category_festive.disabled = false;
-  input_category_standard.disabled = false;
-  input_category_animals.disabled = false;
-  input_category_items.disabled = true;
-  input_category_all.disabled = false;
-
   div_category_festive.style.display = "none";
   div_category_standard.style.display = "none";
   div_category_animals.style.display = "none";
   div_category_items.style.display = "block";
   div_category_all.style.display = "none";
 
+  section_category_festive.style.transform = "scale(1)";
+  section_category_standard.style.transform = "scale(1)";
+  section_category_animals.style.transform = "scale(1)";
+  section_category_items.style.transform = "scale(1.3)";
+  section_category_all.style.transform = "scale(1)";
+
+  section_category_festive.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_standard.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_animals.style.backgroundColor = "rgb(235, 222, 215, 0)";
+  section_category_items.style.backgroundColor = "rgb(235, 222, 215)";
+  section_category_all.style.backgroundColor = "rgb(235, 222, 215, 0)";
+
   input_category_festive.style.color = "rgb(55, 55, 55)";
   input_category_standard.style.color = "rgb(55, 55, 55)";
   input_category_animals.style.color = "rgb(55, 55, 55)";
-  input_category_items.style.color = "grey";
+  input_category_items.style.color = "rgb(156, 90, 54)";
   input_category_all.style.color = "rgb(55, 55, 55)";
 }
 
-input_category_festive.onclick = active_category_festive;
-input_category_standard.onclick = active_category_standard;
-input_category_animals.onclick = active_category_animals;
-input_category_items.onclick = active_category_items;
-input_category_all.onclick = active_category_all;
+section_category_festive.onclick = active_category_festive;
+section_category_standard.onclick = active_category_standard;
+section_category_animals.onclick = active_category_animals;
+section_category_items.onclick = active_category_items;
+section_category_all.onclick = active_category_all;
 
 // Viewing chocolate additives (header)
 
