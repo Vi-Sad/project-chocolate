@@ -1,21 +1,25 @@
 <section id="buy_products" style="display: none">
-    {% if basket|length == 0 %}
-    <p>Корзина пуста</p>
-    {% else %}
-    <h3>Мои товары:</h3>
+  {% if basket|length == 0 %}
+  <p>Корзина пуста</p>
+  {% else %}
+  <h3>Мои товары:</h3>
+  <div>
     {% for i in basket %}
     <p>
-        • {{ i.product_name }} × {{ i.count }} = {% widthratio i.price 1 i.count %}
-        руб.
-        <a href="{% url 'delete_basket' user_active i.id user_hard_id %}" id="a_delete_basket">
-            <button class="but_del_basket">×</button>
-        </a>
+      • {{ i.product_name }} × {{ i.count }} = {% widthratio i.price 1 i.count %} руб.
+      <a
+        href="{% url 'delete_basket' user_active i.id user_hard_id %}"
+        id="a_delete_basket"
+      >
+        <button class="but_del_basket">×</button>
+      </a>
     </p>
     {% endfor %}
-    <br/>
-    <hr/>
-    <br/>
-    <p>Всего: {{ total }} руб.</p>
-    <button class="but_buy_basket">Купить</button>
-    {% endif %}
+  </div>
+  <br />
+  <hr />
+  <br />
+  <p>Всего: {{ total }} руб.</p>
+  <button class="but_buy_basket">Купить</button>
+  {% endif %}
 </section>
