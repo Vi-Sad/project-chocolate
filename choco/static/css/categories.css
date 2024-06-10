@@ -7,7 +7,7 @@
 }
 
 .category_chocolate img {
-  filter: drop-shadow(1px 1px 10px rgba(0, 0, 0, 0.5));
+  filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.5));
   height: 100px;
   width: 100px;
   padding: 20px;
@@ -29,12 +29,38 @@
 }
 
 .card_chocolate {
-  background-color: rgb(235, 222, 215);
   width: max-content;
   margin: 30px;
   text-align: center;
   padding: 20px;
-  border-radius: 20px;
+  border: 2px solid rgb(235, 222, 215);
+  border-radius: 10px;
+}
+
+.card_chocolate img {
+  filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.5));
+}
+
+.card_chocolate p {
+  color: rgb(156, 90, 54);
+}
+
+.card_chocolate button {
+  background-color: rgb(156, 90, 54);
+  border: 2px solid rgb(156, 90, 54);
+  border-radius: 50px;
+  color: white;
+  filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.3));
+}
+
+.card_chocolate button:hover {
+  background-color: rgb(255, 255, 255);
+  border: 2px solid rgb(156, 90, 54);
+  color: rgb(156, 90, 54);
+}
+
+.card_chocolate button:active {
+  filter: none;
 }
 
 .category_festive,

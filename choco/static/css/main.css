@@ -190,6 +190,7 @@ header {
 
 .div_page_4 > div {
   border: 2px solid rgb(235, 222, 215);
+  border-radius: 10px;
   padding: 20px;
 }
 
