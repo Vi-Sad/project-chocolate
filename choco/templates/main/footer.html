@@ -6,10 +6,10 @@
     </div>
     <div>
       <a href="">О нас</a>
-      {% if user_active == None %}
+      {% if user_hard_id == None %}
       <a href="{% url 'main' %}#all_products">Каталог</a>
       {% else %}
-      <a href="{% url 'main_user' user_active user_hard_id %}#all_products">Каталог</a>
+      <a href="{% url 'main_user' user_hard_id %}#all_products">Каталог</a>
       {% endif %}
       <a href="">Отзывы</a>
       <a href="">Контакты</a>

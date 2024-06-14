@@ -7,6 +7,7 @@ from main.models import *
 class User(models.Model):
     objects = None
     name = models.CharField(max_length=20)
+    lastname = models.CharField(max_length=30, default=None)
     email = models.CharField(max_length=40, unique=True)
     password = models.CharField(max_length=20)
     date_registration = models.DateField(default=None)
@@ -18,7 +19,6 @@ class User(models.Model):
 
 class Basket(models.Model):
     objects = None
-    name = models.CharField(max_length=20, default=None)
     hard_id = models.CharField(default=None, max_length=50)
     id_product = models.IntegerField(default=0)
     product_name = models.CharField(max_length=50, default=None)
@@ -28,12 +28,11 @@ class Basket(models.Model):
     basket = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.name
+        return self.product_name
 
 
 class Feedback(models.Model):
     objects = None
-    name = models.CharField(max_length=20, default=None)
     hard_id = models.CharField(default=None, max_length=50)
     score = models.IntegerField()
     message = models.CharField(max_length=2000, default=None)
@@ -42,4 +41,4 @@ class Feedback(models.Model):
     date = models.DateField(default=None)
 
     def __str__(self):
-        return self.name
+        return self.id_product

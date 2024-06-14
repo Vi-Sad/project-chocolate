@@ -21,21 +21,21 @@ def is_valid_email(email):
         return False
 
 
-def is_valid_name(name):
-    if len(name) >= 3 and name.isascii():
+def is_valid_name(name, lastname):
+    if len(name) >= 3 and name.isascii() and len(lastname) >= 3 and lastname.isascii() and name != lastname:
         return True
     else:
         return False
 
 
 class FormRegistration(UserCreationForm):
-    username = forms.CharField(label='Придумайте никнейм', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(label='Введите имя', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password1 = forms.CharField(label='Придумайте пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password2 = forms.CharField(label='Повторите пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 
 class FormLogin(AuthenticationForm):
-    username = forms.CharField(label='Логин (эл. почта или никнейм)',
+    username = forms.CharField(label='Логин (эл. почта или имя)',
                                widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 

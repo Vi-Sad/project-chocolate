@@ -4,16 +4,16 @@
     <p class="a_icon_text">~ЧоКо~</p>
   </div>
   <div>
-    {% if user_active == None and user_hard_id == None %}
+    {% if user_hard_id == None %}
     <a href="{% url 'main' %}">Главная</a>
     {% else %}
-    <a href="{% url 'main_user' user_active user_hard_id %}">Главная</a>
+    <a href="{% url 'main_user' user_hard_id %}">Главная</a>
     {% endif %}
     <a href="">Наши контакты</a>
-    {% if user_active == None %}
+    {% if user_hard_id == None %}
     <a href="{% url 'main' %}#all_products">Наша продукция</a>
     {% else %}
-    <a href="{% url 'main_user' user_active user_hard_id %}#all_products"
+    <a href="{% url 'main_user' user_hard_id %}#all_products"
       >Наша продукция</a
     >
     {% endif %}
@@ -24,7 +24,7 @@
     <a class="login_and_registration" href="{% url 'registration' %}"
       >Зарегистрироваться</a
     >
-    {% for i in users %} {% if i.name == user_active %}
+    {% for i in users %} {% if i.hard_id == user_hard_id %}
     <style>
       .login_and_registration {
         display: none;

@@ -8,10 +8,10 @@
 </head>
 <body>
 <p>{{ message }}</p>
-<a href="{% url 'main_user' user_active user_hard_id %}">
+<a href="{% url 'main_user' user_hard_id %}">
     <input type="button" value="Вернуться на Главную">
 </a>
-<a href="{% url 'favourites' user_active user_hard_id %}">
+<a href="{% url 'favourites' user_hard_id %}">
     <input type="button" value="Избранное">
 </a>
 </body>

@@ -23,14 +23,17 @@ class MainView(ListView):
     extra_context = {'users': users.all(), 'new_products': new_products}
 
 
-def main_user(request, name, hard_id):
-    if users.filter(hard_id=hard_id, name=name).exists():
+def main_user(request, hard_id):
+    global user_active
+    if users.filter(hard_id=hard_id).exists():
+        for i in users.filter(hard_id=hard_id):
+            user_active = i.name
         total = 0
-        for i in basket.filter(name=name, basket=True):
+        for i in basket.filter(basket=True):
             total += (i.price * i.count)
-        return render(request, 'main/main_user.html', context={'user_active': name, 'users': users.all(),
-                                                               'products': products,
-                                                               'basket': basket.filter(name=name, basket=True,
+        return render(request, 'main/main_user.html', context={'users': users.all(),
+                                                               'products': products, 'user_active': user_active,
+                                                               'basket': basket.filter(basket=True,
                                                                                        hard_id=hard_id),
                                                                'total': total, 'user_hard_id': hard_id,
                                                                'new_products': new_products})

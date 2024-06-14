@@ -23,7 +23,7 @@
         <button>Подробнее</button>
       </a>
       <a
-        href="{% url 'delete_basket' user_active i.id user_hard_id %}"
+        href="{% url 'delete_basket' i.id user_hard_id %}"
         id="a_delete_basket"
       >
         <button>Удалить из корзины</button>
@@ -35,7 +35,7 @@
       <a href="{% url 'account' user_hard_id %}">
         <button>Личный кабинет</button>
       </a>
-      <a href="{% url 'main_user' user_active user_hard_id %}">
+      <a href="{% url 'main_user' user_hard_id %}">
         <button>Вернуться на главную</button>
       </a>
     </div>

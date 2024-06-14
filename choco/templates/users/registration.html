@@ -12,6 +12,9 @@
     {% csrf_token %}
     <label>Введите эл. почту (Yandex или Google):</label>
     <input type="email" name="email">
+    <br>
+    <label>Введите фамилию:</label>
+    <input type="text" name="lastname">
     {% for i in form %}
     <br>
     <label class="form-label" for="{{ i.id_for_label }}">{{ i.label }}:</label>

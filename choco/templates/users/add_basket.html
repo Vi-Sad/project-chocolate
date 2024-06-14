@@ -8,10 +8,10 @@
 </head>
 <body>
 <p>{{ message }}</p>
-<a href="{% url 'main_user' user_active user_hard_id %}">
+<a href="{% url 'main_user' user_hard_id %}">
     <input type="button" value="Вернуться на Главную">
 </a>
-<a href="{% url 'basket' user_active user_hard_id %}">
+<a href="{% url 'basket' user_hard_id %}">
     <input type="button" value="Моя корзина">
 </a>
 </body>
