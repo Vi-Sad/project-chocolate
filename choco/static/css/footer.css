@@ -15,6 +15,11 @@ footer a:hover {
   text-decoration: underline;
 }
 
+footer a:active {
+  text-decoration: none;
+  color: rgb(235, 222, 215);
+}
+
 footer img {
   height: 40px;
   vertical-align: middle;

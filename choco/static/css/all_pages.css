@@ -32,11 +32,13 @@ h1 {
   src: url("../fonts/RubikBubbles-Regular.ttf");
 }
 
-button {
+button,
+input[type="button"] {
   padding: 5px 10px;
 }
 
-button:hover {
+button:hover,
+input[type="button"]:hover {
   cursor: pointer;
 }
 
@@ -44,4 +46,10 @@ button:hover {
   text-align: center;
   line-height: 0;
   float: left;
+}
+
+input,
+textarea {
+  border: 1px solid rgb(156, 90, 54);
+  border-radius: 5px;
 }

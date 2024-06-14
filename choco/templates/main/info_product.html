@@ -6,39 +6,69 @@
     <title>Информация о шоколаде</title>
     <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
     <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/info_product.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
   </head>
   <body>
+    {% include 'main/nav.html' %} {% include 'users/buy.html' %}
     <div class="content">
       {% for i in products %}
       <form method="post" id="form_add">
         {% csrf_token %}
-        <img src="{{ i.image.url }}" alt="chocolate" style="height: 100px" />
         <input
           class="user_active"
           value="{{ user_active }}"
-          style="width: 0; height: 0; opacity: 0"
+          style="width: 0; height: 0; opacity: 0; position: absolute"
           disabled
         />
         <input
           class="user_hard_id"
           value="{{ user_hard_id }}"
-          style="width: 0; height: 0; opacity: 0"
+          style="width: 0; height: 0; opacity: 0; position: absolute"
           disabled
         />
         <input
           class="id_product"
           value="{{ i.id }}"
-          style="width: 0; height: 0; opacity: 0"
+          style="width: 0; height: 0; opacity: 0; position: absolute"
           disabled
         />
         <input
           class="start_url"
           value="{{ start_url }}"
-          style="width: 0; height: 0; opacity: 0"
+          style="width: 0; height: 0; opacity: 0; position: absolute"
           disabled
         />
-        <br />
-        <span>{{ i.product_name }}</span>
+        <div class="card_info">
+          <div>
+            <img src="{{ i.image.url }}" alt="chocolate" />
+          </div>
+          <div>
+            <h2 class="name_product">{{ i.product_name }}</h2>
+            <div class="score_and_feedbacks">
+              <img src="../../media/icons/icon_score.png" alt="icon_score" />
+              <p>{{ general_assessment }}<span>•</span></p>
+              <a href="#feedbacks">{{ count_feedbacks }} отзывов</a>
+            </div>
+            <p class="text_about_product">О товаре:</p>
+            <p>Категория: {{ i.category }}</p>
+            <p>Описание: {{ i.description }}</p>
+            <p>Вес: {{ i.grams }} г</p>
+            <p class="p_price">{{ i.price }} ₽</p>
+          </div>
+        </div>
+        {% endfor %} {% if user_active == None %}
+        <a href="{% url 'main' %}">
+          <input type="button" value="Вернуться на Главную" />
+        </a>
+        <p class="user_active_none">
+          Уважаемый пользователь! Пожалуйста,
+          <a href="{% url 'registration' %}">зарегистрируйтесь</a> или
+          <a href="{% url 'login' %}">войдите</a>, чтобы можно было оставить
+          свой отзыв
+        </p>
+        {% else %}
+        <button type="submit" id="but_basket">В корзину</button>
         <span>×</span>
         <input
           name="count_product"
@@ -49,29 +79,15 @@
           min="1"
         />
         шт.
-        <p>{{ i.description }}</p>
-        <p>{{ i.grams }} г./{{ i.price }} руб.</p>
-        {% endfor %} {% if user_active == None %}
-        <a href="{% url 'main' %}">
-          <input type="button" value="Вернуться на Главную" />
-        </a>
-        <p class="user_active_none">
-          Уважаемый пользователь! Пожалуйста,
-          <a href="{% url 'registration' %}">зарегистрируйтесь</a> или
-          <a href="{% url 'login' %}">войдите</a>, чтобы можно было пользоваться
-          сайтом
-        </p>
-        {% else %}
-        <button type="submit" id="but_basket">В корзину</button>
+        <br />
         <button type="submit" id="but_favourites">Добавить в избранное</button>
       </form>
       <a href="{% url 'main_user' user_active user_hard_id %}">
         <input type="button" value="Вернуться на Главную" />
       </a>
       <h2>Оставить отзыв</h2>
-      {% include 'users/send_feedback.html' %}
-      {% endif %}
-      <h2>Отзывы:</h2>
+      {% include 'users/send_feedback.html' %} {% endif %}
+      <h2 id="feedbacks">Отзывы:</h2>
       <div>
         {% if feedbacks|length == 0 %}
         <p>Отзывов пока нет</p>
@@ -84,8 +100,7 @@
         <p>{{ i.name }}</p>
         {% endif %}
         <p>{{ i.message }}</p>
-        {% endfor %}
-        {% endif %}
+        {% endfor %} {% endif %}
       </div>
     </div>
     {% include 'main/footer.html' %}

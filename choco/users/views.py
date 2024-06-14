@@ -33,7 +33,7 @@ def registration_check(request):
     if len(name) == 0 or len(email) == 0 or len(password) == 0:
         message = 'Поля не могут быть пустыми'
         url = 'registration'
-    elif all([x.name != name or x.email != email for x in users.all()]):
+    elif all([x.email != email for x in users.all()]):
         if is_valid_password(password, password_2) and is_valid_email(email) and is_valid_name(name):
             hard_id = user_url(name)
             User.objects.create(name=name, email=email, password=password, date_registration=datetime.now(),
@@ -84,10 +84,20 @@ class AccountView(DetailView):
 
 
 def info_product(request, id):
+    divider = 0
+    score_all_users = 0
+    for i in feedbacks.filter(id_product=id):
+        divider += 1
+        score_all_users += i.score
+    if divider == 0:
+        general_assessment = 0
+    else:
+        general_assessment = round(score_all_users/divider, 1)
     return render(request, 'main/info_product.html',
                   context={'products': products.filter(id=id), 'user_active': user_active,
                            'feedbacks': feedbacks.filter(id_product=id), 'id': id, 'start_url': start_url,
-                           'user_hard_id': user_hard_id})
+                           'user_hard_id': user_hard_id, 'general_assessment': general_assessment,
+                           'count_feedbacks': divider})
 
 
 def view_favourites(request, name, hard_id):

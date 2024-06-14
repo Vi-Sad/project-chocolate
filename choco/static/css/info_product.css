@@ -1,0 +1,77 @@
+.content {
+  margin: 50px;
+}
+
+.card_info {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  align-items: center;
+  border: 2px solid rgb(235, 222, 215);
+  width: max-content;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.card_info > div:nth-child(1) > img {
+  height: 400px;
+}
+
+.score_and_feedbacks > img {
+  height: 30px;
+}
+
+.content input[type="button"],
+.content button {
+  border: 2px solid rgb(156, 90, 54);
+  background-color: rgb(255, 255, 255);
+  border-radius: 50px;
+  color: rgb(156, 90, 54);
+  margin-top: 20px;
+}
+
+.content input[type="button"]:hover,
+.content button:hover {
+  background-color: rgb(156, 90, 54);
+  color: white;
+  filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.3));
+}
+
+.content input[type="button"]:active,
+.content button:active {
+  filter: none;
+}
+
+.text_about_product {
+  font-weight: bold;
+}
+
+.name_product {
+  color: rgb(156, 90, 54);
+}
+
+.score_and_feedbacks {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 10px;
+}
+
+.p_price {
+  background-color: rgb(156, 90, 54);
+  width: max-content;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 10px;
+  font-size: 20px;
+}
+
+.score_and_feedbacks span {
+  margin-left: 10px;
+}
+
+.score_and_feedbacks > a {
+  text-decoration: none;
+}
+
+.score_and_feedbacks > a:hover {
+  text-decoration: underline;
+}

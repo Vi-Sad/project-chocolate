@@ -10,7 +10,13 @@
     <a href="{% url 'main_user' user_active user_hard_id %}">Главная</a>
     {% endif %}
     <a href="">Наши контакты</a>
-    <a href="#all_products">Наша продукция</a>
+    {% if user_active == None %}
+    <a href="{% url 'main' %}#all_products">Наша продукция</a>
+    {% else %}
+    <a href="{% url 'main_user' user_active user_hard_id %}#all_products"
+      >Наша продукция</a
+    >
+    {% endif %}
   </div>
   <div>
     <a class="login_and_registration" href="{% url 'login' %}">Войти</a>
@@ -18,8 +24,7 @@
     <a class="login_and_registration" href="{% url 'registration' %}"
       >Зарегистрироваться</a
     >
-    {% for i in users %}
-    {% if i.name == user_active %}
+    {% for i in users %} {% if i.name == user_active %}
     <style>
       .login_and_registration {
         display: none;
@@ -32,7 +37,6 @@
       <img src="../../../media/icons/icon_basket.png" alt="icon_basket" />
       <sup>{{ basket|length }}</sup>
     </button>
-    {% endif %}
-    {% endfor %}
+    {% endif %} {% endfor %}
   </div>
 </nav>

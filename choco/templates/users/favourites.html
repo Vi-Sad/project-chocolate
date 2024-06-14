@@ -27,7 +27,10 @@
       {% endif %}
       <br />
       <a href="{% url 'account' user_hard_id %}">
-        <button>Вернуться</button>
+        <button>Личный кабинет</button>
+      </a>
+      <a href="{% url 'main_user' user_active user_hard_id %}">
+        <button>Вернуться на главную</button>
       </a>
     </div>
     {% include 'main/footer.html' %}
