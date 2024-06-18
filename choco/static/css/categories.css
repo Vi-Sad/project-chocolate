@@ -1,5 +1,6 @@
 .category_chocolate {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   text-align: center;
   padding: 0 30px;
@@ -74,5 +75,5 @@
   display: grid;
   justify-content: space-between;
   justify-items: center;
-  grid-template-columns: repeat(auto-fill, minmax(30%, 3fr));
+  grid-template-columns: repeat(auto-fill, 30%);
 }

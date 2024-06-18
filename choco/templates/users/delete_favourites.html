@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление товара из Избранного</title>
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+</head>
+<body>
+<p>Товар был успешно удален из Ваших избранных товаров</p>
+<a href="{% url 'main_user' user_hard_id %}">
+    <input type="button" value="Вернуться на Главную">
+</a>
+<a href="{% url 'favourites' user_hard_id %}">
+    <input type="button" value="Мои избранные товары">
+</a>
+</body>
+</html>

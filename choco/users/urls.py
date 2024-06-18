@@ -19,6 +19,8 @@ urlpatterns = [
          users.add_favourites, name='add_favourites'),
     path('chocolate/basket/delete/id_product=<int:id>/<slug:hard_id>/',
          users.delete_basket, name='delete_basket'),
+    path('chocolate/favourites/delete/id_product=<int:id>/<slug:hard_id>/',
+         users.delete_favourites, name='delete_favourites'),
     path('feedback/id_product=<int:id>/<slug:hard_id>/', users.send_feedback, name='send_feedback'),
     path('account/delete/<slug:hard_id>/', users.account_delete, name='account_delete'),
     path('new_password/', users.new_password, name='new_password'),

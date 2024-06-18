@@ -23,6 +23,11 @@
       <a href="{% url 'info_product' i.id_product %}">
         <button>Подробнее</button>
       </a>
+      <a
+        href="{% url 'delete_favourites' i.id user_hard_id %}"
+      >
+        <button>Удалить из корзины</button>
+      </a>
       {% endfor %} 
       {% endif %}
       <br />

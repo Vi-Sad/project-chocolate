@@ -96,7 +96,7 @@ def info_product(request, id):
     if divider == 0:
         general_assessment = 0
     else:
-        general_assessment = round(score_all_users/divider, 1)
+        general_assessment = round(score_all_users / divider, 1)
     return render(request, 'main/info_product.html',
                   context={'products': products.filter(id=id), 'feedbacks': feedbacks.filter(id_product=id),
                            'id': id, 'start_url': start_url, 'user_hard_id': user_hard_id,
@@ -145,8 +145,13 @@ def add_basket(request, id, hard_id):
 
 
 def delete_basket(request, id, hard_id):
-    basket.filter(id=id, hard_id=hard_id).delete()
+    basket.filter(id=id, hard_id=hard_id, basket=True).delete()
     return render(request, 'users/delete_basket.html', context={'user_hard_id': hard_id})
+
+
+def delete_favourites(request, id, hard_id):
+    basket.filter(id=id, hard_id=hard_id, favourites=True).delete()
+    return render(request, 'users/delete_favourites.html', context={'user_hard_id': hard_id})
 
 
 def add_favourites(request, id, hard_id):
@@ -182,7 +187,7 @@ def send_feedback(request, id, hard_id):
     else:
         user_message = ' (изменено) '
         feedbacks.filter(id_product=id, hard_id=hard_id).update(message=message + user_message, score=score,
-                                                                           anonim=anonim, date=datetime.now())
+                                                                anonim=anonim, date=datetime.now())
         message = 'Отзыв обновлен. Спасибо!'
     return render(request, 'users/check_feedback.html', context={'message': message,
                                                                  'start_url': start_url, 'user_hard_id': hard_id})

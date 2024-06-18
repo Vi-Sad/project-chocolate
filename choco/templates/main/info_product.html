@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/footer.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/info_product.css' %}"/>
     <link rel="stylesheet" href="{% static 'css/nav.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/buy.css' %}"/>
 </head>
 <body>
 {% include 'main/nav.html' %} {% include 'users/buy.html' %}
@@ -59,8 +59,7 @@
         <p class="user_active_none">
             Уважаемый пользователь! Пожалуйста,
             <a href="{% url 'registration' %}">зарегистрируйтесь</a> или
-            <a href="{% url 'login' %}">войдите</a>, чтобы можно было оставить
-            свой отзыв
+            <a href="{% url 'login' %}">войдите</a>, чтобы можно было оставить свой отзыв и совершать покупки
         </p>
         {% else %}
         <button type="submit" id="but_basket">В корзину</button>
