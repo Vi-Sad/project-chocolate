@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 from .models import *
 import random
+from transliterate import translit
 
 
 def is_valid_password(password, password_2):
@@ -22,7 +23,7 @@ def is_valid_email(email):
 
 
 def is_valid_name(name, lastname):
-    if len(name) >= 3 and name.isascii() and len(lastname) >= 3 and lastname.isascii() and name != lastname:
+    if len(name) >= 3 and len(lastname) >= 3 and name != lastname:
         return True
     else:
         return False
@@ -51,7 +52,8 @@ def user_url(name):
     all_signs = 'abcdefghijklmnopqrstuvwxyz0123456789'
     all_signs = list(all_signs)
     random.shuffle(all_signs)
-    all_signs.insert(random.randint(1, 35), name.lower())
+    name_en = translit(name, reversed=True)
+    all_signs.insert(random.randint(1, 35), name_en)
     hard_id_user = ''.join(all_signs)
     return hard_id_user
 

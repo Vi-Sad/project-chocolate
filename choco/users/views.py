@@ -37,8 +37,8 @@ def registration_check(request):
     elif all([x.email != email for x in users.all()]):
         if is_valid_password(password, password_2) and is_valid_email(email) and is_valid_name(name, lastname):
             hard_id = user_url(name)
-            User.objects.create(name=name, lastname=lastname, email=email, password=password, date_registration=datetime.now(),
-                                hard_id=hard_id)
+            User.objects.create(name=name, lastname=lastname, email=email, password=password,
+                                date_registration=datetime.now(), hard_id=hard_id)
             url = 'main'
             message = 'Вы успешны зарегистрированы. Попробуйте войти'
         else:
@@ -87,6 +87,9 @@ class AccountView(DetailView):
 def info_product(request, id):
     divider = 0
     score_all_users = 0
+    total = 0
+    for i in basket.filter(basket=True, hard_id=user_hard_id):
+        total += (i.price * i.count)
     for i in feedbacks.filter(id_product=id):
         divider += 1
         score_all_users += i.score
@@ -97,7 +100,8 @@ def info_product(request, id):
     return render(request, 'main/info_product.html',
                   context={'products': products.filter(id=id), 'feedbacks': feedbacks.filter(id_product=id),
                            'id': id, 'start_url': start_url, 'user_hard_id': user_hard_id,
-                           'general_assessment': general_assessment, 'count_feedbacks': divider, 'users': users.all()})
+                           'general_assessment': general_assessment, 'count_feedbacks': divider, 'users': users.all(),
+                           'basket': basket.filter(basket=True, hard_id=user_hard_id), 'total': total})
 
 
 def view_favourites(request, hard_id):
