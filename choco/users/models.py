@@ -41,4 +41,4 @@ class Feedback(models.Model):
     date = models.DateField(default=None)
 
     def __str__(self):
-        return self.id_product
+        return self.message

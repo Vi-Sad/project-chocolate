@@ -33,7 +33,7 @@
       {% include 'main/nav.html' %} {% include 'users/buy.html' %}
       <header>
         <h2 class="hello_user">
-          Добро пожаловать{% block user_active %}{% endblock user_active %}!
+          Добро пожаловать{% block user_active %}{% endblock user_active %}! + {{ user_cookie }}
         </h2>
         <div class="icon_slogan_img">
           <div class="div_main_left">

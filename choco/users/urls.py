@@ -9,7 +9,8 @@ urlpatterns = [
     path('registration/check/', users.registration_check, name='registration_check'),
     path('login/', users.Login.as_view(), name='login'),
     path('login/check', users.login_check, name='login_check'),
-    path('logout/', TemplateView.as_view(template_name='users/logout.html'), name='logout'),
+    # path('logout/', TemplateView.as_view(template_name='users/logout.html'), name='logout'),
+    path('logout/', users.logout, name='logout'),
     path('account/<slug:hard_id>/', users.AccountView.as_view(), name='account'),
     path('chocolate/id_product=<int:id>/', users.info_product, name='info_product'),
     path('chocolate/favourites/<slug:hard_id>/', users.view_favourites, name='favourites'),
@@ -29,6 +30,8 @@ urlpatterns = [
     path('update_password/check/<slug:hard_id>/', users.update_password_check, name='update_password_check'),
     path('change_password/<slug:hard_id>/', users.change_password, name='change_password'),
     path('change_password/check/<slug:hard_id>/', users.change_password_check, name='change_password_check'),
+    path('cookies/set/', users.cookie_set, name='cookie_set'),
+    path('cookies/get/', users.cookie_get, name='cookie_get'),
 ]
 
 handler404 = 'main.views.error_404'

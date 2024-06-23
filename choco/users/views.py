@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
@@ -68,11 +69,17 @@ def login_check(request):
             if (i.email == login or i.name == login) and i.password == password:
                 user_hard_id = i.hard_id
         message = 'Вы успешно вошли'
-        url = f'{start_url}/user_active/{user_hard_id}/'
+        url = f'{start_url}/user={user_hard_id}/'
     else:
         url = f'{start_url}/user/login/'
         message = 'Не верный логин или пароль'
     return render(request, 'users/login_check.html', context={'message': message, 'url': url, 'start_url': start_url})
+
+
+def logout(request):
+    global user_hard_id
+    user_hard_id = None
+    return render(request, 'users/logout.html')
 
 
 class AccountView(DetailView):
@@ -265,3 +272,14 @@ def change_password_check(request, hard_id):
         return render(request, 'users/change_password_check.html', context={'hard_id': hard_id, 'message': message})
     else:
         return render(request, 'main/error_404.html', status=404)
+
+
+def cookie_set(request):
+    response = HttpResponse('Собираем куки...')
+    response.set_cookie('hard_id', user_hard_id)
+    return response
+
+
+def cookie_get(request):
+    hard_id = request.COOKIES['hard_id']
+    return HttpResponse(f'Последний визит пользователя с ID: {hard_id}')

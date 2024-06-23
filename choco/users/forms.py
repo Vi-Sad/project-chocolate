@@ -52,7 +52,10 @@ def user_url(name):
     all_signs = 'abcdefghijklmnopqrstuvwxyz0123456789'
     all_signs = list(all_signs)
     random.shuffle(all_signs)
-    name_en = translit(name, reversed=True)
+    if not name.isascii():
+        name_en = translit(name, reversed=True)
+    else:
+        name_en = name
     all_signs.insert(random.randint(1, 35), name_en)
     hard_id_user = ''.join(all_signs)
     return hard_id_user
