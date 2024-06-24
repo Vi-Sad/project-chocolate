@@ -70,6 +70,10 @@ def login_check(request):
                 user_hard_id = i.hard_id
         message = 'Вы успешно вошли'
         url = f'{start_url}/user={user_hard_id}/'
+        response = render(request, 'users/login_check.html',
+                          context={'message': message, 'url': url, 'start_url': start_url})
+        response.set_cookie('hard_id', user_hard_id)
+        return response
     else:
         url = f'{start_url}/user/login/'
         message = 'Не верный логин или пароль'
@@ -79,7 +83,9 @@ def login_check(request):
 def logout(request):
     global user_hard_id
     user_hard_id = None
-    return render(request, 'users/logout.html')
+    response = render(request, 'users/logout.html')
+    response.set_cookie('hard_id', user_hard_id)
+    return response
 
 
 class AccountView(DetailView):

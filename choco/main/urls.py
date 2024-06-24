@@ -7,6 +7,7 @@ urlpatterns = [
     # path('', main.MainView.as_view(), name='main'),
     path('', main.main, name='main'),
     path('user=<slug:hard_id>/', main.main_user, name='main_user'),
+    path('logout/', main.logout, name='logout'),
 ]
 
 handler404 = 'main.views.error_404'

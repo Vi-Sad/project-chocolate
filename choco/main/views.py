@@ -26,12 +26,16 @@ def error_404(request, exception):
 
 def main(request):
     user_cookie = request.COOKIES['hard_id']
-    return render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
-                                                      'user_cookie': user_cookie, 'products': products})
+    if users.filter(hard_id=user_cookie).exists():
+        return main_user(request, user_cookie)
+    else:
+        return render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
+                                                          'products': products, 'user_cookie': user_cookie})
 
 
 def main_user(request, hard_id):
     global user_active
+    user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=hard_id).exists():
         for i in users.filter(hard_id=hard_id):
             user_active = i.name
@@ -42,6 +46,11 @@ def main_user(request, hard_id):
                                                                'basket': basket.filter(basket=True, hard_id=hard_id),
                                                                'total': total, 'user_hard_id': hard_id,
                                                                'new_products': new_products,
-                                                               'user_active': user_active})
+                                                               'user_active': user_active, 'user_cookie': user_cookie})
     else:
         return render(request, 'main/error_404.html', status=404)
+
+
+def logout(request):
+    user_cookie = None
+    return render(request, 'users/logout.html')
