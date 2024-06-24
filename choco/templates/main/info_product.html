@@ -17,12 +17,6 @@
     <form method="post" id="form_add">
         {% csrf_token %}
         <input
-                class="user_hard_id"
-                value="{{ user_hard_id }}"
-                style="width: 0; height: 0; opacity: 0; position: absolute"
-                disabled
-        />
-        <input
                 class="id_product"
                 value="{{ i.id }}"
                 style="width: 0; height: 0; opacity: 0; position: absolute"
@@ -52,10 +46,8 @@
                 <p class="p_price">{{ i.price }} ₽</p>
             </div>
         </div>
-        {% endfor %} {% if user_hard_id == None %}
-        <a href="{% url 'main' %}">
-            <input type="button" value="Вернуться на Главную"/>
-        </a>
+        {% endfor %}
+        {% if user_hard_id == None %}
         <p class="user_active_none">
             Уважаемый пользователь! Пожалуйста,
             <a href="{% url 'registration' %}">зарегистрируйтесь</a> или
@@ -76,7 +68,7 @@
         <br/>
         <button type="submit" id="but_favourites">Добавить в избранное</button>
     </form>
-    <a href="{% url 'main_user' user_hard_id %}">
+    <a href="{% url 'main' %}#all_products">
         <input type="button" value="Вернуться на Главную"/>
     </a>
     <h2>Оставить отзыв</h2>

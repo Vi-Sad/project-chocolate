@@ -48,7 +48,8 @@ def main_user(request, hard_id):
                                                                'new_products': new_products,
                                                                'user_active': user_active, 'user_cookie': user_cookie})
     else:
-        return render(request, 'main/error_404.html', status=404)
+        return render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
+                                                          'products': products, 'user_cookie': user_cookie})
 
 
 def logout(request):

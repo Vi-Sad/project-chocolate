@@ -69,7 +69,7 @@ def login_check(request):
             if (i.email == login or i.name == login) and i.password == password:
                 user_hard_id = i.hard_id
         message = 'Вы успешно вошли'
-        url = f'{start_url}/user={user_hard_id}/'
+        url = start_url
         response = render(request, 'users/login_check.html',
                           context={'message': message, 'url': url, 'start_url': start_url})
         response.set_cookie('hard_id', user_hard_id)
@@ -88,131 +88,164 @@ def logout(request):
     return response
 
 
-class AccountView(DetailView):
-    model = User
-    queryset = User.objects.all()
-    template_name = 'users/account.html'
-    context_object_name = 'user'
-    slug_field = 'hard_id'
-    slug_url_kwarg = 'hard_id'
+# class AccountView(DetailView):
+#     model = User
+#     queryset = User.objects.all()
+#     template_name = 'users/account.html'
+#     context_object_name = 'user'
+#     slug_field = 'hard_id'
+#     slug_url_kwarg = 'hard_id'
+
+def account(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        return render(request, 'users/account.html', context={'user': users.filter(hard_id=user_cookie)})
+    else:
+        return render(request, 'main/error_404.html', status=404)
 
 
 def info_product(request, id):
     divider = 0
     score_all_users = 0
     total = 0
-    for i in basket.filter(basket=True, hard_id=user_hard_id):
-        total += (i.price * i.count)
-    for i in feedbacks.filter(id_product=id):
-        divider += 1
-        score_all_users += i.score
-    if divider == 0:
-        general_assessment = 0
-    else:
-        general_assessment = round(score_all_users / divider, 1)
-    return render(request, 'main/info_product.html',
-                  context={'products': products.filter(id=id), 'feedbacks': feedbacks.filter(id_product=id),
-                           'id': id, 'start_url': start_url, 'user_hard_id': user_hard_id,
-                           'general_assessment': general_assessment, 'count_feedbacks': divider, 'users': users.all(),
-                           'basket': basket.filter(basket=True, hard_id=user_hard_id), 'total': total})
-
-
-def view_favourites(request, hard_id):
-    if users.filter(hard_id=hard_id).exists():
-        return render(request, 'users/favourites.html',
-                      context={'favourites': basket.filter(favourites=True, hard_id=hard_id),
-                               'products': products.all(), 'user_hard_id': hard_id})
-    else:
-        return render(request, 'main/error_404.html', status=404)
-
-
-def view_basket(request, hard_id):
-    if users.filter(hard_id=hard_id).exists():
-        return render(request, 'users/basket.html',
-                      context={'basket': basket.filter(basket=True, hard_id=hard_id),
-                               'products': products.all(),
-                               'start_url': start_url, 'user_hard_id': hard_id})
-    else:
-        return render(request, 'main/error_404.html', status=404)
-
-
-def add_basket(request, id, hard_id):
-    count_product = request.POST.get('count_product')
-    existence = basket.filter(id_product=id, hard_id=hard_id).exists()
-    if count_product == '':
-        message = 'Упс! Что-то пошло не так'
-    else:
-        if not existence:
-            for i in products.filter(id=id):
-                basket.create(id_product=id, count=count_product, product_name=i.product_name,
-                              favourites=False, basket=True, price=i.price, hard_id=hard_id)
-            message = 'Товар успешно добавлен в корзину'
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        for i in basket.filter(basket=True, hard_id=user_cookie):
+            total += (i.price * i.count)
+        for i in feedbacks.filter(id_product=id):
+            divider += 1
+            score_all_users += i.score
+        if divider == 0:
+            general_assessment = 0
         else:
-            if basket.filter(id_product=id, favourites=True, hard_id=hard_id).exists():
-                basket.filter(id_product=id, hard_id=hard_id).update(basket=True)
+            general_assessment = round(score_all_users / divider, 1)
+        return render(request, 'main/info_product.html',
+                      context={'products': products.filter(id=id), 'feedbacks': feedbacks.filter(id_product=id),
+                               'id': id, 'start_url': start_url, 'user_hard_id': user_cookie,
+                               'general_assessment': general_assessment, 'count_feedbacks': divider,
+                               'users': users.all(), 'basket': basket.filter(basket=True, hard_id=user_hard_id),
+                               'total': total})
+    else:
+        return render(request, 'main/error_404.html', status=404)
+
+
+def view_favourites(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        return render(request, 'users/favourites.html',
+                      context={'favourites': basket.filter(favourites=True, hard_id=user_cookie),
+                               'products': products.all(), 'user_hard_id': user_cookie})
+    else:
+        return render(request, 'main/error_404.html', status=404)
+
+
+def view_basket(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        return render(request, 'users/basket.html',
+                      context={'basket': basket.filter(basket=True, hard_id=user_cookie),
+                               'products': products.all(),
+                               'start_url': start_url, 'user_hard_id': user_cookie})
+    else:
+        return render(request, 'main/error_404.html', status=404)
+
+
+def add_basket(request, id):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        count_product = request.POST.get('count_product')
+        existence = basket.filter(id_product=id, hard_id=user_cookie).exists()
+        if count_product == '':
+            message = 'Упс! Что-то пошло не так'
+        else:
+            if not existence:
+                for i in products.filter(id=id):
+                    basket.create(id_product=id, count=count_product, product_name=i.product_name,
+                                  favourites=False, basket=True, price=i.price, hard_id=user_cookie)
                 message = 'Товар успешно добавлен в корзину'
             else:
-                message = 'Товар уже есть в корзине'
-    return render(request, 'users/add_basket.html', context={'message': message,
-                                                             'user_hard_id': hard_id})
-
-
-def delete_basket(request, id, hard_id):
-    basket.filter(id=id, hard_id=hard_id, basket=True).delete()
-    return render(request, 'users/delete_basket.html', context={'user_hard_id': hard_id})
-
-
-def delete_favourites(request, id, hard_id):
-    basket.filter(id=id, hard_id=hard_id, favourites=True).delete()
-    return render(request, 'users/delete_favourites.html', context={'user_hard_id': hard_id})
-
-
-def add_favourites(request, id, hard_id):
-    count_product = request.POST.get('count_product')
-    existence = basket.filter(id_product=id, hard_id=hard_id).exists()
-    if count_product == '':
-        message = 'Упс! Что-то пошло не так'
+                if basket.filter(id_product=id, favourites=True, hard_id=user_cookie).exists():
+                    basket.filter(id_product=id, hard_id=user_cookie).update(basket=True)
+                    message = 'Товар успешно добавлен в корзину'
+                else:
+                    message = 'Товар уже есть в корзине'
+        return render(request, 'users/add_basket.html', context={'message': message, 'user_hard_id': user_cookie})
     else:
-        if basket.filter(id_product=id, favourites=True, hard_id=hard_id).exists():
-            message = 'Товар уже есть в Избранном'
-        elif existence:
-            basket.filter(id_product=id, hard_id=hard_id).update(favourites=True)
-            message = 'Товар успешно добавлен в Избранное'
+        return render(request, 'main/error_404.html', status=404)
+
+
+def delete_basket(request, id):
+    user_cookie = request.COOKIES['hard_id']
+    basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
+    return render(request, 'users/delete_basket.html', context={'user_hard_id': user_cookie})
+
+
+def delete_favourites(request, id):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        basket.filter(id=id, hard_id=user_cookie, favourites=True).delete()
+        return render(request, 'users/delete_favourites.html', context={'user_hard_id': user_cookie})
+    else:
+        return render(request, 'main/error_404.html', status=404)
+
+
+def add_favourites(request, id):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        existence = basket.filter(id_product=id, hard_id=user_cookie).exists()
+        count_product = request.POST.get('count_product')
+        if count_product == '':
+            message = 'Упс! Что-то пошло не так'
         else:
-            for i in products.filter(id=id):
-                basket.create(id_product=id, count=count_product, product_name=i.product_name,
-                              favourites=True, basket=False, hard_id=hard_id)
-            message = 'Товар успешно добавлен в Избранное'
-    return render(request, 'users/add_favourites.html', context={'message': message,
-                                                                 'user_hard_id': hard_id})
-
-
-def send_feedback(request, id, hard_id):
-    score = request.POST.get('score')
-    message = request.POST.get('message')
-    anonim = request.POST.get('anonim')
-    existence = feedbacks.filter(id_product=id, hard_id=hard_id).exists()
-    anonim = True if anonim == 'on' else False
-    if not existence:
-        feedbacks.create(id_product=id, message=message, score=score, anonim=anonim, date=datetime.now(),
-                         hard_id=hard_id)
-        message = 'Спасибо за отзыв!'
+            if basket.filter(id_product=id, favourites=True, hard_id=user_cookie).exists():
+                message = 'Товар уже есть в Избранном'
+            elif existence:
+                basket.filter(id_product=id, hard_id=user_cookie).update(favourites=True)
+                message = 'Товар успешно добавлен в Избранное'
+            else:
+                for i in products.filter(id=id):
+                    basket.create(id_product=id, count=count_product, product_name=i.product_name,
+                                  favourites=True, basket=False, hard_id=user_cookie)
+                message = 'Товар успешно добавлен в Избранное'
+        return render(request, 'users/add_favourites.html', context={'message': message, 'user_hard_id': user_cookie})
     else:
-        user_message = ' (изменено) '
-        feedbacks.filter(id_product=id, hard_id=hard_id).update(message=message + user_message, score=score,
-                                                                anonim=anonim, date=datetime.now())
-        message = 'Отзыв обновлен. Спасибо!'
-    return render(request, 'users/check_feedback.html', context={'message': message,
-                                                                 'start_url': start_url, 'user_hard_id': hard_id})
+        return render(request, 'main/error_404.html', status=404)
 
 
-def account_delete(request, hard_id):
+def send_feedback(request, id):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        message = request.POST.get('message')
+        anonim = request.POST.get('anonim')
+        score = request.POST.get('score')
+        existence = feedbacks.filter(id_product=id, hard_id=user_cookie).exists()
+        anonim = True if anonim == 'on' else False
+        if not existence:
+            feedbacks.create(id_product=id, message=message, score=score, anonim=anonim, date=datetime.now(),
+                             hard_id=user_cookie)
+            message = 'Спасибо за отзыв!'
+        else:
+            user_message = ' (изменено) '
+            feedbacks.filter(id_product=id, hard_id=user_cookie).update(message=message + user_message, score=score,
+                                                                    anonim=anonim, date=datetime.now())
+            message = 'Отзыв обновлен. Спасибо!'
+        return render(request, 'users/check_feedback.html', context={'message': message, 'start_url': start_url,
+                                                                     'user_hard_id': user_cookie})
+    else:
+        return render(request, 'main/error_404.html', status=404)
+
+
+def account_delete(request):
     global user_hard_id
-    users.filter(hard_id=hard_id).delete()
-    basket.filter(hard_id=hard_id).delete()
-    feedbacks.filter(hard_id=hard_id).delete()
-    user_active, user_hard_id = None, None
-    return render(request, 'users/account_delete.html')
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        users.filter(hard_id=user_cookie).delete()
+        basket.filter(hard_id=user_cookie).delete()
+        feedbacks.filter(hard_id=user_cookie).delete()
+        user_active, user_hard_id, user_cookie = None, None, None
+        return render(request, 'users/account_delete.html')
+    else:
+        return render(request, 'main/error_404.html', status=404)
 
 
 def new_password(request):
@@ -232,20 +265,22 @@ def new_password_check(request):
     return render(request, 'users/new_password_check.html', context={'message': message})
 
 
-def update_password(request, hard_id):
-    if users.filter(hard_id=hard_id).exists():
-        return render(request, 'users/update_password.html', context={'hard_id': hard_id})
+def update_password(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        return render(request, 'users/update_password.html', context={'hard_id': user_cookie})
     else:
         return render(request, 'main/error_404.html', status=404)
 
 
-def update_password_check(request, hard_id):
-    if users.filter(hard_id=hard_id).exists():
+def update_password_check(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
         password_1 = request.POST.get('password_1')
         password_2 = request.POST.get('password_2')
         if is_valid_password(password_1, password_2):
             message = 'Ваш пароль был успешно обновлен'
-            users.filter(hard_id=hard_id).update(password=password_1)
+            users.filter(hard_id=user_cookie).update(password=password_1)
         else:
             message = 'Пароль не соответствует требованиям'
         return render(request, 'users/update_password_check.html', context={'message': message})
@@ -253,29 +288,31 @@ def update_password_check(request, hard_id):
         return render(request, 'main/error_404.html', status=404)
 
 
-def change_password(request, hard_id):
-    if users.filter(hard_id=hard_id).exists():
-        return render(request, 'users/change_password.html', context={'hard_id': hard_id})
+def change_password(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        return render(request, 'users/change_password.html', context={'hard_id': user_cookie})
     else:
         return render(request, 'main/error_404.html', status=404)
 
 
-def change_password_check(request, hard_id):
-    if users.filter(hard_id=hard_id).exists():
+def change_password_check(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
         password_0 = request.POST.get('password_0')
         password_1 = request.POST.get('password_1')
         password_2 = request.POST.get('password_2')
-        if users.filter(hard_id=hard_id, password=password_0).exists():
+        if users.filter(hard_id=user_cookie, password=password_0).exists():
             if is_valid_password(password_1, password_2) and password_0 != password_1:
                 message = 'Ваш пароль был успешно изменен'
-                users.filter(hard_id=hard_id).update(password=password_1)
+                users.filter(hard_id=user_cookie).update(password=password_1)
             elif is_valid_password(password_1, password_2) and password_0 == password_1:
                 message = 'Новый пароль не должен совпадать со старым'
             else:
                 message = 'Новые пароли не совпадают'
         else:
             message = 'Текущий пароль введен не верно'
-        return render(request, 'users/change_password_check.html', context={'hard_id': hard_id, 'message': message})
+        return render(request, 'users/change_password_check.html', context={'hard_id': user_cookie, 'message': message})
     else:
         return render(request, 'main/error_404.html', status=404)
 
