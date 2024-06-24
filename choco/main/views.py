@@ -11,6 +11,8 @@ products = Product.objects.filter(new=False)
 basket = Basket.objects
 new_products = Product.objects.filter(new=True)
 
+user_cookie = None
+
 
 def error_404(request, exception):
     return render(request, 'main/error_404.html', status=404)
@@ -25,31 +27,37 @@ def error_404(request, exception):
 
 
 def main(request):
-    user_cookie = request.COOKIES['hard_id']
-    if users.filter(hard_id=user_cookie).exists():
-        return main_user(request, user_cookie)
-    else:
+    global user_cookie
+    try:
+        user_cookie = request.COOKIES['hard_id']
+        if users.filter(hard_id=user_cookie).exists():
+            return main_user(request)
+        else:
+            return render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
+                                                              'products': products})
+    except KeyError:
         return render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
-                                                          'products': products, 'user_cookie': user_cookie})
+                                                          'products': products})
 
 
-def main_user(request, hard_id):
+def main_user(request):
     global user_active
     user_cookie = request.COOKIES['hard_id']
-    if users.filter(hard_id=hard_id).exists():
-        for i in users.filter(hard_id=hard_id):
+    if users.filter(hard_id=user_cookie).exists():
+        for i in users.filter(hard_id=user_cookie):
             user_active = i.name
         total = 0
         for i in basket.filter(basket=True):
             total += (i.price * i.count)
         return render(request, 'main/main_user.html', context={'users': users.all(), 'products': products,
-                                                               'basket': basket.filter(basket=True, hard_id=hard_id),
-                                                               'total': total, 'user_hard_id': hard_id,
+                                                               'basket': basket.filter(basket=True,
+                                                                                       hard_id=user_cookie),
+                                                               'total': total, 'user_hard_id': user_cookie,
                                                                'new_products': new_products,
-                                                               'user_active': user_active, 'user_cookie': user_cookie})
+                                                               'user_active': user_active})
     else:
         return render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
-                                                          'products': products, 'user_cookie': user_cookie})
+                                                          'products': products})
 
 
 def logout(request):

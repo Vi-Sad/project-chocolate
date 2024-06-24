@@ -6,7 +6,6 @@ import main.views as main
 urlpatterns = [
     # path('', main.MainView.as_view(), name='main'),
     path('', main.main, name='main'),
-    # path('/', main.main_user, name='main_user'),
     path('logout/', main.logout, name='logout'),
 ]
 
