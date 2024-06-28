@@ -72,7 +72,7 @@ def login_check(request):
         url = start_url
         response = render(request, 'users/login_check.html',
                           context={'message': message, 'url': url, 'start_url': start_url})
-        response.set_cookie('hard_id', user_hard_id)
+        response.set_cookie('hard_id', user_hard_id, secure=True, samesite='Lax', httponly=True, max_age=None)
         return response
     else:
         url = f'{start_url}/user/login/'
@@ -108,8 +108,11 @@ def info_product(request, id):
     divider = 0
     score_all_users = 0
     total = 0
-    user_cookie = request.COOKIES['hard_id']
-    if users.filter(hard_id=user_cookie).exists():
+    try:
+        user_cookie = request.COOKIES['hard_id']
+    except KeyError:
+        user_cookie = None
+    if products.filter(id=id).exists():
         for i in basket.filter(basket=True, hard_id=user_cookie):
             total += (i.price * i.count)
         for i in feedbacks.filter(id_product=id):
