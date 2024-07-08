@@ -262,7 +262,7 @@ def new_password_check(request):
     if users.filter(email=email).exists():
         message = 'Проверьте Вашу эл. почту'
         for i in users.filter(email=email):
-            url = f'{start_url}/user/update_password/{i.hard_id}/'
+            url = f'{start_url}/user/update_password/{i.hard_id}'
         send_mail('Восстановление пароля', f'Перейдите по ссылке для восстановления аккаунта.\nСсылка -> {url}',
                   settings.EMAIL_HOST_USER, [email])
     else:
@@ -270,25 +270,25 @@ def new_password_check(request):
     return render(request, 'users/new_password_check.html', context={'message': message})
 
 
-def update_password(request):
-    user_cookie = request.COOKIES['hard_id']
-    if users.filter(hard_id=user_cookie).exists():
-        return render(request, 'users/update_password.html', context={'hard_id': user_cookie})
+def update_password(request, hard_id):
+    # user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=hard_id).exists():
+        return render(request, 'users/update_password.html', context={'hard_id': hard_id})
     else:
         return render(request, 'main/error_404.html', status=404)
 
 
-def update_password_check(request):
-    user_cookie = request.COOKIES['hard_id']
-    if users.filter(hard_id=user_cookie).exists():
+def update_password_check(request, hard_id):
+    # user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=hard_id).exists():
         password_1 = request.POST.get('password_1')
         password_2 = request.POST.get('password_2')
         if is_valid_password(password_1, password_2):
             message = 'Ваш пароль был успешно обновлен'
-            users.filter(hard_id=user_cookie).update(password=password_1)
+            users.filter(hard_id=hard_id).update(password=password_1)
         else:
             message = 'Пароль не соответствует требованиям'
-        return render(request, 'users/update_password_check.html', context={'message': message})
+        return render(request, 'users/update_password_check.html', context={'message': message, 'hard_id': hard_id})
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -296,7 +296,7 @@ def update_password_check(request):
 def change_password(request):
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
-        return render(request, 'users/change_password.html', context={'hard_id': user_cookie})
+        return render(request, 'users/change_password.html')
     else:
         return render(request, 'main/error_404.html', status=404)
 

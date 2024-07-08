@@ -23,7 +23,7 @@ def is_valid_email(email):
 
 
 def is_valid_name(name, lastname):
-    if len(name) >= 3 and len(lastname) >= 3 and name != lastname:
+    if len(name) >= 3 and len(lastname) >= 3 and name != lastname and name.isalpha() and lastname.isalpha():
         return True
     else:
         return False
