@@ -75,3 +75,30 @@
 .score_and_feedbacks > a:hover {
   text-decoration: underline;
 }
+
+.users_feedbacks {
+  background-color: rgb(235, 222, 215);
+}
+
+.feedback {
+  border: 1px solid rgba(235, 222, 215);
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.date_and_score {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  float: right;
+}
+
+.user_active_none {
+  margin-top: 20px;
+}
+
+.user_active_none > a:hover {
+  color: rgb(156, 90, 54);
+}
+

@@ -1,93 +1,104 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
+  <head>
+    <meta charset="UTF-8" />
     <title>Информация о шоколаде</title>
-    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/info_product.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/nav.css' %}"/>
-    <link rel="stylesheet" href="{% static 'css/buy.css' %}"/>
-</head>
-<body>
-{% include 'main/nav.html' %} {% include 'users/buy.html' %}
-<div class="content">
-    {% for i in products %}
-    <form method="post" id="form_add">
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/info_product.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
+  </head>
+  <body>
+    {% include 'main/nav.html' %} {% include 'users/buy.html' %}
+    <div class="content">
+      {% for i in products %}
+      <form method="post" id="form_add">
         {% csrf_token %}
         <input
-                class="id_product"
-                value="{{ i.id }}"
-                style="width: 0; height: 0; opacity: 0; position: absolute"
-                disabled
+          class="id_product"
+          value="{{ i.id }}"
+          style="width: 0; height: 0; opacity: 0; position: absolute"
+          disabled
         />
         <input
-                class="start_url"
-                value="{{ start_url }}"
-                style="width: 0; height: 0; opacity: 0; position: absolute"
-                disabled
+          class="start_url"
+          value="{{ start_url }}"
+          style="width: 0; height: 0; opacity: 0; position: absolute"
+          disabled
         />
         <div class="card_info">
-            <div>
-                <img src="{{ i.image.url }}" alt="chocolate"/>
+          <div>
+            <img src="{{ i.image.url }}" alt="chocolate" />
+          </div>
+          <div>
+            <h2 class="name_product">{{ i.product_name }}</h2>
+            <div class="score_and_feedbacks">
+              <img src="../../media/icons/icon_score.png" alt="icon_score" />
+              <p>{{ general_assessment }}<span>•</span></p>
+              <a href="#feedbacks">{{ count_feedbacks }} отзывов</a>
             </div>
-            <div>
-                <h2 class="name_product">{{ i.product_name }}</h2>
-                <div class="score_and_feedbacks">
-                    <img src="../../media/icons/icon_score.png" alt="icon_score"/>
-                    <p>{{ general_assessment }}<span>•</span></p>
-                    <a href="#feedbacks">{{ count_feedbacks }} отзывов</a>
-                </div>
-                <p class="text_about_product">О товаре:</p>
-                <p>Категория: {{ i.category }}</p>
-                <p>Описание: {{ i.description }}</p>
-                <p>Вес: {{ i.grams }} г</p>
-                <p class="p_price">{{ i.price }} ₽</p>
-            </div>
+            <p>Рейтинг формируется на основе актуальных отзывов</p>
+            <p class="text_about_product">О товаре:</p>
+            <p>Категория: {{ i.category }}</p>
+            <p>Описание: {{ i.description }}</p>
+            <p>Вес: {{ i.grams }} г</p>
+            <p class="p_price">{{ i.price }} ₽</p>
+          </div>
         </div>
-        {% endfor %}
-        {% if user_hard_id == None %}
+        {% endfor %} {% if user_hard_id == None or user_hard_id == "None" %}
         <p class="user_active_none">
-            Уважаемый пользователь! Пожалуйста,
-            <a href="{% url 'registration' %}">зарегистрируйтесь</a> или
-            <a href="{% url 'login' %}">войдите</a>, чтобы можно было оставить свой отзыв и совершать покупки
+          Уважаемый пользователь! Пожалуйста,
+          <a href="{% url 'registration' %}">зарегистрируйтесь</a> или
+          <a href="{% url 'login' %}">войдите</a>, чтобы можно было оставить
+          свой отзыв и совершать покупки
         </p>
         {% else %}
         <button type="submit" id="but_basket">В корзину</button>
         <span>×</span>
         <input
-                name="count_product"
-                type="number"
-                value="1"
-                style="width: 30px"
-                max="20"
-                min="1"
+          name="count_product"
+          type="number"
+          value="1"
+          style="width: 30px"
+          max="20"
+          min="1"
         />
         шт.
-        <br/>
+        <br />
         <button type="submit" id="but_favourites">Добавить в избранное</button>
-    </form>
-    <h2>Оставить отзыв</h2>
-    {% include 'users/send_feedback.html' %} {% endif %}
-    <h2 id="feedbacks">Отзывы:</h2>
-    <div>
+      </form>
+      <h2>Оставить отзыв</h2>
+      {% include 'users/send_feedback.html' %} {% endif %}
+      <h2 id="feedbacks">Отзывы:</h2>
+      <div>
         {% if feedbacks|length == 0 %}
         <p>Отзывов пока нет</p>
         {% else %} {% for i in feedbacks %}
-        <p>Оценка: {{ i.score }}</p>
-        <p>{{ i.date }}</p>
-        {% if i.anonim == 1 %}
-        <p>Пользователь скрыл свои данные</p>
-        {% else %} {% for i in users %} {% if i.hard_id == user_hard_id %}
-        <p>{{ i.name }} {{ i.lastname }}</p>
-        {% endif %} {% endfor %} {% endif %}
-        <p>{{ i.message }}</p>
+        <div class="feedback">
+          <div class="date_and_score">
+            <p style="color: grey">{{ i.date }}</p>
+            <p>•</p>
+            <img
+              src="../../media/icons/icon_score.png"
+              alt="icon_score"
+              style="height: 20px"
+            />
+            <p>{{ i.score }}</p>
+          </div>
+          {% if i.anonim == 1 %}
+          <p style="color: rgb(156, 90, 54);">Пользователь скрыл свои данные</p>
+          {% else %} {% for j in users %} {% if i.hard_id == j.hard_id %}
+          <p style="color: rgb(156, 90, 54);">{{ j.name }} {{ j.lastname }}</p>
+          {% endif %} {% endfor %} {% endif %}
+          <p>{{ i.message }}</p>
+        </div>
         {% endfor %} {% endif %}
+      </div>
     </div>
-</div>
-{% include 'main/footer.html' %}
-<script src="{% static 'js/add.js' %}"></script>
-<script src="{% static 'js/buy.js' %}"></script>
-</body>
+    {% include 'main/footer.html' %}
+    <script src="{% static 'js/add.js' %}"></script>
+    <script src="{% static 'js/buy.js' %}"></script>
+  </body>
 </html>

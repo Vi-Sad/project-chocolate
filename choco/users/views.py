@@ -245,8 +245,10 @@ def account_delete(request):
         users.filter(hard_id=user_cookie).delete()
         basket.filter(hard_id=user_cookie).delete()
         feedbacks.filter(hard_id=user_cookie).delete()
-        user_active, user_hard_id, user_cookie = None, None, None
-        return render(request, 'users/account_delete.html')
+        user_hard_id, user_cookie = None, None
+        response = render(request, 'users/account_delete.html')
+        response.set_cookie('hard_id', user_hard_id, secure=True, samesite='Lax', httponly=True, max_age=None)
+        return response
     else:
         return render(request, 'main/error_404.html', status=404)
 

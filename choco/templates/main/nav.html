@@ -9,17 +9,11 @@
     <a href="{% url 'main' %}#all_products">Наша продукция</a>
   </div>
   <div>
-    <a class="login_and_registration" href="{% url 'login' %}">Войти</a>
-    <span class="login_and_registration">|</span>
-    <a class="login_and_registration" href="{% url 'registration' %}"
-      >Зарегистрироваться</a
-    >
-    {% if user_hard_id != None %}
-    <style>
-      .login_and_registration {
-        display: none;
-      }
-    </style>
+    {% if user_hard_id == None or user_hard_id == "None" %}
+    <a href="{% url 'login' %}">Войти</a>
+    <span>|</span>
+    <a href="{% url 'registration' %}">Зарегистрироваться</a>
+    {% else %}
     <a href="{% url 'logout' %}">Выйти</a>
     <span>|</span>
     <a href="{% url 'account' %}">Личный кабинет</a>
