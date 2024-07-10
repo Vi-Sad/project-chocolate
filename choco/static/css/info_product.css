@@ -7,13 +7,14 @@
   grid-template-columns: repeat(2, max-content);
   align-items: center;
   border: 2px solid rgb(235, 222, 215);
-  width: max-content;
+  width: 95%;
   padding: 20px;
   border-radius: 10px;
+  gap: 20px;
 }
 
 .card_info > div:nth-child(1) > img {
-  height: 400px;
+  width: 400px;
 }
 
 .score_and_feedbacks > img {
@@ -101,4 +102,3 @@
 .user_active_none > a:hover {
   color: rgb(156, 90, 54);
 }
-

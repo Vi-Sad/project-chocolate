@@ -33,6 +33,7 @@ urlpatterns = [
     path('change_password/check/', users.change_password_check, name='change_password_check'),
     path('cookies/set/', users.cookie_set, name='cookie_set'),
     path('cookies/get/', users.cookie_get, name='cookie_get'),
+    path('chocolate/create/', users.create_chocolate, name='create_chocolate'),
 ]
 
 handler404 = 'main.views.error_404'

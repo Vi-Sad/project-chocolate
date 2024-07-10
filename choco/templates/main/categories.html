@@ -2,7 +2,7 @@
     <div class="display">
         {% for i in products %} {% if i.category == 'Праздничные' and i.new == False %}
         <div class="card_chocolate">
-            <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px"/>
+            <img src="{{ i.image.url }}" alt="chocolate" style="width: 200px;"/>
             <p>{{ i.product_name }}</p>
             <a href="{% url 'info_product' i.id %}">
                 <button>Подробнее</button>
@@ -16,7 +16,7 @@
     <div class="display">
         {% for i in products %} {% if i.category == 'Стандартные' and i.new == False %}
         <div class="card_chocolate">
-            <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px"/>
+            <img src="{{ i.image.url }}" alt="chocolate" style="width: 200px;"/>
             <p>{{ i.product_name }}</p>
             <a href="{% url 'info_product' i.id %}">
                 <button>Подробнее</button>
@@ -30,7 +30,7 @@
     <div class="display">
         {% for i in products %} {% if i.category == 'Животные' and i.new == False %}
         <div class="card_chocolate">
-            <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px"/>
+            <img src="{{ i.image.url }}" alt="chocolate" style="width: 200px;"/>
             <p>{{ i.product_name }}</p>
             <a href="{% url 'info_product' i.id %}">
                 <button>Подробнее</button>
@@ -44,7 +44,7 @@
     <div class="display">
         {% for i in products %} {% if i.category == 'Предметы' and i.new == False %}
         <div class="card_chocolate">
-            <img src="{{ i.image.url }}" alt="chocolate" style="height: 200px"/>
+            <img src="{{ i.image.url }}" alt="chocolate" style="width: 200px;"/>
             <p>{{ i.product_name }}</p>
             <a href="{% url 'info_product' i.id %}">
                 <button>Подробнее</button>

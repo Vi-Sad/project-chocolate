@@ -61,5 +61,7 @@ def main_user(request):
 
 
 def logout(request):
+    global user_cookie
     user_cookie = None
     return render(request, 'users/logout.html')
+

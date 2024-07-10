@@ -331,3 +331,11 @@ def cookie_set(request):
 def cookie_get(request):
     hard_id = request.COOKIES['hard_id']
     return HttpResponse(f'Последний визит пользователя с ID: {hard_id}')
+
+
+def create_chocolate(request):
+    try:
+        user_cookie = request.COOKIES['hard_id']
+    except KeyError:
+        user_cookie = None
+    return render(request, 'users/create_chocolate.html', context={'user_cookie': user_cookie})

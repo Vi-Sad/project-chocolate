@@ -42,7 +42,7 @@
             <p>Рейтинг формируется на основе актуальных отзывов</p>
             <p class="text_about_product">О товаре:</p>
             <p>Категория: {{ i.category }}</p>
-            <p>Описание: {{ i.description }}</p>
+            <p style="width: 60%;">Описание: {{ i.description }}</p>
             <p>Вес: {{ i.grams }} г</p>
             <p class="p_price">{{ i.price }} ₽</p>
           </div>
@@ -88,9 +88,9 @@
             <p>{{ i.score }}</p>
           </div>
           {% if i.anonim == 1 %}
-          <p style="color: rgb(156, 90, 54);">Пользователь скрыл свои данные</p>
+          <p style="color: rgb(156, 90, 54)">Пользователь скрыл свои данные</p>
           {% else %} {% for j in users %} {% if i.hard_id == j.hard_id %}
-          <p style="color: rgb(156, 90, 54);">{{ j.name }} {{ j.lastname }}</p>
+          <p style="color: rgb(156, 90, 54)">{{ j.name }} {{ j.lastname }}</p>
           {% endif %} {% endfor %} {% endif %}
           <p>{{ i.message }}</p>
         </div>
