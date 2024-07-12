@@ -57,7 +57,7 @@
         <h3>Пищевые добавки:</h3>
         <p>*1 пищевая добавка = 10₽</p>
         <div>
-          <input type="checkbox" id="raspberry" name="additives"/>
+          <input type="checkbox" id="raspberry" name="additives" />
           <label for="raspberry">Малина</label>
         </div>
         <div>
@@ -75,11 +75,12 @@
       </div>
       <div>
         <h3>Количество:</h3>
-        <input type="number" min="1" max="20" value="1" name="count">
+        <input id="res_count" type="number" min="1" max="20" value="1" name="count">
         <label>шт.</label>
       </div>
       <div>
-        <h3>Цена: <span class="res_price">20₽</span></h3>
+        <button id="but_chocolate">Применить изменения</button>
+        <h3>Цена: <span id="res_price">20₽</span></h3>
       </div>
       {% if user_hard_id == None or user_hard_id == "None" %}
       <p class="user_active_none">
@@ -88,11 +89,12 @@
         <a href="{% url 'login' %}">войдите</a>, чтобы можно было совершать покупки
       </p>
       {% else %}
-      <button type="submit">В корзину</button>
+      <button type="submit" id="but_basket">В корзину</button>
       {% endif %}
     </form>
     </div>
     {% include 'main/footer.html' %}
     <script src="{% static 'js/buy.js' %}"></script>
+    <script src="{% static 'js/create.js' %}"></script>
   </body>
 </html>
