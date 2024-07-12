@@ -338,4 +338,6 @@ def create_chocolate(request):
         user_cookie = request.COOKIES['hard_id']
     except KeyError:
         user_cookie = None
-    return render(request, 'users/create_chocolate.html', context={'user_cookie': user_cookie})
+    return render(request, 'users/create_chocolate.html', context={'user_hard_id': user_cookie,
+                                                                   'basket': basket.filter(basket=True,
+                                                                                           hard_id=user_cookie)})
