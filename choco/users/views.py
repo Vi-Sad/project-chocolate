@@ -16,6 +16,7 @@ users = User.objects
 products = Product.objects
 basket = Basket.objects
 feedbacks = Feedback.objects
+user_chocolate = UserChocolate.objects
 
 user_hard_id = None
 start_url = 'http://127.0.0.1:8000/'
@@ -230,7 +231,7 @@ def send_feedback(request, id):
         else:
             user_message = ' (изменено) '
             feedbacks.filter(id_product=id, hard_id=user_cookie).update(message=message + user_message, score=score,
-                                                                    anonim=anonim, date=datetime.now())
+                                                                        anonim=anonim, date=datetime.now())
             message = 'Отзыв обновлен. Спасибо!'
         return render(request, 'users/check_feedback.html', context={'message': message, 'start_url': start_url,
                                                                      'user_hard_id': user_cookie})
@@ -341,3 +342,27 @@ def create_chocolate(request):
     return render(request, 'users/create_chocolate.html', context={'user_hard_id': user_cookie,
                                                                    'basket': basket.filter(basket=True,
                                                                                            hard_id=user_cookie)})
+
+
+def create_chocolate_check(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        chocolate = request.POST.get('chocolate')
+        basic = request.POST.get('basic')
+
+        raspberry = request.POST.get('raspberry')
+        pineapple = request.POST.get('pineapple')
+        strawberry = request.POST.get('strawberry')
+        nuts = request.POST.get('nuts')
+        all_additives = [raspberry, pineapple, strawberry, nuts]
+        additives = ''
+        for i in all_additives:
+            if i != None:
+                additives += f'{i}, '
+        count = request.POST.get('count')
+        res_price_2 = request.POST.get('res_price_2')
+        user_chocolate.create(hard_id=user_cookie, chocolate=chocolate, basic=basic, additives=additives, count=count,
+                              price=res_price_2)
+        return render(request, 'users/create_chocolate_check.html')
+    else:
+        return render(request, 'main/error_404.html', status=404)

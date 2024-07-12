@@ -31,6 +31,19 @@ class Basket(models.Model):
         return self.product_name
 
 
+class UserChocolate(models.Model):
+    objects = None
+    chocolate = models.CharField(default=None, max_length=50)
+    basic = models.CharField(default=None, max_length=50)
+    additives = models.CharField(default=None, max_length=50)
+    hard_id = models.CharField(default=None, max_length=50)
+    count = models.IntegerField(default=1)
+    price = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.hard_id
+
+
 class Feedback(models.Model):
     objects = None
     hard_id = models.CharField(default=None, max_length=50)

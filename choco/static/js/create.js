@@ -24,6 +24,7 @@ let all_additives = [checkbox_raspberry, checkbox_pineapple, checkbox_strawberry
 function res_chocolate(e) {
     e.preventDefault();
     let res_price = document.getElementById("res_price");
+    let res_price_2 = document.getElementById("res_price_2");
     let count = 20;
     for (let i = 0; i < all_additives.length; i++) {
         if (all_additives[i].checked) {
@@ -32,6 +33,7 @@ function res_chocolate(e) {
     };
     count = count * res_count.value;
     res_price.innerHTML = `${count}₽`;
+    res_price_2.value = count;
     but_basket.disabled = false;
 }
 
