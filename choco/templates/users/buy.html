@@ -7,10 +7,7 @@
     {% for i in basket %}
     <p>
       • {{ i.product_name }} × {{ i.count }} = {% widthratio i.price 1 i.count %} руб.
-      <a
-        href="{% url 'delete_basket' i.id %}"
-        id="a_delete_basket"
-      >
+      <a href="{% url 'delete_basket' i.id %}" id="a_delete_basket">
         <button class="but_del_basket">×</button>
       </a>
     </p>

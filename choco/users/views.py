@@ -19,6 +19,7 @@ feedbacks = Feedback.objects
 user_chocolate = UserChocolate.objects
 
 user_hard_id = None
+user_cookie = None
 start_url = 'http://127.0.0.1:8000/'
 
 
@@ -106,6 +107,7 @@ def account(request):
 
 
 def info_product(request, id):
+    global user_cookie
     divider = 0
     score_all_users = 0
     total = 0
@@ -127,7 +129,7 @@ def info_product(request, id):
                       context={'products': products.filter(id=id), 'feedbacks': feedbacks.filter(id_product=id),
                                'id': id, 'start_url': start_url, 'user_hard_id': user_cookie,
                                'general_assessment': general_assessment, 'count_feedbacks': divider,
-                               'users': users.all(), 'basket': basket.filter(basket=True, hard_id=user_hard_id),
+                               'users': users.all(), 'basket': basket.filter(basket=True, hard_id=user_cookie),
                                'total': total})
     else:
         return render(request, 'main/error_404.html', status=404)
@@ -149,7 +151,8 @@ def view_basket(request):
         return render(request, 'users/basket.html',
                       context={'basket': basket.filter(basket=True, hard_id=user_cookie),
                                'products': products.all(),
-                               'start_url': start_url, 'user_hard_id': user_cookie})
+                               'start_url': start_url, 'user_hard_id': user_cookie,
+                               'user_chocolate': user_chocolate.filter(hard_id=user_cookie)})
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -181,6 +184,7 @@ def add_basket(request, id):
 def delete_basket(request, id):
     user_cookie = request.COOKIES['hard_id']
     basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
+    user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
     return render(request, 'users/delete_basket.html', context={'user_hard_id': user_cookie})
 
 
@@ -356,13 +360,27 @@ def create_chocolate_check(request):
         nuts = request.POST.get('nuts')
         all_additives = [raspberry, pineapple, strawberry, nuts]
         additives = ''
-        for i in all_additives:
-            if i != None:
-                additives += f'{i}, '
+        if all([x == None for x in all_additives]):
+            additives = None
+        else:
+            for i in all_additives:
+                if i != None:
+                    additives += f'{i}, '
+            additives = additives[:-2]
+
         count = request.POST.get('count')
         res_price_2 = request.POST.get('res_price_2')
-        user_chocolate.create(hard_id=user_cookie, chocolate=chocolate, basic=basic, additives=additives, count=count,
-                              price=res_price_2)
+        user_chocolate.create(hard_id=user_cookie, chocolate=chocolate, basic=basic,
+                              additives=additives, price=res_price_2,
+                              product_name='Особый шоколад 0', count=count)
+        for i in user_chocolate.filter(hard_id=user_cookie, product_name='Особый шоколад 0'):
+            id_product = i.id
+        basket.create(hard_id=user_cookie, price=int(res_price_2)/int(count), count=count, basket=True,
+                      product_name=f'Особый шоколад {id_product}', id_product=id_product)
+        for i in basket.filter(hard_id=user_cookie, product_name=f'Особый шоколад {id_product}'):
+            id_basket = i.id
+        user_chocolate.filter(hard_id=user_cookie, product_name='Особый шоколад 0').update(
+            product_name=f'Особый шоколад {id_product}', id_basket=id_basket)
         return render(request, 'users/create_chocolate_check.html')
     else:
         return render(request, 'main/error_404.html', status=404)

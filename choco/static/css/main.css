@@ -92,7 +92,7 @@ header {
   gap: 50px;
 }
 
-.div_images_taste > div:nth-child(1) {
+.div_images_taste>div:nth-child(1) {
   margin-left: 50px;
 }
 
@@ -152,24 +152,24 @@ header {
   padding: 50px;
 }
 
-.icons_page_2 > img,
-.icons_page_2 > span {
+.icons_page_2>img,
+.icons_page_2>span {
   vertical-align: middle;
 }
 
-.advantages > div:nth-child(2) {
+.advantages>div:nth-child(2) {
   margin: 100px 50px;
 }
 
-.advantages_2 > div {
+.advantages_2>div {
   text-align: end;
 }
 
-.advantages_2 > .icons_page_2 > img {
+.advantages_2>.icons_page_2>img {
   margin-left: 20px;
 }
 
-.advantages_1 > .icons_page_2 > img {
+.advantages_1>.icons_page_2>img {
   margin-right: 20px;
 }
 
@@ -188,7 +188,7 @@ header {
   gap: 40px;
 }
 
-.div_page_4 > div {
+.div_page_4>div {
   border: 2px solid rgb(235, 222, 215);
   border-radius: 10px;
   padding: 20px;

@@ -12,16 +12,28 @@
       <h2>Корзина товаров</h2>
       {% if basket|length == 0 %}
       <p>Здесь пока ничего нет</p>
-      {% else %} {% for i in basket %} 
+      {% else %} 
+      {% for i in basket %} 
       {% for j in products %} 
       {% if j.product_name == i.product_name %}
       <img src="{{ j.image.url }}" alt="chocolate" style="height: 100px" />
       {% endif %} 
       {% endfor %}
       <p>{{ i.product_name }}</p>
+      {% if i.product_name|slice:':14' == 'Особый шоколад' %}
+      {% for ii in user_chocolate %}
+      {% if i.id == ii.id_basket %}
+      <p>Подробности:</p>
+      <p>Форма: {{ ii.chocolate }}</p>
+      <p>Вкус: {{ ii.basic }}</p>
+      <p>Добавки: {{ ii.additives }}</p>
+      {% endif %}
+      {% endfor %}
+      {% else %}
       <a href="{% url 'info_product' i.id_product %}">
         <button>Подробнее</button>
       </a>
+      {% endif %}
       <a
         href="{% url 'delete_basket' i.id %}"
         id="a_delete_basket"

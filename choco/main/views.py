@@ -10,6 +10,7 @@ users = User.objects
 products = Product.objects.filter(new=False)
 basket = Basket.objects
 new_products = Product.objects.filter(new=True)
+user_chocolate = UserChocolate.objects
 
 user_cookie = None
 
@@ -41,13 +42,12 @@ def main(request):
 
 
 def main_user(request):
-    global user_active
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
         for i in users.filter(hard_id=user_cookie):
             user_active = i.name
         total = 0
-        for i in basket.filter(basket=True):
+        for i in basket.filter(basket=True, hard_id=user_cookie):
             total += (i.price * i.count)
         return render(request, 'main/main_user.html', context={'users': users.all(), 'products': products,
                                                                'basket': basket.filter(basket=True,

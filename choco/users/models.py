@@ -27,18 +27,21 @@ class Basket(models.Model):
     favourites = models.BooleanField(default=False)
     basket = models.BooleanField(default=False)
 
+
     def __str__(self):
         return self.product_name
 
 
 class UserChocolate(models.Model):
     objects = None
+    product_name = models.CharField(max_length=50, default=None)
     chocolate = models.CharField(default=None, max_length=50)
     basic = models.CharField(default=None, max_length=50)
-    additives = models.CharField(default=None, max_length=50)
+    additives = models.CharField(default=None, max_length=50, null=True)
     hard_id = models.CharField(default=None, max_length=50)
     count = models.IntegerField(default=1)
     price = models.IntegerField(default=0)
+    id_basket = models.IntegerField(default=0)
 
     def __str__(self):
         return self.hard_id
