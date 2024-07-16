@@ -36,12 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     'users'
-=======
     'main',
     'users',
->>>>>>> Vi-Sad
 ]
 
 MIDDLEWARE = [
@@ -60,11 +57,8 @@ ROOT_URLCONF = 'choco.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-<<<<<<< HEAD
         'DIRS': ['templates'],
-=======
         'DIRS': [BASE_DIR / 'templates'],
->>>>>>> Vi-Sad
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -127,12 +121,9 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-<<<<<<< HEAD
-=======
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = 'media/'
 
->>>>>>> Vi-Sad
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
