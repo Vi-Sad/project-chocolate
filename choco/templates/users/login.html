@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}"/>
+</head>
+<body>
+<h2>Вход</h2>
+<form method="post" action="{% url 'login_check' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Войти</button>
+</form>
+<a href="{% url 'new_password' %}">Забыли пароль?</a>
+<a href="{% url 'main' %}">
+    <button>Вернуться на главную</button>
+</a>
+</body>
+</html>

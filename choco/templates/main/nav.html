@@ -1,0 +1,26 @@
+<nav>
+  <div class="main_icon_text">
+    <img src="../../../media/icons/icon_main.png" alt="icon_main" />
+    <p class="a_icon_text">~ЧоКо~</p>
+  </div>
+  <div>
+    <a href="{% url 'main' %}">Главная</a>
+    <a href="">Наши контакты</a>
+    <a href="{% url 'main' %}#all_products">Наша продукция</a>
+  </div>
+  <div>
+    {% if user_hard_id == None or user_hard_id == "None" %}
+    <a href="{% url 'login' %}">Войти</a>
+    <span>|</span>
+    <a href="{% url 'registration' %}">Зарегистрироваться</a>
+    {% else %}
+    <a href="{% url 'logout' %}">Выйти</a>
+    <span>|</span>
+    <a href="{% url 'account' %}">Личный кабинет</a>
+    <button id="buy" style="background-color: rgba(255, 255, 255, 0)">
+      <img src="../../../media/icons/icon_basket.png" alt="icon_basket" />
+      <sup>{{ basket|length }}</sup>
+    </button>
+    {% endif %}
+  </div>
+</nav>

@@ -36,7 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'users'
+=======
+>>>>>>> Vi-Sad
     'main',
     'users',
 ]
@@ -57,7 +60,10 @@ ROOT_URLCONF = 'choco.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+<<<<<<< HEAD
         'DIRS': ['templates'],
+=======
+>>>>>>> Vi-Sad
         'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {

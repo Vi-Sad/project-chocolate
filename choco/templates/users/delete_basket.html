@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление товара из корзины</title>
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+</head>
+<body>
+<p>Товар был успешно удален из Вашей корзины</p>
+<a href="{% url 'main' %}">
+    <input type="button" value="Вернуться на Главную">
+</a>
+<a href="{% url 'basket' %}">
+    <input type="button" value="Моя корзина">
+</a>
+</body>
+</html>

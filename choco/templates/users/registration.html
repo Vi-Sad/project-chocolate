@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}"/>
+</head>
+<body>
+<h2>Регистрация</h2>
+<form method="post" action="{% url 'registration_check' %}">
+    {% csrf_token %}
+    <label>Введите эл. почту (Yandex или Google):</label>
+    <input type="email" name="email">
+    <br>
+    <label>Введите фамилию:</label>
+    <input type="text" name="lastname">
+    {% for i in form %}
+    <br>
+    <label class="form-label" for="{{ i.id_for_label }}">{{ i.label }}:</label>
+    <span>{{ i }}</span>
+    {% endfor %}
+    <br>
+    <button type="submit">Зарегистрироваться</button>
+</form>
+<a href="{% url 'main' %}" style="width: max-content;">
+    <button>Вернуться на главную</button>
+</a>
+<p>Зарегистрируйтесь, чтобы можно было заказать</p>
+</body>
+</html>

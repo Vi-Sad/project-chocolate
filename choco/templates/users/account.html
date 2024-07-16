@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Личный кабинет</title>
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}"/>
+</head>
+<body>
+<div class="content">
+    <h2>Ваши личные данные</h2>
+    {% for i in user %}
+    <p>Фамилия: {{ i.lastname }}</p>
+    <p>Имя: {{ i.name }}</p>
+    <p>ID: {{ i.hard_id }}</p>
+    <p>Эл. почта: {{ i.email }}</p>
+    <p>Пароль: {{ i.password }}</p>
+    <p>Дата регистрации: {{ i.date_registration }}</p>
+    {% endfor %}
+    <a href="{% url 'favourites' %}">
+        <button>Избранное</button>
+    </a>
+    <a href="{% url 'basket' %}">
+        <button>Корзина</button>
+    </a>
+    <a href="{% url 'main' %}">
+        <button>Вернуться на главную</button>
+    </a>
+</div>
+<a href="{% url 'change_password' %}">Изменить пароль</a>
+<a href="{% url 'account_delete' %}">Удалить аккаунт</a>
+{% include 'main/footer.html' %}
+</body>
+</html>

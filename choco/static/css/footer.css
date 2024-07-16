@@ -1,0 +1,44 @@
+footer {
+  background-color: rgb(156, 90, 54);
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  width: 100%;
+  line-height: 0;
+}
+
+footer a {
+  color: white;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer a:active {
+  text-decoration: none;
+  color: rgb(235, 222, 215);
+}
+
+footer img {
+  height: 40px;
+  vertical-align: middle;
+}
+
+footer > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+}
+
+footer a {
+  text-decoration: none;
+  vertical-align: middle;
+  margin-left: 20px;
+}
+
+footer p {
+  color: white;
+  text-align: center;
+}
