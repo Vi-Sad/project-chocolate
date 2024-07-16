@@ -25,6 +25,7 @@ SECRET_KEY = 'django-insecure-qf0^eqdy(x=232_*&!f_f4az0x)g&#@7%cts@hi^=k7ehz8@vq
 DEBUG = True
 
 ALLOWED_HOSTS = ['Vi22Choco.pythonanywhere.com']
+STATIC_ROOT = '/home/Vi22Choco/project-chocolate/choco/static'
 
 # Application definition
 
