@@ -17,6 +17,7 @@ products = Product.objects
 basket = Basket.objects
 feedbacks = Feedback.objects
 user_chocolate = UserChocolate.objects
+user_orders = Orders.objects
 
 user_hard_id = None
 user_cookie = None
@@ -375,7 +376,7 @@ def create_chocolate_check(request):
                               product_name='Особый шоколад 0', count=count)
         for i in user_chocolate.filter(hard_id=user_cookie, product_name='Особый шоколад 0'):
             id_product = i.id
-        basket.create(hard_id=user_cookie, price=int(res_price_2)/int(count), count=count, basket=True,
+        basket.create(hard_id=user_cookie, price=int(res_price_2) / int(count), count=count, basket=True,
                       product_name=f'Особый шоколад {id_product}', id_product=id_product)
         for i in basket.filter(hard_id=user_cookie, product_name=f'Особый шоколад {id_product}'):
             id_basket = i.id
@@ -387,4 +388,25 @@ def create_chocolate_check(request):
 
 
 def orders(request):
-    return render(request, 'users/orders.html')
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        return render(request, 'users/orders.html', context={'user_orders': user_orders.filter(hard_id=user_cookie),
+                                                             'user_cookie': user_cookie})
+    else:
+        return render(request, 'main/error_404.html', status=404)
+
+
+def orders_check(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        for i in basket.filter(hard_id=user_cookie, basket=True):
+            user_orders.create(hard_id=user_cookie, id_product=i.id_product, count=i.count,
+                               price=int(i.price) * int(i.count), product_name=i.product_name, status='Не готов')
+            if i.favourites == True:
+                basket.filter(hard_id=user_cookie, basket=True).update(basket=False)
+            else:
+                basket.filter(hard_id=user_cookie, basket=True).delete()
+        return render(request, 'users/orders_check.html', context={'user_orders': user_orders.filter(
+            hard_id=user_cookie), 'user_cookie': user_cookie})
+    else:
+        return render(request, 'main/error_404.html', status=404)

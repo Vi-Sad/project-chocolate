@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Мои заказы</title>
+    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+</head>
+
+<body>
+    <div class="content">
+        <p>Ваш заказ принят!</p>
+        <a href="{% url 'main' %}">
+            <button>Вернуться на главную</button>
+        </a>
+    </div>
+    {% include 'main/footer.html' %}
+</body>
+
+</html>

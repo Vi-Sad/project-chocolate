@@ -36,6 +36,7 @@ urlpatterns = [
     path('chocolate/create/', users.create_chocolate, name='create_chocolate'),
     path('chocolate/create/check/', users.create_chocolate_check, name='create_chocolate_check'),
     path('chocolate/orders/', users.orders, name='orders'),
+    path('chocolate/orders/check', users.orders_check, name='orders_check'),
 ]
 
 handler404 = 'main.views.error_404'

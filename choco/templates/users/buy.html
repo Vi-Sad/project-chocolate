@@ -11,12 +11,17 @@
         <button class="but_del_basket">×</button>
       </a>
     </p>
+    <div class="inp" style="display: none;">
+      <input type="text" name="" value="">
+    </div>
     {% endfor %}
   </div>
   <br />
   <hr />
   <br />
   <p>Всего: {{ total }} руб.</p>
-  <button class="but_buy_basket">Купить</button>
+  <a href="{% url 'orders_check' %}">
+    <button class="but_buy_basket">Купить</button>
+  </a>
   {% endif %}
 </section>

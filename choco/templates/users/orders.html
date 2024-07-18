@@ -11,7 +11,28 @@
 
 <body>
     <div class="content">
-        <h1>test</h1>
+        <h2>Мои заказы</h2>
+        {% if user_orders|length == 0 %}
+        <p>Здесь пока ничего нет</p>
+        {% else %}
+        {% for i in user_orders %}
+        <p>{{ i.product_name }}</p>
+        <p>Статус: {{ i.status }}</p>
+        <p>Количество: {{ i.count }}</p>
+        <p>Цена: {{ i.price }}</p>
+        {% if i.product_name|slice:':14' != 'Особый шоколад' %}
+        <a href="{% url 'info_product' i.id_product %}">
+            <button>Подробнее</button>
+        </a>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        <a href="{% url 'account' %}">
+            <button>Личный кабинет</button>
+        </a>
+        <a href="{% url 'main' %}">
+            <button>Вернуться на главную</button>
+        </a>
     </div>
     {% include 'main/footer.html' %}
 </body>

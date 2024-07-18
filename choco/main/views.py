@@ -11,6 +11,7 @@ products = Product.objects.filter(new=False)
 basket = Basket.objects
 new_products = Product.objects.filter(new=True)
 user_chocolate = UserChocolate.objects
+user_orders = Orders.objects
 
 user_cookie = None
 
@@ -54,7 +55,8 @@ def main_user(request):
                                                                                        hard_id=user_cookie),
                                                                'total': total, 'user_hard_id': user_cookie,
                                                                'new_products': new_products,
-                                                               'user_active': user_active})
+                                                               'user_active': user_active,
+                                                               'user_orders': user_orders.filter(hard_id=user_cookie)})
     else:
         return render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
                                                           'products': products})
