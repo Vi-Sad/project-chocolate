@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-qf0^eqdy(x=232_*&!f_f4az0x)g&#@7%cts@hi^=k7ehz8@vq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['Vi22Choco.pythonanywhere.com']
+ALLOWED_HOSTS = ['*', 'Vi22Choco.pythonanywhere.com']
 STATIC_ROOT = '/home/Vi22Choco/project-chocolate/choco/static'
 
 # Application definition
@@ -36,12 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-    'users'
-=======
->>>>>>> Vi-Sad
-    'main',
     'users',
+    'main',
 ]
 
 MIDDLEWARE = [
@@ -60,10 +56,6 @@ ROOT_URLCONF = 'choco.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-<<<<<<< HEAD
-        'DIRS': ['templates'],
-=======
->>>>>>> Vi-Sad
         'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
