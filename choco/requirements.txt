@@ -1,0 +1,9 @@
+Django==4.2.1
+django-allauth==0.61.1
+dnspython==2.5.0
+requests==2.31.0
+requests-oauthlib==2.0.0
+sqlparse==0.4.4
+transliterate==1.10.2
+watchfiles==0.21.0
+websockets==12.0
