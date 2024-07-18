@@ -384,3 +384,7 @@ def create_chocolate_check(request):
         return render(request, 'users/create_chocolate_check.html')
     else:
         return render(request, 'main/error_404.html', status=404)
+
+
+def orders(request):
+    return render(request, 'users/orders.html')

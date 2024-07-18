@@ -35,32 +35,32 @@ function res_chocolate(e) {
     res_price.innerHTML = `${count}₽`;
     res_price_2.value = count;
     but_basket.disabled = false;
-}
+};
 
 but_chocolate.onclick = res_chocolate;
 
 for (let i = 0; i < all_chocolate.length; i++) {
     all_chocolate[i].addEventListener('change', () => {
-        but_basket.disabled = true;
         res_price.innerHTML = "?₽";
+        but_basket.disabled = true;
     });
 };
 
 for (let i = 0; i < all_basic.length; i++) {
     all_basic[i].addEventListener('change', () => {
-        but_basket.disabled = true;
         res_price.innerHTML = "?₽";
+        but_basket.disabled = true;
     });
 };
 
 for (let i = 0; i < all_additives.length; i++) {
     all_additives[i].addEventListener('change', () => {
-        but_basket.disabled = true;
         res_price.innerHTML = "?₽";
+        but_basket.disabled = true;
     });
 };
 
 res_count.addEventListener('change', () => {
-    but_basket.disabled = true;
     res_price.innerHTML = "?₽";
+    but_basket.disabled = true;
 });
