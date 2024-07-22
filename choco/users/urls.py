@@ -1,6 +1,7 @@
 from django.urls import include, path
 from django.conf import settings
 import users.views as users
+import main.views as main
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 
@@ -37,6 +38,7 @@ urlpatterns = [
     path('chocolate/create/check/', users.create_chocolate_check, name='create_chocolate_check'),
     path('chocolate/orders/', users.orders, name='orders'),
     path('chocolate/orders/check', users.orders_check, name='orders_check'),
+    path('basket/delete/id_product=<int:id>/', users.ajax_delete_basket, name='ajax_delete_basket'),
 ]
 
 handler404 = 'main.views.error_404'

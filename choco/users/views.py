@@ -5,6 +5,7 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.core.mail import send_mail
 
 from main.models import *
+from main.views import *
 from .models import *
 from .forms import *
 from datetime import datetime
@@ -21,6 +22,7 @@ user_orders = Orders.objects
 
 user_hard_id = None
 user_cookie = None
+active_url = None
 start_url = 'http://127.0.0.1:8000/'
 
 
@@ -108,7 +110,7 @@ def account(request):
 
 
 def info_product(request, id):
-    global user_cookie
+    global user_cookie, active_url
     divider = 0
     score_all_users = 0
     total = 0
@@ -126,6 +128,7 @@ def info_product(request, id):
             general_assessment = 0
         else:
             general_assessment = round(score_all_users / divider, 1)
+        active_url = request.build_absolute_uri()
         return render(request, 'main/info_product.html',
                       context={'products': products.filter(id=id), 'feedbacks': feedbacks.filter(id_product=id),
                                'id': id, 'start_url': start_url, 'user_hard_id': user_cookie,
@@ -159,8 +162,10 @@ def view_basket(request):
 
 
 def add_basket(request, id):
+    global active_url
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
+        active_url = None
         count_product = request.POST.get('count_product')
         existence = basket.filter(id_product=id, hard_id=user_cookie).exists()
         if count_product == '':
@@ -187,6 +192,18 @@ def delete_basket(request, id):
     basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
     user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
     return render(request, 'users/delete_basket.html', context={'user_hard_id': user_cookie})
+
+
+def ajax_delete_basket(request, id):
+    try:
+        global active_url
+        user_cookie = request.COOKIES['hard_id']
+        basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
+        user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
+        return info_product(request, int(active_url[50:-1]))
+    except:
+        active_url = None
+        return main_user(request)
 
 
 def delete_favourites(request, id):

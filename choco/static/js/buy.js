@@ -7,6 +7,7 @@ function display_basket() {
   } else {
     buy_products.style.display = "none";
   }
+  console.log('Hello')
 }
 
 but_buy.onclick = display_basket;

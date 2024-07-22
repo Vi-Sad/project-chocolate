@@ -7,7 +7,7 @@
     {% for i in basket %}
     <p>
       • {{ i.product_name }} × {{ i.count }} = {% widthratio i.price 1 i.count %} руб.
-      <a href="{% url 'delete_basket' i.id %}" id="a_delete_basket">
+      <a href="{% url 'ajax_delete_basket' i.id %}" id="a_delete_basket">
         <button class="but_del_basket">×</button>
       </a>
     </p>
@@ -20,7 +20,8 @@
   <hr />
   <br />
   <p>Всего: {{ total }} руб.</p>
-  <a href="{% url 'orders_check' %}">
+<!--  <a href="{% url 'orders_check' %}">-->
+  <a href="https://web.telegram.org/k/#@choco_pay_online_bot">
     <button class="but_buy_basket">Купить</button>
   </a>
   {% endif %}
