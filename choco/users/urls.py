@@ -1,7 +1,6 @@
 from django.urls import include, path
 from django.conf import settings
 import users.views as users
-import main.views as main
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 

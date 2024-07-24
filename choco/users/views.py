@@ -1,8 +1,10 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.mail import send_mail
+import json
+from django.views.decorators.http import require_http_methods
 
 from main.models import *
 from main.views import *
@@ -29,9 +31,11 @@ start_url = 'http://127.0.0.1:8000/'
 class Registration(CreateView):
     form_class = FormRegistration
     template_name = 'users/registration.html'
+    extra_context = {'form': form_class}
 
 
 def registration_check(request):
+    form_class = FormRegistration
     name = request.POST['username']
     lastname = request.POST['lastname']
     email = request.POST['email']
@@ -39,21 +43,18 @@ def registration_check(request):
     password_2 = request.POST['password2']
     if len(name) == 0 or len(email) == 0 or len(password) == 0:
         message = 'Поля не могут быть пустыми'
-        url = 'registration'
     elif all([x.email != email for x in users.all()]):
         if is_valid_password(password, password_2) and is_valid_email(email) and is_valid_name(name, lastname):
             hard_id = user_url(name)
             User.objects.create(name=name, lastname=lastname, email=email, password=password,
                                 date_registration=datetime.now(), hard_id=hard_id)
-            url = 'main'
             message = 'Вы успешны зарегистрированы. Попробуйте войти'
         else:
-            url = 'registration'
             message = 'Ваша эл. почта, никнейм или пароль не соответствуют требованиям'
     else:
         message = 'Почта уже используется'
-        url = 'registration'
-    return render(request, 'users/registration_check.html', context={'message': message, 'url': url})
+    return render(request, 'users/registration.html', context={'message': message, 'start_url': start_url,
+                                                               'form': form_class})
 
 
 class Login(LoginView):
@@ -64,25 +65,23 @@ class Login(LoginView):
 
 def login_check(request):
     global user_hard_id
+    form_class = FormLogin
     login = request.POST['username']
     password = request.POST['password']
     if len(login) == 0 or len(password) == 0:
         message = 'Поля не могут быть пустыми'
-        url = 'user/login/'
     elif any((x.email == login or x.name == login) and x.password == password for x in users.all()):
         for i in users.all():
             if (i.email == login or i.name == login) and i.password == password:
                 user_hard_id = i.hard_id
-        message = 'Вы успешно вошли'
-        url = start_url
-        response = render(request, 'users/login_check.html',
-                          context={'message': message, 'url': url, 'start_url': start_url})
+        message = 'Вы успешно вошли. Нажмите на кнопку "Войти" еще раз'
+        response = render(request, 'users/login.html',
+                          context={'message': message, 'start_url': start_url, 'form': form_class})
         response.set_cookie('hard_id', user_hard_id, secure=True, samesite='Lax', httponly=True, max_age=None)
         return response
     else:
-        url = f'{start_url}/user/login/'
         message = 'Не верный логин или пароль'
-    return render(request, 'users/login_check.html', context={'message': message, 'url': url, 'start_url': start_url})
+    return render(request, 'users/login.html', context={'message': message, 'start_url': start_url, 'form': form_class})
 
 
 def logout(request):
