@@ -8,19 +8,19 @@ let id_product = document.querySelector(".id_product").value;
 let start_url = document.querySelector(".start_url").value;
 
 function submit_basket() {
-  form_add.setAttribute(
-    "action",
-    `${start_url}/user/chocolate/basket/add/id_product=${id_product}/`
-  );
-  add_basket.style.display = "block";
+    form_add.setAttribute(
+        "action",
+        `${start_url}/user/chocolate/basket/add/id_product=${id_product}/`
+    );
+    add_basket.style.display = "block";
 }
 
 function submit_favourites() {
-  form_add.setAttribute(
-    "action",
-    `${start_url}/user/chocolate/favourites/add/id_product=${id_product}/`
-  );
-  add_favourites.style.display = "block";
+    form_add.setAttribute(
+        "action",
+        `${start_url}/user/chocolate/favourites/add/id_product=${id_product}/`
+    );
+    add_favourites.style.display = "block";
 }
 
 but_basket.onclick = submit_basket;

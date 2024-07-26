@@ -190,7 +190,7 @@ def add_basket(request, id):
                     for i in products.filter(id=id):
                         basket.filter(hard_id=user_cookie, basket=True, id_product=id).update(price=i.price,
                                                                                               count=count_product)
-        time.sleep(0.7)
+        time.sleep(1)
         return info_product(request, id)
     else:
         return render(request, 'main/error_404.html', status=404)
@@ -221,7 +221,10 @@ def delete_favourites(request, id):
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
         basket.filter(id=id, hard_id=user_cookie, favourites=True).delete()
-        return render(request, 'users/delete_favourites.html', context={'user_hard_id': user_cookie})
+        return render(request, 'users/favourites.html', context={'favourites': basket.filter(favourites=True,
+                                                                                             hard_id=user_cookie),
+                                                                 'products': products.all(),
+                                                                 'user_hard_id': user_cookie})
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -232,19 +235,18 @@ def add_favourites(request, id):
         existence = basket.filter(id_product=id, hard_id=user_cookie).exists()
         count_product = request.POST.get('count_product')
         if count_product == '':
-            message = 'Упс! Что-то пошло не так'
+            print('Ошибка добавления')
         else:
             if basket.filter(id_product=id, favourites=True, hard_id=user_cookie).exists():
-                message = 'Товар уже есть в Избранном'
+                print('Ошибка добавления')
             elif existence:
                 basket.filter(id_product=id, hard_id=user_cookie).update(favourites=True)
-                message = 'Товар успешно добавлен в Избранное'
             else:
                 for i in products.filter(id=id):
                     basket.create(id_product=id, count=count_product, product_name=i.product_name,
                                   favourites=True, basket=False, hard_id=user_cookie)
-                message = 'Товар успешно добавлен в Избранное'
-        return render(request, 'users/add_favourites.html', context={'message': message, 'user_hard_id': user_cookie})
+        time.sleep(1)
+        return info_product(request, id)
     else:
         return render(request, 'main/error_404.html', status=404)
 

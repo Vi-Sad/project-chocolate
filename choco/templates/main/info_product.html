@@ -10,13 +10,13 @@
   <link rel="stylesheet" href="{% static 'css/info_product.css' %}" />
   <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
   <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/add_basket.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/add.css' %}" />
 </head>
 
 <body>
   {% include 'main/nav.html' %}
   {% include 'users/buy.html' %}
-  {% include 'users/add_basket.html' %}
+  {% include 'users/add.html' %}
   {{ t }}
   <div class="content">
     {% for i in products %}
@@ -71,7 +71,7 @@
         <div class="date_and_score">
           <p style="color: grey">{{ i.date }}</p>
           <p>•</p>
-          <img src="../../../media/icons/icon_score.png" alt="icon_score" style="height: 20px" />
+          <img src="../../../../media/icons/icon_score.png" alt="icon_score" style="height: 20px" />
           <p>{{ i.score }}</p>
         </div>
         {% if i.anonim == 1 %}
@@ -90,7 +90,8 @@
     </div>
   </div>
   {% include 'main/footer.html' %}
-  <script src="{% static 'js/add.js' %}"></script>
+  <!-- <script src="{% static 'js/add.js' %}"></script> -->
+  <script src="{% static 'js/t.js' %}"></script>
   <script src="{% static 'js/buy.js' %}"></script>
 </body>
 
