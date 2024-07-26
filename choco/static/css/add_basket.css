@@ -1,0 +1,9 @@
+#add_basket {
+    background-color: rgba(8, 184, 66, 0.811);
+    text-align: center;
+    display: none;
+}
+
+#add_basket>p {
+    color: white;
+}

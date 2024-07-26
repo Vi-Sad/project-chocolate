@@ -13,6 +13,8 @@ from .forms import *
 from datetime import datetime
 import choco.settings as settings
 
+import time
+
 # Create your views here.
 
 users = User.objects
@@ -24,7 +26,7 @@ user_orders = Orders.objects
 
 user_hard_id = None
 user_cookie = None
-active_url = None
+url_cookie = None
 start_url = 'http://127.0.0.1:8000/'
 
 
@@ -74,7 +76,7 @@ def login_check(request):
         for i in users.all():
             if (i.email == login or i.name == login) and i.password == password:
                 user_hard_id = i.hard_id
-        message = 'Вы успешно вошли. Нажмите на кнопку "Войти" еще раз'
+        message = 'Авторизация прошла успешно. Нажмите на кнопку "Войти" еще раз'
         response = render(request, 'users/login.html',
                           context={'message': message, 'start_url': start_url, 'form': form_class})
         response.set_cookie('hard_id', user_hard_id, secure=True, samesite='Lax', httponly=True, max_age=None)
@@ -109,7 +111,7 @@ def account(request):
 
 
 def info_product(request, id):
-    global user_cookie, active_url
+    global user_cookie, url_cookie
     divider = 0
     score_all_users = 0
     total = 0
@@ -127,13 +129,18 @@ def info_product(request, id):
             general_assessment = 0
         else:
             general_assessment = round(score_all_users / divider, 1)
-        active_url = request.build_absolute_uri()
-        return render(request, 'main/info_product.html',
-                      context={'products': products.filter(id=id), 'feedbacks': feedbacks.filter(id_product=id),
-                               'id': id, 'start_url': start_url, 'user_hard_id': user_cookie,
-                               'general_assessment': general_assessment, 'count_feedbacks': divider,
-                               'users': users.all(), 'basket': basket.filter(basket=True, hard_id=user_cookie),
-                               'total': total})
+        url_cookie = request.build_absolute_uri()
+        response = render(request, 'main/info_product.html', context={'products': products.filter(id=id),
+                                                                      'feedbacks': feedbacks.filter(id_product=id),
+                                                                      'id': id, 'start_url': start_url,
+                                                                      'user_hard_id': user_cookie,
+                                                                      'general_assessment': general_assessment,
+                                                                      'count_feedbacks': divider, 'users': users.all(),
+                                                                      'basket': basket.filter(basket=True,
+                                                                                              hard_id=user_cookie),
+                                                                      'total': total})
+        response.set_cookie('url', url_cookie, secure=True, samesite='Lax', httponly=True, max_age=None)
+        return response
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -161,27 +168,30 @@ def view_basket(request):
 
 
 def add_basket(request, id):
-    global active_url
+    global url_cookie
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
-        active_url = None
+        url_cookie = None
         count_product = request.POST.get('count_product')
         existence = basket.filter(id_product=id, hard_id=user_cookie).exists()
         if count_product == '':
-            message = 'Упс! Что-то пошло не так'
+            print('Ошибка добавления')
         else:
             if not existence:
                 for i in products.filter(id=id):
                     basket.create(id_product=id, count=count_product, product_name=i.product_name,
                                   favourites=False, basket=True, price=i.price, hard_id=user_cookie)
-                message = 'Товар успешно добавлен в корзину'
             else:
-                if basket.filter(id_product=id, favourites=True, hard_id=user_cookie).exists():
-                    basket.filter(id_product=id, hard_id=user_cookie).update(basket=True)
-                    message = 'Товар успешно добавлен в корзину'
+                for i in products.filter(id=id):
+                    if basket.filter(id_product=id, favourites=True, hard_id=user_cookie).exists():
+                        basket.filter(id_product=id, hard_id=user_cookie).update(basket=True, price=i.price,
+                                                                                 count=count_product)
                 else:
-                    message = 'Товар уже есть в корзине'
-        return render(request, 'users/add_basket.html', context={'message': message, 'user_hard_id': user_cookie})
+                    for i in products.filter(id=id):
+                        basket.filter(hard_id=user_cookie, basket=True, id_product=id).update(price=i.price,
+                                                                                              count=count_product)
+        time.sleep(0.7)
+        return info_product(request, id)
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -190,18 +200,20 @@ def delete_basket(request, id):
     user_cookie = request.COOKIES['hard_id']
     basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
     user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
-    return render(request, 'users/delete_basket.html', context={'user_hard_id': user_cookie})
+    return render(request, 'users/basket.html', context={'basket': basket.filter(basket=True, hard_id=user_cookie),
+                                                         'products': products.all(), 'start_url': start_url,
+                                                         'user_hard_id': user_cookie,
+                                                         'user_chocolate': user_chocolate.filter(hard_id=user_cookie)})
 
 
 def ajax_delete_basket(request, id):
+    url_active = request.COOKIES['url']
     try:
-        global active_url
         user_cookie = request.COOKIES['hard_id']
         basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
         user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
-        return info_product(request, int(active_url[50:-1]))
+        return info_product(request, url_active[(url_active.index('%3D') + 3):-1])
     except:
-        active_url = None
         return main_user(request)
 
 
