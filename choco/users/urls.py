@@ -38,6 +38,7 @@ urlpatterns = [
     path('chocolate/orders/', users.orders, name='orders'),
     path('chocolate/orders/check', users.orders_check, name='orders_check'),
     path('basket/delete/id_product=<int:id>/', users.ajax_delete_basket, name='ajax_delete_basket'),
+    path('favourites/delete/id_product=<int:id_product>/', users.delete_favourites_2, name='delete_favourites_2'),
 ]
 
 handler404 = 'main.views.error_404'

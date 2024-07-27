@@ -132,13 +132,14 @@ def info_product(request, id):
         url_cookie = request.build_absolute_uri()
         response = render(request, 'main/info_product.html', context={'products': products.filter(id=id),
                                                                       'feedbacks': feedbacks.filter(id_product=id),
-                                                                      'id': id, 'start_url': start_url,
+                                                                      'id_product': id, 'start_url': start_url,
                                                                       'user_hard_id': user_cookie,
                                                                       'general_assessment': general_assessment,
                                                                       'count_feedbacks': divider, 'users': users.all(),
                                                                       'basket': basket.filter(basket=True,
                                                                                               hard_id=user_cookie),
-                                                                      'total': total})
+                                                                      'total': total, 'favourites': basket.filter(
+                hard_id=user_cookie, favourites=True, id_product=id).exists()})
         response.set_cookie('url', url_cookie, secure=True, samesite='Lax', httponly=True, max_age=None)
         return response
     else:
@@ -183,12 +184,12 @@ def add_basket(request, id):
                                   favourites=False, basket=True, price=i.price, hard_id=user_cookie)
             else:
                 for i in products.filter(id=id):
-                    if basket.filter(id_product=id, favourites=True, hard_id=user_cookie).exists():
-                        basket.filter(id_product=id, hard_id=user_cookie).update(basket=True, price=i.price,
-                                                                                 count=count_product)
-                else:
-                    for i in products.filter(id=id):
-                        basket.filter(hard_id=user_cookie, basket=True, id_product=id).update(price=i.price,
+                    if basket.filter(id_product=id, basket=False, hard_id=user_cookie, favourites=True).exists():
+                        basket.filter(id_product=id, basket=False, hard_id=user_cookie).update(price=i.price,
+                                                                                               count=count_product,
+                                                                                               basket=True)
+                    else:
+                        basket.filter(id_product=id, basket=True, hard_id=user_cookie).update(price=i.price,
                                                                                               count=count_product)
         time.sleep(1)
         return info_product(request, id)
@@ -198,7 +199,10 @@ def add_basket(request, id):
 
 def delete_basket(request, id):
     user_cookie = request.COOKIES['hard_id']
-    basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
+    if basket.filter(id=id, hard_id=user_cookie, basket=True, favourites=True).exists():
+        basket.filter(id=id, hard_id=user_cookie, basket=True, favourites=True).update(basket=False)
+    else:
+        basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
     user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
     return render(request, 'users/basket.html', context={'basket': basket.filter(basket=True, hard_id=user_cookie),
                                                          'products': products.all(), 'start_url': start_url,
@@ -210,7 +214,10 @@ def ajax_delete_basket(request, id):
     url_active = request.COOKIES['url']
     try:
         user_cookie = request.COOKIES['hard_id']
-        basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
+        if basket.filter(id=id, hard_id=user_cookie, basket=True, favourites=True).exists():
+            basket.filter(id=id, hard_id=user_cookie, basket=True, favourites=True).update(basket=False)
+        else:
+            basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
         user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
         return info_product(request, url_active[(url_active.index('%3D') + 3):-1])
     except:
@@ -220,7 +227,10 @@ def ajax_delete_basket(request, id):
 def delete_favourites(request, id):
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
-        basket.filter(id=id, hard_id=user_cookie, favourites=True).delete()
+        if basket.filter(id=id, hard_id=user_cookie, favourites=True, basket=True).exists():
+            basket.filter(id=id, hard_id=user_cookie, favourites=True, basket=True).update(favourites=False)
+        else:
+            basket.filter(id=id, hard_id=user_cookie, favourites=True).delete()
         return render(request, 'users/favourites.html', context={'favourites': basket.filter(favourites=True,
                                                                                              hard_id=user_cookie),
                                                                  'products': products.all(),
@@ -229,18 +239,30 @@ def delete_favourites(request, id):
         return render(request, 'main/error_404.html', status=404)
 
 
+def delete_favourites_2(request, id_product):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        if basket.filter(id_product=id_product, hard_id=user_cookie, favourites=True, basket=True).exists():
+            basket.filter(id_product=id_product, hard_id=user_cookie, favourites=True, basket=True).update(
+                favourites=False)
+        else:
+            basket.filter(id_product=id_product, hard_id=user_cookie, favourites=True).delete()
+        return info_product(request, id_product)
+    else:
+        return render(request, 'main/error_404.html', status=404)
+
+
 def add_favourites(request, id):
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
-        existence = basket.filter(id_product=id, hard_id=user_cookie).exists()
         count_product = request.POST.get('count_product')
         if count_product == '':
             print('Ошибка добавления')
         else:
             if basket.filter(id_product=id, favourites=True, hard_id=user_cookie).exists():
                 print('Ошибка добавления')
-            elif existence:
-                basket.filter(id_product=id, hard_id=user_cookie).update(favourites=True)
+            elif basket.filter(id_product=id, favourites=False, hard_id=user_cookie, basket=True).exists():
+                basket.filter(id_product=id, favourites=False, hard_id=user_cookie, basket=True).update(favourites=True)
             else:
                 for i in products.filter(id=id):
                     basket.create(id_product=id, count=count_product, product_name=i.product_name,
