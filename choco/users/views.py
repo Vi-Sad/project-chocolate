@@ -267,7 +267,6 @@ def add_favourites(request, id):
                 for i in products.filter(id=id):
                     basket.create(id_product=id, count=count_product, product_name=i.product_name,
                                   favourites=True, basket=False, hard_id=user_cookie)
-        time.sleep(1)
         return info_product(request, id)
     else:
         return render(request, 'main/error_404.html', status=404)
