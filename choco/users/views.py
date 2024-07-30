@@ -174,7 +174,7 @@ def add_basket(request, id):
     if users.filter(hard_id=user_cookie).exists():
         url_cookie = None
         count_product = request.POST.get('count_product')
-        existence = basket.filter(id_product=id, hard_id=user_cookie).exists()
+        existence = basket.filter(id_product=id, hard_id=user_cookie, create_chocolate_user=False).exists()
         if count_product == '':
             print('Ошибка добавления')
         else:
@@ -428,7 +428,7 @@ def create_chocolate_check(request):
         for i in user_chocolate.filter(hard_id=user_cookie, product_name='Особый шоколад 0'):
             id_product = i.id
         basket.create(hard_id=user_cookie, price=int(res_price_2) / int(count), count=count, basket=True,
-                      product_name=f'Особый шоколад {id_product}', id_product=id_product)
+                      product_name=f'Особый шоколад {id_product}', id_product=id_product, create_chocolate_user=True)
         for i in basket.filter(hard_id=user_cookie, product_name=f'Особый шоколад {id_product}'):
             id_basket = i.id
         user_chocolate.filter(hard_id=user_cookie, product_name='Особый шоколад 0').update(

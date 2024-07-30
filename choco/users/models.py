@@ -26,6 +26,7 @@ class Basket(models.Model):
     price = models.IntegerField(default=0)
     favourites = models.BooleanField(default=False)
     basket = models.BooleanField(default=False)
+    create_chocolate_user = models.BooleanField(default=False)
 
     def __str__(self):
         return self.product_name

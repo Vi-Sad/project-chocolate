@@ -1,0 +1,27 @@
+<h2 id="feedbacks">Отзывы:</h2>
+<div>
+    {% if feedbacks|length == 0 %}
+    <p>Отзывов пока нет</p>
+    {% else %}
+    {% for i in feedbacks %}
+    <div class="feedback">
+        <div class="date_and_score">
+            <p style="color: grey">{{ i.date }}</p>
+            <p>•</p>
+            <img src="../../../../media/icons/icon_score.png" alt="icon_score" style="height: 20px" />
+            <p>{{ i.score }}</p>
+        </div>
+        {% if i.anonim == 1 %}
+        <p style="color: rgb(156, 90, 54)">Пользователь скрыл свои данные</p>
+        {% else %}
+        {% for j in users %}
+        {% if i.hard_id == j.hard_id %}
+        <p style="color: rgb(156, 90, 54)">{{ j.name }} {{ j.lastname }}</p>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        <p style="word-wrap: break-word;">{{ i.message }}</p>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
