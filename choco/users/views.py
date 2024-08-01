@@ -23,6 +23,7 @@ basket = Basket.objects
 feedbacks = Feedback.objects
 user_chocolate = UserChocolate.objects
 user_orders = Orders.objects
+new_update_password = NewUpdatePassword.objects
 
 user_hard_id = None
 user_cookie = None
@@ -324,7 +325,9 @@ def new_password_check(request):
     if users.filter(email=email).exists():
         message = 'Проверьте Вашу эл. почту'
         for i in users.filter(email=email):
-            url = f'{start_url}/user/update_password/{i.hard_id}'
+            if new_update_password.filter(hard_id=i.hard_id).exists():
+                url = f'{start_url}/user/update_password/{i.hard_id}/'
+                new_update_password.filter(hard_id=i.hard_id).update(new_password=True)
         send_mail('Восстановление пароля', f'Перейдите по ссылке для восстановления аккаунта.\nСсылка -> {url}',
                   settings.EMAIL_HOST_USER, [email])
     else:
@@ -335,7 +338,10 @@ def new_password_check(request):
 def update_password(request, hard_id):
     # user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=hard_id).exists():
-        return render(request, 'users/update_password.html', context={'hard_id': hard_id, 'start_url': start_url})
+        if new_update_password.filter(hard_id=hard_id, new_password=True).exists():
+            return render(request, 'users/update_password.html', context={'hard_id': hard_id, 'start_url': start_url})
+        else:
+            return render(request, 'main/error_404.html', status=404)
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -349,6 +355,7 @@ def update_password_check(request, hard_id):
         if is_valid_password(password_1, password_2):
             message = 'Ваш пароль был успешно обновлен. Нажмите на кнопку "Применить" еще раз'
             users.filter(hard_id=hard_id).update(password=password_1)
+            new_update_password.filter(hard_id=hard_id).update(new_password=False)
         else:
             message = 'Пароли не совпадают или не соответствуют требованиям'
         return render(request, 'users/update_password.html', context={'message': message, 'hard_id': hard_id,

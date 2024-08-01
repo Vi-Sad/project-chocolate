@@ -71,3 +71,12 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.message
+
+
+class NewUpdatePassword(models.Model):
+    objects = None
+    hard_id = models.CharField(default=None, max_length=50)
+    new_password = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.hard_id
