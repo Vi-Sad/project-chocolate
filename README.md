@@ -1,2 +1,2 @@
 # Project Chocolate
-Shop-showcase of handmade chocolate
+Shop of handmade chocolate
