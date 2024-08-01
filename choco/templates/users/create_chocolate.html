@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
   <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
   <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/add.css' %}" />
 </head>
 
 <body>
@@ -17,7 +18,7 @@
     {% include 'users/buy.html' %}
     <h2>Создай свою шоколадку!</h2>
     <p>*1 штука без пищевых добавок = 20₽</p>
-    <form action="{% url 'create_chocolate_check' %}" method="post">
+    <form action="{% url 'create_chocolate_check' %}" method="post" id="form_create">
       {% csrf_token %}
       <div>
         <h3>Внешний вид:</h3>
@@ -98,6 +99,7 @@
       <button type="submit" id="but_basket">В корзину</button>
       {% endif %}
     </form>
+    {% include 'users/add.html' %}
   </div>
   {% include 'main/footer.html' %}
   <script src="{% static 'js/buy.js' %}"></script>

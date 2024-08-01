@@ -391,18 +391,26 @@ def cookie_get(request):
 
 
 def create_chocolate(request):
+    total = 0
     try:
         user_cookie = request.COOKIES['hard_id']
+        for i in basket.filter(basket=True, hard_id=user_cookie):
+            total += (i.price * i.count)
     except KeyError:
         user_cookie = None
     return render(request, 'users/create_chocolate.html', context={'user_hard_id': user_cookie,
                                                                    'basket': basket.filter(basket=True,
-                                                                                           hard_id=user_cookie)})
+                                                                                           hard_id=user_cookie),
+                                                                   'total': total})
 
 
 def create_chocolate_check(request):
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
+        total = 0
+        for i in basket.filter(basket=True, hard_id=user_cookie):
+            total += (i.price * i.count)
+
         chocolate = request.POST.get('chocolate')
         basic = request.POST.get('basic')
 
@@ -433,7 +441,11 @@ def create_chocolate_check(request):
             id_basket = i.id
         user_chocolate.filter(hard_id=user_cookie, product_name='Особый шоколад 0').update(
             product_name=f'Особый шоколад {id_product}', id_basket=id_basket)
-        return render(request, 'users/create_chocolate_check.html')
+        time.sleep(1)
+        return render(request, 'users/create_chocolate.html', context={'user_hard_id': user_cookie,
+                                                                       'basket': basket.filter(basket=True,
+                                                                                               hard_id=user_cookie),
+                                                                       'total': total})
     else:
         return render(request, 'main/error_404.html', status=404)
 

@@ -21,6 +21,8 @@ let all_chocolate = [radio_square, radio_heart, radio_circle, radio_triangle];
 let all_basic = [radio_milk, radio_white, radio_no_sugar, radio_bitter];
 let all_additives = [checkbox_raspberry, checkbox_pineapple, checkbox_strawberry, checkbox_nuts];
 
+let add_basket = document.getElementById("add_basket");
+
 function res_chocolate(e) {
     e.preventDefault();
     let res_price = document.getElementById("res_price");
@@ -64,3 +66,9 @@ res_count.addEventListener('change', () => {
     res_price.innerHTML = "?₽";
     but_basket.disabled = true;
 });
+
+function message_create() {
+    add_basket.style.display = "block";
+};
+
+but_basket.onclick = message_create;
