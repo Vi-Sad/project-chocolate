@@ -37,7 +37,7 @@ urlpatterns = [
     path('chocolate/create/check/', users.create_chocolate_check, name='create_chocolate_check'),
     path('chocolate/orders/', users.orders, name='orders'),
     path('chocolate/orders/check', users.orders_check, name='orders_check'),
-    path('basket/delete/id_product=<int:id>/', users.ajax_delete_basket, name='ajax_delete_basket'),
+    path('basket/delete/id_product=<int:id>/', users.delete_basket_2, name='delete_basket_2'),
     path('favourites/delete/id_product=<int:id_product>/', users.delete_favourites_2, name='delete_favourites_2'),
 ]
 

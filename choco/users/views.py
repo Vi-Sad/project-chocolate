@@ -210,7 +210,7 @@ def delete_basket(request, id):
                                                          'user_chocolate': user_chocolate.filter(hard_id=user_cookie)})
 
 
-def ajax_delete_basket(request, id):
+def delete_basket_2(request, id):
     url_active = request.COOKIES['url']
     try:
         user_cookie = request.COOKIES['hard_id']
@@ -219,7 +219,12 @@ def ajax_delete_basket(request, id):
         else:
             basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
         user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
-        return info_product(request, url_active[(url_active.index('%3D') + 3):-1])
+        if 'user/chocolate/id_product%3D' in url_active:
+            return info_product(request, url_active[(url_active.index('%3D') + 3):-1])
+        elif url_active == f'{start_url}user/chocolate/create/':
+            return create_chocolate(request)
+        else:
+            return main_user(request)
     except:
         return main_user(request)
 
@@ -290,7 +295,7 @@ def send_feedback(request, id):
                                                                         anonim=anonim, date=datetime.now())
             message = 'Отзыв обновлен. Спасибо!'
         return render(request, 'users/check_feedback.html', context={'message': message, 'start_url': start_url,
-                                                                     'user_hard_id': user_cookie})
+                                                                     'user_hard_id': user_cookie, 'id_product': id})
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -311,7 +316,7 @@ def account_delete(request):
 
 
 def new_password(request):
-    return render(request, 'users/new_password.html')
+    return render(request, 'users/new_password.html', context={'start_url': start_url})
 
 
 def new_password_check(request):
@@ -323,29 +328,31 @@ def new_password_check(request):
         send_mail('Восстановление пароля', f'Перейдите по ссылке для восстановления аккаунта.\nСсылка -> {url}',
                   settings.EMAIL_HOST_USER, [email])
     else:
-        message = 'Упс! Что-то пошло не так'
-    return render(request, 'users/new_password_check.html', context={'message': message})
+        message = 'Пользователь с данной эл. почтой не зарегистрирован'
+    return render(request, 'users/new_password.html', context={'message': message, 'start_url': start_url})
 
 
 def update_password(request, hard_id):
     # user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=hard_id).exists():
-        return render(request, 'users/update_password.html', context={'hard_id': hard_id})
+        return render(request, 'users/update_password.html', context={'hard_id': hard_id, 'start_url': start_url})
     else:
         return render(request, 'main/error_404.html', status=404)
 
 
 def update_password_check(request, hard_id):
+    global new_password
     # user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=hard_id).exists():
         password_1 = request.POST.get('password_1')
         password_2 = request.POST.get('password_2')
         if is_valid_password(password_1, password_2):
-            message = 'Ваш пароль был успешно обновлен'
+            message = 'Ваш пароль был успешно обновлен. Нажмите на кнопку "Применить" еще раз'
             users.filter(hard_id=hard_id).update(password=password_1)
         else:
-            message = 'Пароль не соответствует требованиям'
-        return render(request, 'users/update_password_check.html', context={'message': message, 'hard_id': hard_id})
+            message = 'Пароли не совпадают или не соответствуют требованиям'
+        return render(request, 'users/update_password.html', context={'message': message, 'hard_id': hard_id,
+                                                                      'start_url': start_url})
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -353,7 +360,7 @@ def update_password_check(request, hard_id):
 def change_password(request):
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
-        return render(request, 'users/change_password.html')
+        return render(request, 'users/change_password.html', context={'start_url': start_url})
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -366,7 +373,7 @@ def change_password_check(request):
         password_2 = request.POST.get('password_2')
         if users.filter(hard_id=user_cookie, password=password_0).exists():
             if is_valid_password(password_1, password_2) and password_0 != password_1:
-                message = 'Ваш пароль был успешно изменен'
+                message = 'Ваш пароль был успешно изменен. Нажмите на кнопку "Применить" еще раз'
                 users.filter(hard_id=user_cookie).update(password=password_1)
             elif is_valid_password(password_1, password_2) and password_0 == password_1:
                 message = 'Новый пароль не должен совпадать со старым'
@@ -374,7 +381,8 @@ def change_password_check(request):
                 message = 'Новые пароли не совпадают'
         else:
             message = 'Текущий пароль введен не верно'
-        return render(request, 'users/change_password_check.html', context={'hard_id': user_cookie, 'message': message})
+        return render(request, 'users/change_password.html', context={'hard_id': user_cookie, 'message': message,
+                                                                      'start_url': start_url})
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -391,6 +399,7 @@ def cookie_get(request):
 
 
 def create_chocolate(request):
+    global url_cookie
     total = 0
     try:
         user_cookie = request.COOKIES['hard_id']
@@ -398,10 +407,12 @@ def create_chocolate(request):
             total += (i.price * i.count)
     except KeyError:
         user_cookie = None
-    return render(request, 'users/create_chocolate.html', context={'user_hard_id': user_cookie,
-                                                                   'basket': basket.filter(basket=True,
-                                                                                           hard_id=user_cookie),
-                                                                   'total': total})
+    url_cookie = request.build_absolute_uri()
+    response = render(request, 'users/create_chocolate.html', context={'user_hard_id': user_cookie, 'total': total,
+                                                                       'basket': basket.filter(basket=True,
+                                                                                               hard_id=user_cookie)})
+    response.set_cookie('url', url_cookie, secure=True, samesite='Lax', httponly=True, max_age=None)
+    return response
 
 
 def create_chocolate_check(request):

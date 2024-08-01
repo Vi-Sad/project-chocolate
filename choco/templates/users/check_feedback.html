@@ -1,15 +1,21 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Добавление отзыва</title>
     <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
 </head>
+
 <body>
-<p>{{ message }}</p>
-<a href="{% url 'main' %}">
-    <input type="button" value="Вернуться">
-</a>
+    <p>{{ message }}</p>
+    <a href="{% url 'main' %}#all_products">
+        <input type="button" value="Вернуться на Каталогу">
+    </a>
+    <a href="{% url 'info_product' id_product %}">
+        <input type="button" value="Вернуться к товару">
+    </a>
 </body>
+
 </html>
