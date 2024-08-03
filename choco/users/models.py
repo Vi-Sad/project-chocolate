@@ -12,6 +12,7 @@ class User(models.Model):
     password = models.CharField(max_length=20)
     date_registration = models.DateField(default=None)
     hard_id = models.CharField(default=None, unique=True, max_length=50)
+    photo = models.ImageField(default=None, null=True, upload_to='ava/')
 
     def __str__(self):
         return self.name

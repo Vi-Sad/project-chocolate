@@ -13,6 +13,27 @@
     <div class="content">
         <h2>Ваши личные данные</h2>
         {% for i in user %}
+        <form id="form_add_image" action="{% url 'account_add_image' %}" method="post">
+            {% csrf_token %}
+            {% if i.photo == None or i.photo == "None" %}
+            <img src="../../media/icons/icon_no_photo.png" name="test" alt="user_photo" id="img_image"
+                style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
+            <div class="div_image">
+                <label id="label_image" for="inp_image">Добавить фото</label>
+                <input type="file" name="inp_image" id="inp_image" accept="image/*" style="display: none;" />
+            </div>
+            {% else %}
+            <img src="{{ i.photo.url }}" alt="user_photo" id="img_image"
+                style="width: 200px; height: 200px; object-fit: cover;">
+            <div class="div_image">
+                <label id="label_image" for="inp_image">Заменить фото</label>
+                <input type="file" name="inp_image" id="inp_image" accept="image/*" style="display: none;" />
+            </div>
+            {% endif %}
+            <input type="text" id="src_image" name="src_image"
+                style="width: 0; height: 0; opacity: 0; position: absolute">
+            <button type="submit" id="but_add_photo">Применить</button>
+        </form>
         <p>Фамилия: {{ i.lastname }}</p>
         <p>Имя: {{ i.name }}</p>
         <p>ID: {{ i.hard_id }}</p>
@@ -20,6 +41,7 @@
         <p>Пароль: {{ i.password }}</p>
         <p>Дата регистрации: {{ i.date_registration }}</p>
         {% endfor %}
+        <br>
         <a href="{% url 'favourites' %}">
             <button>Избранное</button>
         </a>
@@ -36,6 +58,7 @@
     <a href="{% url 'change_password' %}">Изменить пароль</a>
     <a href="{% url 'account_delete' %}">Удалить аккаунт</a>
     {% include 'main/footer.html' %}
+    <script src="{% static 'js/account.js' %}"></script>
 </body>
 
 </html>

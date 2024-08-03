@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, DetailView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.core.mail import send_mail
-import json
+import urllib.request
 from django.views.decorators.http import require_http_methods
 
 from main.models import *
@@ -302,12 +302,15 @@ def send_feedback(request, id):
 
 
 def account_delete(request):
-    global user_hard_id
+    global user_hard_id, user_cookie
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
         users.filter(hard_id=user_cookie).delete()
         basket.filter(hard_id=user_cookie).delete()
         feedbacks.filter(hard_id=user_cookie).delete()
+        new_update_password.filter(hard_id=user_cookie).delete()
+        user_orders.filter(hard_id=user_cookie).delete()
+
         user_hard_id, user_cookie = None, None
         response = render(request, 'users/account_delete.html')
         response.set_cookie('hard_id', user_hard_id, secure=True, samesite='Lax', httponly=True, max_age=None)
@@ -489,5 +492,17 @@ def orders_check(request):
                 basket.filter(hard_id=user_cookie, basket=True).delete()
         return render(request, 'users/orders_check.html', context={'user_orders': user_orders.filter(
             hard_id=user_cookie), 'user_cookie': user_cookie})
+    else:
+        return render(request, 'main/error_404.html', status=404)
+
+
+def account_add_image(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        src_image = request.POST.get('src_image')
+        user_ava_image = f'media/ava/{user_cookie}_ava.jpg'
+        urllib.request.urlretrieve(src_image, user_ava_image)
+        users.filter(hard_id=user_cookie).update(photo=f'ava/{user_cookie}_ava.jpg')
+        return render(request, 'users/account.html', context={'user': users.filter(hard_id=user_cookie)})
     else:
         return render(request, 'main/error_404.html', status=404)
