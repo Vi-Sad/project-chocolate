@@ -11,12 +11,14 @@
   <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
   <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
   <link rel="stylesheet" href="{% static 'css/add.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/send_feedback_images.css' %}" />
 </head>
 
 <body>
-  {% include 'main/nav.html' %}
   {% include 'users/buy.html' %}
   {% include 'users/add.html' %}
+  {% include 'main/nav.html' %}
+  <br>
   <div class="content">
     <a href="{% url 'main' %}#all_products" class="main_all_products_a">
       <span class="main_all_products_span">&#8617; </span> Вернуться в Каталог
@@ -91,6 +93,7 @@
   {% include 'main/footer.html' %}
   <script src="{% static 'js/add.js' %}" type=""></script>
   <script src="{% static 'js/buy.js' %}"></script>
+  <script src="{% static 'js/send_feedback_images.js' %}"></script>
 </body>
 
 </html>

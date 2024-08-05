@@ -5,7 +5,9 @@ nav {
   align-items: center;
   padding: 5px;
   background-color: rgba(235, 222, 215);
-  position: sticky;
+  position: fixed;
+  height: max-content;
+  width: 100%;
   z-index: 1;
 }
 
@@ -51,18 +53,18 @@ nav img:hover {
   height: 20px;
 }
 
-#buy > img:hover,
-#buy > sup:hover,
+#buy>img:hover,
+#buy>sup:hover,
 #buy {
   cursor: pointer;
 }
 
-#buy > img {
+#buy>img {
   height: 35px;
   margin-left: 20px;
 }
 
-#buy > sup {
+#buy>sup {
   border: 1px solid rgb(156, 90, 54);
   border-radius: 50%;
   padding: 5px;

@@ -21,6 +21,7 @@ users = User.objects
 products = Product.objects
 basket = Basket.objects
 feedbacks = Feedback.objects
+feedbacks_images = FeedbackImage.objects
 user_chocolate = UserChocolate.objects
 user_orders = Orders.objects
 new_update_password = NewUpdatePassword.objects
@@ -135,6 +136,8 @@ def info_product(request, id):
                                                                       'feedbacks': feedbacks.filter(id_product=id),
                                                                       'id_product': id, 'start_url': start_url,
                                                                       'user_hard_id': user_cookie,
+                                                                      'feedback_image': feedbacks_images.filter(
+                                                                          hard_id=user_cookie, id_product=id),
                                                                       'general_assessment': general_assessment,
                                                                       'count_feedbacks': divider, 'users': users.all(),
                                                                       'basket': basket.filter(basket=True,
@@ -279,22 +282,41 @@ def add_favourites(request, id):
 
 
 def send_feedback(request, id):
+    def add_feedback_image():
+        num = 0
+        for i in all_src_feedbacks:
+            if i != '':
+                num += 1
+                user_feedback_image = f'media/feedback-img/{user_cookie}_feedback_{id}_img_{num}.jpg'
+                urllib.request.urlretrieve(i, user_feedback_image)
+                feedbacks_images.create(hard_id=user_cookie, id_product=id,
+                                        image=f'feedback-img/{user_cookie}_feedback_{id}_img_{num}.jpg')
+        return feedbacks_images.filter(hard_id=user_hard_id, id_product=id)
+
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
         message = request.POST.get('message')
         anonim = request.POST.get('anonim')
         score = request.POST.get('score')
+        src_feedback_1 = request.POST.get('src_feedback_1')
+        src_feedback_2 = request.POST.get('src_feedback_2')
+        src_feedback_3 = request.POST.get('src_feedback_3')
+        all_src_feedbacks = [src_feedback_1, src_feedback_2, src_feedback_3]
         existence = feedbacks.filter(id_product=id, hard_id=user_cookie).exists()
         anonim = True if anonim == 'on' else False
         if not existence:
             feedbacks.create(id_product=id, message=message, score=score, anonim=anonim, date=datetime.now(),
                              hard_id=user_cookie)
+            add_feedback_image()
             message = 'Спасибо за отзыв!'
         else:
             user_message = ' (изменено) '
             feedbacks.filter(id_product=id, hard_id=user_cookie).update(message=message + user_message, score=score,
                                                                         anonim=anonim, date=datetime.now())
             message = 'Отзыв обновлен. Спасибо!'
+            if feedbacks_images.filter(hard_id=user_cookie).exists():
+                feedbacks_images.filter(hard_id=user_cookie, id_product=id).delete()
+            add_feedback_image()
         return render(request, 'users/check_feedback.html', context={'message': message, 'start_url': start_url,
                                                                      'user_hard_id': user_cookie, 'id_product': id})
     else:
@@ -308,6 +330,7 @@ def account_delete(request):
         users.filter(hard_id=user_cookie).delete()
         basket.filter(hard_id=user_cookie).delete()
         feedbacks.filter(hard_id=user_cookie).delete()
+        feedbacks_images.filter(hard_id=user_cookie).delete()
         new_update_password.filter(hard_id=user_cookie).delete()
         user_orders.filter(hard_id=user_cookie).delete()
 

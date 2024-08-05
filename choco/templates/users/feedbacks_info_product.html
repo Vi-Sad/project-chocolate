@@ -21,6 +21,12 @@
         {% endfor %}
         {% endif %}
         <p style="word-wrap: break-word;">{{ i.message }}</p>
+        <div style="display: flex; gap: 20px;">
+            {% for i in feedback_image %}
+            <img src="{{ i.image.url }}" alt="user_feedback_image"
+                style="height: 150px; object-fit: cover;">
+            {% endfor %}
+        </div>
     </div>
     {% endfor %}
     {% endif %}

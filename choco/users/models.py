@@ -74,6 +74,13 @@ class Feedback(models.Model):
         return self.message
 
 
+class FeedbackImage(models.Model):
+    objects = None
+    hard_id = models.CharField(default=None, max_length=50)
+    id_product = models.IntegerField(default=0)
+    image = models.ImageField(default=None, null=True, upload_to='feedback-img/')
+
+
 class NewUpdatePassword(models.Model):
     objects = None
     hard_id = models.CharField(default=None, max_length=50)
