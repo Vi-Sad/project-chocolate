@@ -22,4 +22,3 @@ function submit_favourites() {
 }
 
 but_basket.onclick = submit_basket;
-but_favourites.onclick = submit_favourites;

@@ -1,11 +1,10 @@
-#add_basket,
-#add_favourites {
+#add_basket {
     background-color: rgba(8, 184, 66, 0.811);
     text-align: center;
     display: none;
+    border-radius: 50px;
 }
 
-#add_basket>p,
-#add_favourites>p {
+#add_basket>p {
     color: white;
 }

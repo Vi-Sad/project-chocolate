@@ -1,3 +1,5 @@
+import os
+
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView
@@ -43,15 +45,17 @@ def registration_check(request):
     name = request.POST['username']
     lastname = request.POST['lastname']
     email = request.POST['email']
+    birthday = request.POST['birthday']
     password = request.POST['password1']
     password_2 = request.POST['password2']
+    birthday = None if birthday == '' else birthday
     if len(name) == 0 or len(email) == 0 or len(password) == 0:
         message = 'Поля не могут быть пустыми'
     elif all([x.email != email for x in users.all()]):
         if is_valid_password(password, password_2) and is_valid_email(email) and is_valid_name(name, lastname):
             hard_id = user_url(name)
             User.objects.create(name=name, lastname=lastname, email=email, password=password,
-                                date_registration=datetime.now(), hard_id=hard_id)
+                                date_registration=datetime.now(), hard_id=hard_id, birthday=birthday, photo=None)
             message = 'Вы успешны зарегистрированы. Попробуйте войти'
         else:
             message = 'Ваша эл. почта, никнейм или пароль не соответствуют требованиям'
@@ -107,6 +111,31 @@ def logout(request):
 def account(request):
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
+        for i in users.filter(hard_id=user_cookie):
+            user_email = i.email
+        return render(request, 'users/account.html', context={'user': users.filter(hard_id=user_cookie),
+                                                              'user_email': user_email})
+    else:
+        return render(request, 'main/error_404.html', status=404)
+
+
+def account_update_email(request):
+    user_cookie = request.COOKIES['hard_id']
+    if users.filter(hard_id=user_cookie).exists():
+        inp_update_email = request.POST.get('inp_email')
+        if is_valid_email(inp_update_email):
+            users.filter(hard_id=user_cookie).update(email=inp_update_email)
+    else:
+        return render(request, 'main/error_404.html', status=404)
+    return account(request)
+
+
+def account_update_birthday(request):
+    user_cookie = request.COOKIES['hard_id']
+    inp_birthday = request.POST['inp_birthday']
+    if users.filter(hard_id=user_cookie).exists():
+        inp_birthday = None if inp_birthday == '' else inp_birthday
+        users.filter(hard_id=user_cookie).update(birthday=inp_birthday)
         return render(request, 'users/account.html', context={'user': users.filter(hard_id=user_cookie)})
     else:
         return render(request, 'main/error_404.html', status=404)
@@ -314,7 +343,9 @@ def send_feedback(request, id):
             feedbacks.filter(id_product=id, hard_id=user_cookie).update(message=message + user_message, score=score,
                                                                         anonim=anonim, date=datetime.now())
             message = 'Отзыв обновлен. Спасибо!'
-            if feedbacks_images.filter(hard_id=user_cookie).exists():
+            if feedbacks_images.filter(hard_id=user_cookie, id_product=id).exists():
+                for i in feedbacks_images.filter(hard_id=user_cookie, id_product=id):
+                    os.remove(f'media/{i.image}')
                 feedbacks_images.filter(hard_id=user_cookie, id_product=id).delete()
             add_feedback_image()
         return render(request, 'users/check_feedback.html', context={'message': message, 'start_url': start_url,

@@ -13,6 +13,7 @@ class User(models.Model):
     date_registration = models.DateField(default=None)
     hard_id = models.CharField(default=None, unique=True, max_length=50)
     photo = models.ImageField(default=None, null=True, upload_to='ava/')
+    birthday = models.DateField(default=None, null=True)
 
     def __str__(self):
         return self.name
