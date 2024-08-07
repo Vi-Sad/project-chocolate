@@ -7,72 +7,87 @@
     <title>Личный кабинет</title>
     <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
     <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/account.css' %}" />
 </head>
 
 <body>
     <div class="content">
-        <h2>Ваши личные данные</h2>
+        <h2>Мои данные</h2>
+        <a href="{% url 'main' %}#all_products" class="main_all_products_a">
+            <span class="main_all_products_span">&#8617; </span> Вернуться в Каталог
+        </a>
         {% for i in user %}
-        <form id="form_add_image" action="{% url 'account_add_image' %}" method="post">
-            {% csrf_token %}
-            {% if i.photo == None or i.photo == "None" or i.photo == "" %}
-            <img src="../../media/icons/icon_no_photo.png" name="test" alt="user_photo" id="img_image"
-                style="width: 200px; height: 200px; object-fit: cover; border-radius: 50%;">
-            <div class="div_image">
-                <label id="label_image" for="inp_image">Добавить фото</label>
-                <input type="file" name="inp_image" id="inp_image" accept=".jpg, .jpeg, .png" style="display: none;" />
+        <div id="user_name_and_buttons">
+            <div class="name_and_image">
+                <form id="form_add_image" action="{% url 'account_add_image' %}" method="post">
+                    {% csrf_token %}
+                    {% if i.photo == None or i.photo == "None" or i.photo == "" %}
+                    <img src="../../media/icons/icon_no_photo.png" alt="user_photo" id="img_image">
+                    <div class="div_image">
+                        <label id="label_image" for="inp_image">Добавить фото</label>
+                        <input type="file" name="inp_image" id="inp_image" accept=".jpg, .jpeg, .png"
+                            style="display: none;" />
+                    </div>
+                    {% else %}
+                    <img src="{{ i.photo.url }}" alt="user_photo" id="img_image">
+                    <div class="div_image">
+                        <label id="label_image" for="inp_image">Заменить фото</label>
+                        <input type="file" name="inp_image" id="inp_image" accept=".jpg, .jpeg, .png"
+                            style="display: none;" />
+                    </div>
+                    {% endif %}
+                    <input type="text" id="src_image" name="src_image"
+                        style="width: 0; height: 0; opacity: 0; position: absolute">
+                    <button type="submit" id="but_add_photo">Применить</button>
+                </form>
+                <div class="user_name">
+                    <p>Имя, фамилия</p>
+                    <p>{{ i.name }} {{ i.lastname }}</p>
+                </div>
             </div>
-            {% else %}
-            <img src="{{ i.photo.url }}" alt="user_photo" id="img_image"
-                style="width: 200px; height: 200px; object-fit: cover;">
-            <div class="div_image">
-                <label id="label_image" for="inp_image">Заменить фото</label>
-                <input type="file" name="inp_image" id="inp_image" accept=".jpg, .jpeg, .png" style="display: none;" />
+            <div class="but_bottom">
+                <a href="{% url 'favourites' %}">
+                    <button>Избранное</button>
+                </a>
+                <a href="{% url 'basket' %}">
+                    <button>Корзина</button>
+                </a>
+                <a href="{% url 'orders' %}">
+                    <button>Заказы</button>
+                </a>
             </div>
-            {% endif %}
-            <input type="text" id="src_image" name="src_image"
-                style="width: 0; height: 0; opacity: 0; position: absolute">
-            <button type="submit" id="but_add_photo">Применить</button>
-        </form>
-        <p>Фамилия: {{ i.lastname }}</p>
-        <p>Имя: {{ i.name }}</p>
-        <form action="{% url 'account_update_email' %}" method="post" id="form_update_email">
-            {% csrf_token %}
-            <div style="display: flex; gap: 5px;">
-                <label>Эл. почта:</label>
-                <input type="text" name="inp_email" id="inp_update_email" value="{{ user_email }}"
-                    style="display: none;">
-                <span id="span_update_email">{{ user_email }}</span>
-            </div>
-            <button id="but_update_email" type="">Изменить эл. почту</button>
-        </form>
-        <form action="{% url 'account_update_birthday' %}" method="post" id="form_update_birthday">
-            {% csrf_token %}
-            {% if i.birthday == None or i.birthday == 'None' %}
-            <label>День рождение:</label>
-            <input type="date" name="inp_birthday">
-            <button id="but_update_birthday" type="submit">Применить</button>
-            {% else %}
-            <p>День рождение: {{ i.birthday }}</p>
-            {% endif %}
-        </form>
-        <p>Дата регистрации: {{ i.date_registration }}</p>
-        {% endfor %}
-        <a href="{% url 'favourites' %}">
-            <button>Избранное</button>
-        </a>
-        <a href="{% url 'basket' %}">
-            <button>Корзина</button>
-        </a>
-        <a href="{% url 'main' %}">
-            <button>Вернуться на главную</button>
-        </a>
-        <a href="{% url 'orders' %}">
-            <button>Заказы</button>
-        </a>
+        </div>
+        <br>
+        <h3>Учетные данные</h3>
+        <div id="account_data">
+            <form action="{% url 'account_update_email' %}" method="post" id="form_update_email">
+                {% csrf_token %}
+                <div style="display: flex; gap: 5px;">
+                    <label>Эл. почта:</label>
+                    <input type="text" name="inp_email" id="inp_update_email" value="{{ user_email }}"
+                        style="display: none; width: 35%;">
+                    <span id="span_update_email">{{ user_email }}</span>
+                </div>
+                <button id="but_update_email" type="">Изменить эл. почту</button>
+            </form>
+            <form action="{% url 'account_update_birthday' %}" method="post" id="form_update_birthday">
+                {% csrf_token %}
+                {% if i.birthday == None or i.birthday == 'None' %}
+                <label>День рождение:</label>
+                <input type="date" name="inp_birthday">
+                <button id="but_update_birthday" style="margin-left: 5px;" type="submit">Применить</button>
+                {% else %}
+                <p>День рождение: {{ i.birthday }}</p>
+                {% endif %}
+            </form>
+            <p>Дата регистрации: {{ i.date_registration }}</p>
+            {% endfor %}
+        </div>
+        <br>
+        <a id="a_new_pass" href="{% url 'change_password' %}">Изменить пароль</a>
+        <br>
+        <a id="a_del_account" href="{% url 'account_delete' %}">Удалить аккаунт</a>
     </div>
-    <a href="{% url 'change_password' %}">Изменить пароль</a>
-    <a href="{% url 'account_delete' %}">Удалить аккаунт</a>
     {% include 'main/footer.html' %}
     <script src="{% static 'js/account.js' %}"></script>
 </body>

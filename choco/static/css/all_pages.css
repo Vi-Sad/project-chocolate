@@ -23,6 +23,11 @@ body {
   flex: 1 0 auto;
 }
 
+section,
+.content {
+  margin: 100px 50px 0 50px;
+}
+
 h1 {
   color: rgb(156, 90, 54);
 }
@@ -52,4 +57,21 @@ input,
 textarea {
   border: 1px solid rgb(156, 90, 54);
   border-radius: 5px;
+}
+
+.main_all_products_a {
+  text-decoration: none;
+}
+
+.main_all_products_a:hover {
+  font-size: 20px;
+}
+
+.main_all_products_a:active {
+  color: rgb(156, 90, 54);
+}
+
+.main_all_products_span {
+  font-size: 30px;
+  font-weight: bold;
 }

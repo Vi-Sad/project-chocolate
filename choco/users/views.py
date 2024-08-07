@@ -136,7 +136,7 @@ def account_update_birthday(request):
     if users.filter(hard_id=user_cookie).exists():
         inp_birthday = None if inp_birthday == '' else inp_birthday
         users.filter(hard_id=user_cookie).update(birthday=inp_birthday)
-        return render(request, 'users/account.html', context={'user': users.filter(hard_id=user_cookie)})
+        return account(request)
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -554,9 +554,12 @@ def account_add_image(request):
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
         src_image = request.POST.get('src_image')
-        user_ava_image = f'media/ava/{user_cookie}_ava.jpg'
-        urllib.request.urlretrieve(src_image, user_ava_image)
-        users.filter(hard_id=user_cookie).update(photo=f'ava/{user_cookie}_ava.jpg')
-        return render(request, 'users/account.html', context={'user': users.filter(hard_id=user_cookie)})
+        if src_image == None or src_image == '':
+            print('src_image = None')
+        else:
+            user_ava_image = f'media/ava/{user_cookie}_ava.jpg'
+            urllib.request.urlretrieve(src_image, user_ava_image)
+            users.filter(hard_id=user_cookie).update(photo=f'ava/{user_cookie}_ava.jpg')
+        return account(request)
     else:
         return render(request, 'main/error_404.html', status=404)

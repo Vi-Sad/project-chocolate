@@ -132,23 +132,6 @@
   margin-left: 35%;
 }
 
-.main_all_products_span {
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.main_all_products_a {
-  text-decoration: none;
-}
-
-.main_all_products_a:hover {
-  font-size: 20px;
-}
-
-.main_all_products_a:active {
-  color: rgb(156, 90, 54);
-}
-
 #but_feedback {
   margin: 0;
 }

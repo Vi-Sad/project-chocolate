@@ -1,4 +1,4 @@
-<section id="buy_products" style="display: none">
+<section id="buy_products" style="display: none;">
   {% if basket|length == 0 %}
   <p>Корзина пуста</p>
   {% else %}
@@ -11,17 +11,14 @@
         <button class="but_del_basket">×</button>
       </a>
     </p>
-    <div class="inp" style="display: none;">
-      <input type="text" name="" value="">
-    </div>
     {% endfor %}
   </div>
   <br />
   <hr />
   <br />
   <p>Всего: {{ total }} руб.</p>
-<!--  <a href="{% url 'orders_check' %}">-->
-  <a href="https://web.telegram.org/k/#@choco_pay_online_bot">
+  <a href="{% url 'orders_check' %}">
+    <!-- <a href="https://web.telegram.org/k/#@choco_pay_online_bot"> -->
     <button class="but_buy_basket">Купить</button>
   </a>
   {% endif %}
