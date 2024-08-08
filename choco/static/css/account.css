@@ -1,5 +1,15 @@
 h2 {
     text-align: center;
+    background-color: rgba(235, 222, 215);
+    border-radius: 10px;
+}
+
+h3 {
+    font-size: 20px;
+    background-color: rgba(235, 222, 215);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 5px 10px;
 }
 
 #form_add_image>img,
@@ -22,7 +32,7 @@ h2 {
     display: flex;
     gap: 20px;
     margin-left: 10%;
-    border: 1px solid rgba(235, 222, 215);
+    border: 2px solid rgba(235, 222, 215);
     padding: 30px;
     border-radius: 10px;
     width: max-content;
@@ -92,8 +102,12 @@ button:active {
     text-decoration: none;
 }
 
-#a_new_pass {
+#a_new_pass,
+#a_del_account {
     text-decoration: none;
+    border: 2px solid rgba(235, 222, 215);
+    border-radius: 10px;
+    padding: 10px;
 }
 
 #a_del_account:active {
@@ -104,11 +118,22 @@ button:active {
 #a_new_pass:hover {
     cursor: pointer;
     color: rgb(156, 90, 54);
+    border: 2px solid rgb(156, 90, 54);
+}
+
+#a_del_account:active {
+    color: rgb(214, 80, 97);
+    border: 2px solid rgb(214, 80, 97);
+}
+
+#a_new_pass:active {
+    color: rgb(55, 55, 55);
+    border: 2px solid rgb(55, 55, 55);
 }
 
 #account_data {
     margin-left: 10%;
-    border: 1px solid rgba(235, 222, 215);
+    border: 2px solid rgba(235, 222, 215);
     padding: 30px;
     border-radius: 10px;
     width: 75%;

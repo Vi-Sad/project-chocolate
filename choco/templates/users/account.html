@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>Личный кабинет</title>
-    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all.css' %}" />
     <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
     <link rel="stylesheet" href="{% static 'css/account.css' %}" />
 </head>
@@ -85,7 +85,7 @@
         </div>
         <br>
         <a id="a_new_pass" href="{% url 'change_password' %}">Изменить пароль</a>
-        <br>
+        <br><br>
         <a id="a_del_account" href="{% url 'account_delete' %}">Удалить аккаунт</a>
     </div>
     {% include 'main/footer.html' %}

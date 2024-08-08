@@ -1,0 +1,66 @@
+.content {
+    margin: 50px;
+}
+
+h2 {
+    text-align: center;
+    background-color: rgba(235, 222, 215);
+    border-radius: 10px;
+}
+
+.card_view {
+    width: max-content;
+    margin: 30px;
+    text-align: center;
+    padding: 20px;
+    border: 2px solid rgb(235, 222, 215);
+    border-radius: 10px;
+}
+
+.card_view img {
+    filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.5));
+}
+
+.but_info {
+    border: 2px solid rgb(156, 90, 54);
+    background-color: rgb(255, 255, 255);
+    border-radius: 50px;
+    color: rgb(156, 90, 54);
+}
+
+.but_del {
+    border: 2px solid rgb(214, 80, 97);
+    color: rgb(214, 80, 97);
+    border-radius: 50px;
+    background-color: rgb(255, 255, 255);
+}
+
+.but_info:hover {
+    background-color: rgb(156, 90, 54);
+    color: white;
+    filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.3));
+}
+
+.but_del:hover {
+    background-color: rgb(214, 80, 97);
+    color: white;
+    filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.3));
+}
+
+.card_view a {
+    text-decoration: none;
+}
+
+.display {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+    padding: 0 30px;
+    margin: 0 0 100px 0;
+}
+
+.product_name {
+    color: rgb(156, 90, 54);
+    font-size: 20px;
+}
