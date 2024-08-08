@@ -42,7 +42,7 @@
         {% if i.product_name|slice:':14' == 'Особый шоколад' %}
         {% for ii in user_chocolate %}
         {% if i.id == ii.id_basket %}
-        <img src="../../media/icons/icon_create.png" alt="icon_create_chocolate">
+        <img src="../../../../media/icons/icon_create.png" alt="icon_create_chocolate">
         <p class="product_name">{{ i.product_name }}</p>
         <p>Форма: {{ ii.chocolate }}</p>
         <p>Вкус: {{ ii.basic }}</p>
