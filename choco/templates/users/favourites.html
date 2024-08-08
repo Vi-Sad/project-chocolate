@@ -29,7 +29,7 @@
         <div>
           {% for j in products %}
           {% if j.product_name == i.product_name %}
-          <img src="{{ j.image.url }}" alt="chocolate" style="height: 200px" />
+          <img src="{{ j.image.url }}" alt="chocolate" />
           {% endif %}
           {% endfor %}
           <p class="product_name">{{ i.product_name }}</p>
