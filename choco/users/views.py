@@ -245,21 +245,20 @@ def delete_basket(request, id):
 
 def delete_basket_2(request, id):
     url_active = request.COOKIES['url']
+    user_cookie = request.COOKIES['hard_id']
+    if basket.filter(id=id, hard_id=user_cookie, basket=True, favourites=True).exists():
+        basket.filter(id=id, hard_id=user_cookie, basket=True, favourites=True).update(basket=False)
+    else:
+        basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
+    user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
     try:
-        user_cookie = request.COOKIES['hard_id']
-        if basket.filter(id=id, hard_id=user_cookie, basket=True, favourites=True).exists():
-            basket.filter(id=id, hard_id=user_cookie, basket=True, favourites=True).update(basket=False)
-        else:
-            basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
-        user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
         if 'user/chocolate/id_product%3D' in url_active or 'user/chocolate/basket/add/id_product%3D':
             return info_product(request, url_active[(url_active.index('%3D') + 3):-1])
-        elif url_active == f'{start_url}user/chocolate/create/':
+    except:
+        if 'user/chocolate/create' in url_active:
             return create_chocolate(request)
         else:
             return main_user(request)
-    except:
-        return main_user(request)
 
 
 def delete_favourites(request, id):
@@ -365,6 +364,7 @@ def account_delete(request):
         new_update_password.filter(hard_id=user_cookie).delete()
         user_orders.filter(hard_id=user_cookie).delete()
 
+        os.remove(f'/media/ava/{user_cookie}_ava.jpg')
         user_hard_id, user_cookie = None, None
         response = render(request, 'users/account_delete.html')
         response.set_cookie('hard_id', user_hard_id, secure=True, samesite='Lax', httponly=True, max_age=None)
@@ -483,21 +483,22 @@ def create_chocolate(request):
 
 
 def create_chocolate_check(request):
+    global url_cookie
     user_cookie = request.COOKIES['hard_id']
+    total = 0
     if users.filter(hard_id=user_cookie).exists():
-        total = 0
-        for i in basket.filter(basket=True, hard_id=user_cookie):
-            total += (i.price * i.count)
-
         chocolate = request.POST.get('chocolate')
         basic = request.POST.get('basic')
-
         raspberry = request.POST.get('raspberry')
         pineapple = request.POST.get('pineapple')
         strawberry = request.POST.get('strawberry')
         nuts = request.POST.get('nuts')
+        count = request.POST.get('count')
+        res_price_2 = request.POST.get('res_price_2')
+
         all_additives = [raspberry, pineapple, strawberry, nuts]
         additives = ''
+
         if all([x == None for x in all_additives]):
             additives = None
         else:
@@ -506,8 +507,6 @@ def create_chocolate_check(request):
                     additives += f'{i}, '
             additives = additives[:-2]
 
-        count = request.POST.get('count')
-        res_price_2 = request.POST.get('res_price_2')
         user_chocolate.create(hard_id=user_cookie, chocolate=chocolate, basic=basic,
                               additives=additives, price=res_price_2,
                               product_name='Особый шоколад 0', count=count)
@@ -519,11 +518,17 @@ def create_chocolate_check(request):
             id_basket = i.id
         user_chocolate.filter(hard_id=user_cookie, product_name='Особый шоколад 0').update(
             product_name=f'Особый шоколад {id_product}', id_basket=id_basket)
+
+        for i in basket.filter(basket=True, hard_id=user_cookie):
+            total += (i.price * i.count)
+
+        url_cookie = request.build_absolute_uri()
+        response = render(request, 'users/create_chocolate.html', context={'user_hard_id': user_cookie, 'total': total,
+                                                                           'basket': basket.filter(
+                                                                               basket=True, hard_id=user_cookie)})
+        response.set_cookie('url', url_cookie, secure=True, samesite='Lax', httponly=True, max_age=None)
         time.sleep(1)
-        return render(request, 'users/create_chocolate.html', context={'user_hard_id': user_cookie,
-                                                                       'basket': basket.filter(basket=True,
-                                                                                               hard_id=user_cookie),
-                                                                       'total': total})
+        return response
     else:
         return render(request, 'main/error_404.html', status=404)
 
@@ -555,14 +560,14 @@ def orders_check(request):
 
 def account_add_image(request):
     user_cookie = request.COOKIES['hard_id']
+    src_image = request.POST.get('src_image')
     if users.filter(hard_id=user_cookie).exists():
-        src_image = request.POST.get('src_image')
         if src_image == None or src_image == '':
             print('src_image = None')
         else:
             user_ava_image = f'media/ava/{user_cookie}_ava.jpg'
             urllib.request.urlretrieve(src_image, user_ava_image)
-            users.filter(hard_id=user_cookie).update(photo=f'ava/{user_cookie}_ava.jpg')
+            users.filter(hard_id=user_cookie).update(photo=src_image)
         return account(request)
     else:
         return render(request, 'main/error_404.html', status=404)
