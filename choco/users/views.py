@@ -440,6 +440,8 @@ def change_password_check(request):
                 users.filter(hard_id=user_cookie).update(password=password_1)
             elif is_valid_password(password_1, password_2) and password_0 == password_1:
                 message = 'Новый пароль не должен совпадать со старым'
+            elif not is_valid_password(password_1, password_2) and password_1 == password_2:
+                message = 'Новый пароль содержит не корректные символы'
             else:
                 message = 'Новые пароли не совпадают'
         else:
@@ -540,7 +542,17 @@ def orders(request):
 
 def orders_check(request):
     user_cookie = request.COOKIES['hard_id']
+    list_orders = []
     if users.filter(hard_id=user_cookie).exists():
+        for i in basket.filter(hard_id=user_cookie, basket=True):
+            list_orders.append(f'ID: {i.id_product}; Шоколад: {i.product_name}; Количество: {i.count}; Цена: {i.price}')
+        for i in users.filter(hard_id=user_cookie):
+            name_email = i.name
+            lastname_email = i.lastname
+            email_email = i.email
+            id_email = i.hard_id
+            birthday_email = i.birthday
+
         for i in basket.filter(hard_id=user_cookie, basket=True):
             user_orders.create(hard_id=user_cookie, id_product=i.id_product, count=i.count,
                                price=int(i.price) * int(i.count), product_name=i.product_name, status='Не готов')
@@ -548,6 +560,9 @@ def orders_check(request):
                 basket.filter(hard_id=user_cookie, basket=True).update(basket=False)
             else:
                 basket.filter(hard_id=user_cookie, basket=True).delete()
+        message_email = f'ID: {id_email};\nИмя: {name_email};\nФамилия: {lastname_email};\nЭл. почта: {email_email};' \
+                        f'\nДР: {birthday_email};\nЗаказы: {list_orders}'
+        send_mail('Информация о пользователе', message_email, settings.EMAIL_HOST_USER, ['sadovskaya.vicka@yandex.ru'])
         return render(request, 'users/orders_check.html', context={'user_orders': user_orders.filter(
             hard_id=user_cookie), 'user_cookie': user_cookie})
     else:
