@@ -1,0 +1,29 @@
+.content {
+    margin: 50px;
+}
+
+h3 {
+    color: rgb(156, 90, 54);
+}
+
+#res_price {
+    background-color: rgb(156, 90, 54);
+    width: max-content;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+#but_chocolate {
+    margin-top: 5px;
+}
+
+#form_data_create {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.a_not_user:hover {
+    color: rgb(156, 90, 54);
+}

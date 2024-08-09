@@ -1,4 +1,6 @@
 <section id="buy_products" style="display: none;">
+  <hr>
+  <br>
   {% if basket|length == 0 %}
   <div style="text-align: center; background-color: rgba(235, 222, 215); margin-top: 20%;">
     <p style="font-size: 20px; color:rgb(156, 90, 54);">Здесь пока ничего нет</p>
@@ -21,7 +23,6 @@
   <br />
   <p>Всего: {{ total }} руб.</p>
   <a href="{% url 'orders_check' %}">
-    <!-- <a href="https://web.telegram.org/k/#@choco_pay_online_bot"> -->
     <button class="but_buy_basket">Купить</button>
   </a>
   {% endif %}

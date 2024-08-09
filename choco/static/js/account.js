@@ -8,21 +8,27 @@ let image = [];
 let but_update_email = document.getElementById("but_update_email");
 let inp_update_email = document.getElementById("inp_update_email");
 let span_update_email = document.getElementById("span_update_email");
+let p_message_big_size = document.getElementById("message_big_size");
 
 let add_image = () => {
     let file = inp_image.files[0];
-    if (!file) return;
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-        let img_image = document.getElementById("img_image");
-        src_image.value = reader.result;
-        img_image.src = reader.result;
-        div_image.insertBefore(img_image, label_image);
-    };
-    image.push(file);
-    label_image.innerHTML = "Заменить фото";
-    return;
+    if (file.size <= 1048576) {
+        if (!file) return;
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            let img_image = document.getElementById("img_image");
+            src_image.value = reader.result;
+            img_image.src = reader.result;
+            div_image.insertBefore(img_image, label_image);
+        };
+        image.push(file);
+        label_image.innerHTML = "Заменить фото";
+        p_message_big_size.innerHTML = '';
+        return;
+    } else {
+        p_message_big_size.innerHTML = 'Выберите файл меньше 1МБ';
+    }
 };
 
 inp_image.addEventListener("change", add_image);

@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Удаление аккаунта</title>
     <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
-    <link rel="stylesheet" href="{% static 'css/all.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/all.css' %}" />
 </head>
-<body>
-<p>Ваш аккаунт успешно удален</p>
-<a href="{% url 'main' %}">
-    <button>Вернуться</button>
-</a>
+
+<body style="margin: 50px 0 0 10% ">
+    <h2>Ваш аккаунт успешно удален</h2>
+    <a href="{% url 'main' %}" class="main_all_products_a">
+        <span class="main_all_products_span">&#8617; </span> Вернуться на Главную
+    </a>
+    <img style="height: 250px; width: 250px;" src="../../../../media/icons/icon_sad.png" alt="icon_sad">
 </body>
+
 </html>

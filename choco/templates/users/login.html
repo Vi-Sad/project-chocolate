@@ -29,6 +29,8 @@
         <p style="color: rgb(214, 80, 97);">{{ message }}</p>
         {% endif %}
     </form>
+    <p style="text-align: center;">Еще не с нами? <a href="{% url 'registration' %}"
+            class="a_login">Зарегистрируйтесь</a>!</p>
     <a id="a_new_pass" href="{% url 'new_password' %}">Забыли пароль?</a>
     <script src="{% static 'js/login.js' %}"></script>
 </body>

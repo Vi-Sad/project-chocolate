@@ -27,7 +27,11 @@
             <img style="height: 200px;" src="../../../../media/icons/icon_sad.png" alt="icon_sad">
         </div>
         {% else %}
-        <div class="display">
+        <br><br>
+        <button class="but_info but_status_0">Все</button>
+        <button class="but_info but_status_1">Активные</button>
+        <button class="but_info but_status_2">Не активные</button>
+        <div class="display status_0">
             {% for i in user_orders %}
             <div class="card_view">
                 <p>{{ i.product_name }}</p>
@@ -42,9 +46,11 @@
             </div>
             {% endfor %}
         </div>
+        {% include 'users/orders_status.html' %}
         {% endif %}
     </div>
     {% include 'main/footer.html' %}
+    <script src="{% static 'js/orders_status.js' %}"></script>
 </body>
 
 </html>

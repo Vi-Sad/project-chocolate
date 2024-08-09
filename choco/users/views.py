@@ -314,11 +314,7 @@ def send_feedback(request, id):
         num = 0
         for i in all_src_feedbacks:
             if i != '':
-                num += 1
-                user_feedback_image = f'media/feedback-img/{user_cookie}_feedback_{id}_img_{num}.jpg'
-                urllib.request.urlretrieve(i, user_feedback_image)
-                feedbacks_images.create(hard_id=user_cookie, id_product=id,
-                                        image=f'feedback-img/{user_cookie}_feedback_{id}_img_{num}.jpg')
+                feedbacks_images.create(hard_id=user_cookie, id_product=id, image=i)
         return feedbacks_images.filter(hard_id=user_hard_id, id_product=id)
 
     user_cookie = request.COOKIES['hard_id']
@@ -363,8 +359,8 @@ def account_delete(request):
         feedbacks_images.filter(hard_id=user_cookie).delete()
         new_update_password.filter(hard_id=user_cookie).delete()
         user_orders.filter(hard_id=user_cookie).delete()
+        user_chocolate.filter(hard_id=user_cookie).delete()
 
-        os.remove(f'/media/ava/{user_cookie}_ava.jpg')
         user_hard_id, user_cookie = None, None
         response = render(request, 'users/account_delete.html')
         response.set_cookie('hard_id', user_hard_id, secure=True, samesite='Lax', httponly=True, max_age=None)
@@ -565,8 +561,6 @@ def account_add_image(request):
         if src_image == None or src_image == '':
             print('src_image = None')
         else:
-            user_ava_image = f'media/ava/{user_cookie}_ava.jpg'
-            urllib.request.urlretrieve(src_image, user_ava_image)
             users.filter(hard_id=user_cookie).update(photo=src_image)
         return account(request)
     else:

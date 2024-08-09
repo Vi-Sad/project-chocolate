@@ -16,8 +16,8 @@
         style="position: absolute; height: 300px; margin: 15% 0 0 70%; transform: rotate(0.06turn); opacity: 0.3;">
     <div class="content">
         <h2>Мои данные</h2>
-        <a href="{% url 'main' %}#all_products" class="main_all_products_a">
-            <span class="main_all_products_span">&#8617; </span> Вернуться в Каталог
+        <a href="{% url 'main' %}" class="main_all_products_a">
+            <span class="main_all_products_span">&#8617; </span> Вернуться на Главную
         </a>
         {% for i in user %}
         <div id="user_name_and_buttons">
@@ -42,6 +42,7 @@
                     <input type="text" id="src_image" name="src_image"
                         style="width: 0; height: 0; opacity: 0; position: absolute">
                     <button type="submit" id="but_add_photo">Применить</button>
+                    <p id="message_big_size" style="color: rgb(214, 80, 97);"></p>
                 </form>
                 <div class="user_name">
                     <p>Имя, фамилия</p>
