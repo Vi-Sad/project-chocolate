@@ -13,6 +13,9 @@ urlpatterns = [
     path('logout/', users.logout, name='logout'),
     # path('account/', users.AccountView.as_view(), name='account'),
     path('account/', users.account, name='account'),
+    path('account/update/email', users.account_update_email, name='account_update_email'),
+    path('account/update/birthday', users.account_update_birthday, name='account_update_birthday'),
+    path('account/add_image/', users.account_add_image, name='account_add_image'),
     path('chocolate/id_product=<int:id>/', users.info_product, name='info_product'),
     path('chocolate/favourites/', users.view_favourites, name='favourites'),
     path('chocolate/basket/', users.view_basket, name='basket'),
@@ -35,6 +38,10 @@ urlpatterns = [
     path('cookies/get/', users.cookie_get, name='cookie_get'),
     path('chocolate/create/', users.create_chocolate, name='create_chocolate'),
     path('chocolate/create/check/', users.create_chocolate_check, name='create_chocolate_check'),
+    path('chocolate/orders/', users.orders, name='orders'),
+    path('chocolate/orders/check', users.orders_check, name='orders_check'),
+    path('basket/delete/id_product=<int:id>/', users.delete_basket_2, name='delete_basket_2'),
+    path('favourites/delete/id_product=<int:id_product>/', users.delete_favourites_2, name='delete_favourites_2'),
 ]
 
 handler404 = 'main.views.error_404'

@@ -1,0 +1,29 @@
+#inp_feedback_image {
+    opacity: 0;
+    height: 0;
+}
+
+.div_feedback_image {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.div_feedback_image label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 25px;
+    cursor: pointer;
+    width: 150px;
+    height: 150px;
+    border: solid 1px rgb(156, 90, 54);
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+.div_feedback_image img {
+    height: 150px;
+    border-radius: 5px;
+    object-fit: cover;
+}

@@ -1,56 +1,72 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Корзина товаров</title>
-    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
-  </head>
-  <body>
-    <div class="content">
-      <h2>Корзина товаров</h2>
-      {% if basket|length == 0 %}
-      <p>Здесь пока ничего нет</p>
-      {% else %} 
-      {% for i in basket %} 
-      {% for j in products %} 
-      {% if j.product_name == i.product_name %}
-      <img src="{{ j.image.url }}" alt="chocolate" style="height: 100px" />
-      {% endif %} 
-      {% endfor %}
-      <p>{{ i.product_name }}</p>
-      {% if i.product_name|slice:':14' == 'Особый шоколад' %}
-      {% for ii in user_chocolate %}
-      {% if i.id == ii.id_basket %}
-      <p>Подробности:</p>
-      <p>Форма: {{ ii.chocolate }}</p>
-      <p>Вкус: {{ ii.basic }}</p>
-      <p>Добавки: {{ ii.additives }}</p>
-      {% endif %}
-      {% endfor %}
-      {% else %}
-      <a href="{% url 'info_product' i.id_product %}">
-        <button>Подробнее</button>
-      </a>
-      {% endif %}
-      <a
-        href="{% url 'delete_basket' i.id %}"
-        id="a_delete_basket"
-      >
-        <button>Удалить из корзины</button>
-      </a>
-      <br />
-      {% endfor %} 
-      {% endif %}
-      <br />
-      <a href="{% url 'account' %}">
-        <button>Личный кабинет</button>
-      </a>
-      <a href="{% url 'main' %}">
-        <button>Вернуться на главную</button>
-      </a>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Корзина товаров</title>
+  <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
+  <link rel="stylesheet" href="{% static 'css/all.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/basket_favourites_orders.css' %}" />
+</head>
+
+<body>
+  <div class="content">
+    <h2>Корзина товаров</h2>
+    <a href="{% url 'main' %}#all_products" class="main_all_products_a">
+      <span class="main_all_products_span">&#8617; </span> Вернуться в Каталог
+    </a>
+    <br>
+    <a href="{% url 'account' %}" class="main_all_products_a">
+      <span class="main_all_products_span">&#8617; </span> Вернуться в Личный кабинет
+    </a>
+    <br>
+    {% if basket|length == 0 %}
+    <div style="text-align: center;">
+      <p style="font-size: 20px; color:rgb(156, 90, 54);">Здесь пока ничего нет</p>
+      <img style="height: 200px;" src="../../../../media/icons/icon_sad.png" alt="icon_sad">
     </div>
-    {% include 'main/footer.html' %}
-  </body>
+    {% else %}
+    <div class="display">
+      {% for i in basket %}
+      <div class="card_view">
+        {% for j in products %}
+        {% if j.product_name == i.product_name %}
+        <img src="{{ j.image.url }}" alt="chocolate" />
+        <p class="product_name">{{ i.product_name }}</p>
+        <a href="{% url 'info_product' i.id_product %}">
+          <button class="but_info">Подробнее</button>
+        </a>
+        <a href="{% url 'delete_basket' i.id %}" id="a_delete_basket">
+          <button class="but_del">Удалить</button>
+        </a>
+        {% endif %}
+        {% endfor %}
+        {% if i.product_name|slice:':14' == 'Особый шоколад' %}
+        {% for ii in user_chocolate %}
+        {% if i.id == ii.id_basket %}
+        <img src="../../../../media/icons/icon_create.png" alt="icon_create_chocolate">
+        <p class="product_name">{{ i.product_name }}</p>
+        <p>Форма: {{ ii.chocolate }}</p>
+        <p>Вкус: {{ ii.basic }}</p>
+        {% if ii.additives == None %}
+        <p>Добавки: Нет</p>
+        {% else %}
+        <p>Добавки: {{ ii.additives }}</p>
+        {% endif %}
+        <a href="{% url 'delete_basket' i.id %}" id="a_delete_basket">
+          <button class="but_del">Удалить</button>
+        </a>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% include 'main/footer.html' %}
+</body>
+
 </html>

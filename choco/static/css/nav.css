@@ -1,76 +1,78 @@
 nav {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: center;
-  align-items: center;
-  padding: 5px;
-  background-color: rgba(235, 222, 215);
-  position: sticky;
-  z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+    padding: 5px;
+    background-color: rgba(235, 222, 215);
+    position: fixed;
+    height: max-content;
+    width: 100%;
+    z-index: 1;
 }
 
 nav a {
-  text-decoration: none;
-  vertical-align: middle;
-  margin-left: 20px;
+    text-decoration: none;
+    vertical-align: middle;
+    margin-left: 20px;
 }
 
 nav a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 nav a:active {
-  color: rgb(156, 90, 54);
-  text-decoration: none;
+    color: rgb(156, 90, 54);
+    text-decoration: none;
 }
 
 nav span {
-  margin-left: 20px;
+    margin-left: 20px;
 }
 
 .a_icon_text,
 nav h1 {
-  color: rgb(156, 90, 54);
-  font-style: italic;
-  font-weight: 100;
-  font-weight: bold;
+    color: rgb(156, 90, 54);
+    font-style: italic;
+    font-weight: 100;
+    font-weight: bold;
 }
 
 nav img {
-  height: 40px;
-  text-align: center;
-  vertical-align: middle;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 nav img:hover {
-  cursor: auto;
+    cursor: auto;
 }
 
 #buy {
-  border: none;
-  height: 20px;
+    border: none;
+    height: 20px;
 }
 
-#buy > img:hover,
-#buy > sup:hover,
+#buy>img:hover,
+#buy>sup:hover,
 #buy {
-  cursor: pointer;
+    cursor: pointer;
 }
 
-#buy > img {
-  height: 35px;
-  margin-left: 20px;
+#buy>img {
+    height: 35px;
+    margin-left: 20px;
 }
 
-#buy > sup {
-  border: 1px solid rgb(156, 90, 54);
-  border-radius: 50%;
-  padding: 5px;
-  background-color: rgb(156, 90, 54);
-  color: white;
+#buy>sup {
+    border: 1px solid rgb(156, 90, 54);
+    border-radius: 50%;
+    padding: 5px;
+    background-color: rgb(156, 90, 54);
+    color: white;
 }
 
 nav button {
-  vertical-align: middle;
-  margin-top: -30px;
+    vertical-align: middle;
+    margin-top: -30px;
 }

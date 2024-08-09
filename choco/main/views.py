@@ -11,8 +11,10 @@ products = Product.objects.filter(new=False)
 basket = Basket.objects
 new_products = Product.objects.filter(new=True)
 user_chocolate = UserChocolate.objects
+user_orders = Orders.objects
 
 user_cookie = None
+url_cookie = None
 
 
 def error_404(request, exception):
@@ -28,14 +30,19 @@ def error_404(request, exception):
 
 
 def main(request):
-    global user_cookie
+    global user_cookie, url_cookie
+    url_cookie = request.build_absolute_uri()
     try:
         user_cookie = request.COOKIES['hard_id']
         if users.filter(hard_id=user_cookie).exists():
-            return main_user(request)
+            response = main_user(request)
+            response.set_cookie('url', url_cookie, secure=True, samesite='Lax', httponly=True, max_age=None)
+            return response
         else:
-            return render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
-                                                              'products': products})
+            response = render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
+                                                                  'products': products})
+            response.set_cookie('url', url_cookie, secure=True, samesite='Lax', httponly=True, max_age=None)
+            return response
     except KeyError:
         return render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
                                                           'products': products})
@@ -54,7 +61,8 @@ def main_user(request):
                                                                                        hard_id=user_cookie),
                                                                'total': total, 'user_hard_id': user_cookie,
                                                                'new_products': new_products,
-                                                               'user_active': user_active})
+                                                               'user_active': user_active,
+                                                               'user_orders': user_orders.filter(hard_id=user_cookie)})
     else:
         return render(request, 'main/main.html', context={'users': users.all(), 'new_products': new_products,
                                                           'products': products})
@@ -63,5 +71,5 @@ def main_user(request):
 def logout(request):
     global user_cookie
     user_cookie = None
-    return render(request, 'users/logout.html')
+    return main(request)
 

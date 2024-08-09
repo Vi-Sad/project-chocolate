@@ -1,31 +1,50 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
-    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}"/>
+    <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
+    <link rel="stylesheet" href="{% static 'css/all.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}" />
 </head>
+
 <body>
-<h2>Регистрация</h2>
-<form method="post" action="{% url 'registration_check' %}">
-    {% csrf_token %}
-    <label>Введите эл. почту (Yandex или Google):</label>
-    <input type="email" name="email">
-    <br>
-    <label>Введите фамилию:</label>
-    <input type="text" name="lastname">
-    {% for i in form %}
-    <br>
-    <label class="form-label" for="{{ i.id_for_label }}">{{ i.label }}:</label>
-    <span>{{ i }}</span>
-    {% endfor %}
-    <br>
-    <button type="submit">Зарегистрироваться</button>
-</form>
-<a href="{% url 'main' %}" style="width: max-content;">
-    <button>Вернуться на главную</button>
-</a>
-<p>Зарегистрируйтесь, чтобы можно было заказать</p>
+    <h2>Регистрация</h2>
+    <a href="{% url 'main' %}" class="main_all_products_a">
+        <span class="main_all_products_span">&#8617; </span> Вернуться на Главную
+    </a>
+    <p style="text-align: center;">Зарегистрируйтесь, чтобы можно было заказать</p>
+    <form method="post" action="{% url 'registration_check' %}" id="form_registration">
+        {% csrf_token %}
+        <input class="start_url" value="{{ start_url }}" style="width: 0; height: 0; opacity: 0; position: absolute"
+            disabled />
+        <input class="message" value="{{ message }}" style="width: 0; height: 0; opacity: 0; position: absolute"
+            disabled />
+        <label>Введите эл. почту (Yandex или Google):</label>
+        <input type="email" name="email" style="width: 30%;">
+        <br>
+        <label>Введите фамилию:</label>
+        <input type="text" name="lastname">
+        {% for i in form %}
+        <br>
+        <label class="form-label" for="{{ i.id_for_label }}">{{ i.label }}:</label>
+        <span>{{ i }}</span>
+        {% endfor %}
+        <br>
+        <label>Введите Дату Вашего дня рождения:</label>
+        <input type="date" name="birthday">
+        <br>
+        <button type="submit" id="but_registration">Зарегистрироваться</button>
+        {% if message == "Вы успешны зарегистрированы. Попробуйте войти" %}
+        <p style="color: rgba(8, 184, 66, 0.811);">{{ message }}</p>
+        {% else %}
+        <p style="color: rgb(214, 80, 97);">{{ message }}</p>
+        {% endif %}
+    </form>
+    <p style="text-align: center;">Уже зарегистрированы? Попробуйте <a href="{% url 'login' %}"
+            class="a_login">войти</a></p>
 </body>
+
 </html>

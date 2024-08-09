@@ -5,76 +5,86 @@
 <head>
   <meta charset="UTF-8" />
   <title>Создать свой шоколад</title>
+  <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
   <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
   <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/all.css' %}" />
   <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/add.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/forms.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/create.css' %}" />
 </head>
 
-<body>
+<body style="margin: 50px 0;">
+  {% include 'main/nav.html' %}
+  {% include 'users/buy.html' %}
   <div class="content">
-    {% include 'main/nav.html' %}
-    {% include 'users/buy.html' %}
-    <h2>Создай свою шоколадку!</h2>
-    <p>*1 штука без пищевых добавок = 20₽</p>
-    <form action="{% url 'create_chocolate_check' %}" method="post">
+    <h2 style="margin: 0;">Создай свою шоколадку!</h2>
+    <a href="{% url 'main' %}" class="main_all_products_a">
+      <span class="main_all_products_span">&#8617; </span> Вернуться на Главную
+    </a>
+    <p style="text-align: center;">*1 штука без пищевых добавок = 20₽</p>
+    <form action="{% url 'create_chocolate_check' %}" method="post" id="form_create">
+      {% include 'users/add.html' %}
       {% csrf_token %}
-      <div>
-        <h3>Внешний вид:</h3>
+      <div id="form_data_create">
         <div>
-          <input type="radio" id="square" name="chocolate" value="Квадрат" checked />
-          <label for="square">Квадрат</label>
+          <h3>Внешний вид:</h3>
+          <div>
+            <input type="radio" id="square" name="chocolate" value="Квадрат" checked />
+            <label for="square">Квадрат</label>
+          </div>
+          <div>
+            <input type="radio" id="heart" name="chocolate" value="Сердце" />
+            <label for="heart">Сердце</label>
+          </div>
+          <div>
+            <input type="radio" id="circle" name="chocolate" value="Круг" />
+            <label for="circle">Круг</label>
+          </div>
+          <div>
+            <input type="radio" id="triangle" name="chocolate" value="Треугольник" />
+            <label for="triangle">Треугольник</label>
+          </div>
         </div>
         <div>
-          <input type="radio" id="heart" name="chocolate" value="Сердце" />
-          <label for="heart">Сердце</label>
+          <h3>Основной вкус:</h3>
+          <div>
+            <input type="radio" id="milk" value="Молочный" name="basic" checked />
+            <label for="milk">Молочный</label>
+          </div>
+          <div>
+            <input type="radio" id="white" value="Белый" name="basic" />
+            <label for="white">Белый</label>
+          </div>
+          <div>
+            <input type="radio" id="no_sugar" value="Без сахара" name="basic" />
+            <label for="no_sugar">Без сахара</label>
+          </div>
+          <div>
+            <input type="radio" id="bitter" value="Горький" name="basic" />
+            <label for="bitter">Горький</label>
+          </div>
         </div>
         <div>
-          <input type="radio" id="circle" name="chocolate" value="Круг" />
-          <label for="circle">Круг</label>
-        </div>
-        <div>
-          <input type="radio" id="triangle" name="chocolate" value="Треугольник" />
-          <label for="triangle">Треугольник</label>
-        </div>
-      </div>
-      <div>
-        <h3>Основной вкус:</h3>
-        <div>
-          <input type="radio" id="milk" value="Молочный" name="basic" checked />
-          <label for="milk">Молочный</label>
-        </div>
-        <div>
-          <input type="radio" id="white" value="Белый" name="basic" />
-          <label for="white">Белый</label>
-        </div>
-        <div>
-          <input type="radio" id="no_sugar" value="Без сахара" name="basic" />
-          <label for="no_sugar">Без сахара</label>
-        </div>
-        <div>
-          <input type="radio" id="bitter" value="Горький" name="basic" />
-          <label for="bitter">Горький</label>
-        </div>
-      </div>
-      <div>
-        <h3>Пищевые добавки:</h3>
-        <p>*1 пищевая добавка = 10₽</p>
-        <div>
-          <input type="checkbox" id="raspberry" value="Малина" name="raspberry" />
-          <label for="raspberry">Малина</label>
-        </div>
-        <div>
-          <input type="checkbox" id="pineapple" value="Ананас" name="pineapple" />
-          <label for="pineapple">Ананас</label>
-        </div>
-        <div>
-          <input type="checkbox" id="strawberry" value="Клубника" name="strawberry" />
-          <label for="strawberry">Клубника</label>
-        </div>
-        <div>
-          <input type="checkbox" id="nuts" value="Орехи" name="nuts" />
-          <label for="nuts">Орехи</label>
+          <h3>Пищевые добавки:</h3>
+          <p>*1 пищевая добавка = 10₽</p>
+          <div>
+            <input type="checkbox" id="raspberry" value="Малина" name="raspberry" />
+            <label for="raspberry">Малина</label>
+          </div>
+          <div>
+            <input type="checkbox" id="pineapple" value="Ананас" name="pineapple" />
+            <label for="pineapple">Ананас</label>
+          </div>
+          <div>
+            <input type="checkbox" id="strawberry" value="Клубника" name="strawberry" />
+            <label for="strawberry">Клубника</label>
+          </div>
+          <div>
+            <input type="checkbox" id="nuts" value="Орехи" name="nuts" />
+            <label for="nuts">Орехи</label>
+          </div>
         </div>
       </div>
       <div>
@@ -84,6 +94,7 @@
       </div>
       <div>
         <button id="but_chocolate">Узнать цену</button>
+        <br><br>
         <h3>Цена: <span id="res_price">20₽</span></h3>
         <input id="res_price_2" name="res_price_2" value="20"
           style="width: 0; height: 0; opacity: 0; position: absolute" />
@@ -91,8 +102,8 @@
       {% if user_hard_id == None or user_hard_id == "None" %}
       <p class="user_active_none">
         Уважаемый пользователь! Пожалуйста,
-        <a href="{% url 'registration' %}">зарегистрируйтесь</a> или
-        <a href="{% url 'login' %}">войдите</a>, чтобы можно было совершать покупки
+        <a class="a_not_user" href="{% url 'registration' %}">зарегистрируйтесь</a> или
+        <a class="a_not_user" href="{% url 'login' %}">войдите</a>, чтобы можно было совершать покупки
       </p>
       {% else %}
       <button type="submit" id="but_basket">В корзину</button>

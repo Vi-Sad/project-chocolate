@@ -1,13 +1,18 @@
-<section id="buy_products" style="display: none">
+<section id="buy_products" style="display: none;">
+  <hr>
+  <br>
   {% if basket|length == 0 %}
-  <p>Корзина пуста</p>
+  <div style="text-align: center; background-color: rgba(235, 222, 215); margin-top: 20%;">
+    <p style="font-size: 20px; color:rgb(156, 90, 54);">Здесь пока ничего нет</p>
+    <img style="height: 200px;" src="../../../../media/icons/icon_sad.png" alt="icon_sad">
+  </div>
   {% else %}
   <h3>Мои товары:</h3>
   <div>
     {% for i in basket %}
     <p>
       • {{ i.product_name }} × {{ i.count }} = {% widthratio i.price 1 i.count %} руб.
-      <a href="{% url 'delete_basket' i.id %}" id="a_delete_basket">
+      <a href="{% url 'delete_basket_2' i.id %}" id="a_delete_basket">
         <button class="but_del_basket">×</button>
       </a>
     </p>
@@ -17,6 +22,8 @@
   <hr />
   <br />
   <p>Всего: {{ total }} руб.</p>
-  <button class="but_buy_basket">Купить</button>
+  <a href="{% url 'orders_check' %}">
+    <button class="but_buy_basket">Купить</button>
+  </a>
   {% endif %}
 </section>

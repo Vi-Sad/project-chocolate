@@ -12,6 +12,8 @@ class User(models.Model):
     password = models.CharField(max_length=20)
     date_registration = models.DateField(default=None)
     hard_id = models.CharField(default=None, unique=True, max_length=50)
+    photo = models.ImageField(default=None, null=True, upload_to='ava/')
+    birthday = models.DateField(default=None, null=True)
 
     def __str__(self):
         return self.name
@@ -26,10 +28,23 @@ class Basket(models.Model):
     price = models.IntegerField(default=0)
     favourites = models.BooleanField(default=False)
     basket = models.BooleanField(default=False)
-
+    create_chocolate_user = models.BooleanField(default=False)
 
     def __str__(self):
         return self.product_name
+
+
+class Orders(models.Model):
+    objects = None
+    hard_id = models.CharField(default=None, max_length=50)
+    id_product = models.IntegerField(default=0)
+    product_name = models.CharField(max_length=50, default=None)
+    count = models.IntegerField(default=1)
+    price = models.IntegerField(default=0)
+    status = models.CharField(default=None, max_length=50)
+
+    def __str__(self):
+        return self.hard_id
 
 
 class UserChocolate(models.Model):
@@ -58,3 +73,19 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.message
+
+
+class FeedbackImage(models.Model):
+    objects = None
+    hard_id = models.CharField(default=None, max_length=50)
+    id_product = models.IntegerField(default=0)
+    image = models.ImageField(default=None, null=True, upload_to='feedback-img/')
+
+
+class NewUpdatePassword(models.Model):
+    objects = None
+    hard_id = models.CharField(default=None, max_length=50)
+    new_password = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.hard_id

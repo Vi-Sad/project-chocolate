@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}" />
     <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
     <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/all.css' %}" />
     <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
     <link rel="stylesheet" href="{% static 'css/categories.css' %}" />
 </head>
@@ -24,7 +24,7 @@
         </div>
         {% include 'main/nav.html' %}
         {% include 'users/buy.html' %}
-        <header>
+        <header style="margin-top: 100px;">
             <h2 class="hello_user">
                 Добро пожаловать{% block user_active %}{% endblock user_active %}!
             </h2>
@@ -198,89 +198,6 @@
             </div>
             <div class="all_categories">{% include 'main/categories.html' %}</div>
         </section>
-        <!--      <section>-->
-        <!--        <div>-->
-        <!--          <h2>Закажите индивидуальный набор шоколадок</h2>-->
-        <!--          <p>Заполните форму для составления Вашего заказа</p>-->
-        <!--          <form>-->
-        <!--            <input type="text" placeholder="Эвелина" disabled />-->
-        <!--            <img src="" alt="icon" />-->
-        <!--            <br />-->
-        <!--            <input type="tel" placeholder="+7(900)000-00-00" disabled />-->
-        <!--            <img src="" alt="icon" />-->
-        <!--            <br />-->
-        <!--          </form>-->
-        <!--          <button>Больше товаров</button>-->
-        <!--        </div>-->
-        <!--        <div>-->
-        <!--          <img src="" alt="img" />-->
-        <!--        </div>-->
-        <!--      </section>-->
-        <!--      <section>-->
-        <!--        <h2>Отзывы наших сладкоежек</h2>-->
-        <!--        <div>-->
-        <!--          <div>-->
-        <!--            <div>-->
-        <!--              <img src="" alt="img" />-->
-        <!--            </div>-->
-        <!--            <div>-->
-        <!--              <img src="" alt="img" />-->
-        <!--            </div>-->
-        <!--            <div>-->
-        <!--              <img src="" alt="img" />-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--          <div>-->
-        <!--            <div>-->
-        <!--              <img src="" alt="img" />-->
-        <!--            </div>-->
-        <!--            <div>-->
-        <!--              <img src="" alt="img" />-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--          <div>-->
-        <!--            <div>-->
-        <!--              <img src="" alt="img" />-->
-        <!--            </div>-->
-        <!--            <div>-->
-        <!--              <img src="" alt="img" />-->
-        <!--            </div>-->
-        <!--            <div>-->
-        <!--              <button>Больше отзывов</button>-->
-        <!--            </div>-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <!--      </section>-->
-        <!--      <section>-->
-        <!--        <h2>Мы в Telegramm</h2>-->
-        <!--        <div>-->
-        <!--          <div>-->
-        <!--            <img src="" alt="img" />-->
-        <!--            <img src="" alt="img" />-->
-        <!--            <img src="" alt="img" />-->
-        <!--          </div>-->
-        <!--          <div>-->
-        <!--            <img src="" alt="img" />-->
-        <!--            <img src="" alt="img" />-->
-        <!--            <img src="" alt="img" />-->
-        <!--          </div>-->
-        <!--        </div>-->
-        <!--        <button>Подписаться</button>-->
-        <!--      </section>-->
-        <!--      <section>-->
-        <!--        <h2>Время оформить заказ!</h2>-->
-        <!--        <form>-->
-        <!--          <input type="text" placeholder="Ваше имя" />-->
-        <!--          <br />-->
-        <!--          <input type="tel" placeholder="Номер телефона" />-->
-        <!--          <br />-->
-        <!--          <button type="submit">Отправить</button>-->
-        <!--          <p>-->
-        <!--            Нажимая на кнопку, Вы даете согласие на обработку Ваших персональных-->
-        <!--            данных-->
-        <!--          </p>-->
-        <!--        </form>-->
-        <!--      </section>-->
     </div>
     {% include 'main/footer.html' %}
     <script src="{% static 'js/main.js' %}"></script>

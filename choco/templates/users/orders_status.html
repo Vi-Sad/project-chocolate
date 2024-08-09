@@ -1,0 +1,35 @@
+<div class="display status_1" style="display: none;">
+    {% for i in user_orders %}
+    {% if i.status == 'Не готов' or i.status == 'Готов' or i.status == 'В процессе' %}
+    <div class="card_view">
+        <p>{{ i.product_name }}</p>
+        <p>Статус: {{ i.status }}</p>
+        <p>Количество: {{ i.count }}</p>
+        <p>Цена: {{ i.price }}</p>
+        {% if i.product_name|slice:':14' != 'Особый шоколад' %}
+        <a href="{% url 'info_product' i.id_product %}">
+            <button class="but_info">Подробнее</button>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+
+<div class="display status_2" style="display: none;">
+    {% for i in user_orders %}
+    {% if i.status == 'Завершен' %}
+    <div class="card_view">
+        <p>{{ i.product_name }}</p>
+        <p>Статус: {{ i.status }}</p>
+        <p>Количество: {{ i.count }}</p>
+        <p>Цена: {{ i.price }}</p>
+        {% if i.product_name|slice:':14' != 'Особый шоколад' %}
+        <a href="{% url 'info_product' i.id_product %}">
+            <button class="but_info">Подробнее</button>
+        </a>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>

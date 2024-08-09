@@ -5,17 +5,25 @@
 <head>
   <meta charset="UTF-8" />
   <title>Информация о шоколаде</title>
-  <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
+  <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
+  <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/all.css' %}" />
   <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
   <link rel="stylesheet" href="{% static 'css/info_product.css' %}" />
-  <link rel="stylesheet" href="{% static 'css/nav.css' %}" />
   <link rel="stylesheet" href="{% static 'css/buy.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/add.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/send_feedback.css' %}" />
 </head>
 
 <body>
   {% include 'main/nav.html' %}
   {% include 'users/buy.html' %}
+  <br>
   <div class="content">
+    <a href="{% url 'main' %}#all_products" class="main_all_products_a">
+      <span class="main_all_products_span">&#8617; </span> Вернуться в Каталог
+    </a>
+    {% include 'users/add.html' %}
     {% for i in products %}
     <form method="post" id="form_add">
       {% csrf_token %}
@@ -30,65 +38,63 @@
         <div>
           <h2 class="name_product">{{ i.product_name }}</h2>
           <div class="score_and_feedbacks">
-            <img src="../../media/icons/icon_score.png" alt="icon_score" />
+            <img src="../../../../media/icons/icon_score.png" alt="icon_score" />
             <p>{{ general_assessment }}<span>•</span></p>
             <a href="#feedbacks">{{ count_feedbacks }} отзывов</a>
           </div>
           <p>Рейтинг формируется на основе актуальных отзывов</p>
           <p style="font-size: 20px;">О товаре:</p>
           <p>Категория: {{ i.category }}</p>
-          <p style="width: 60%;">Описание: {{ i.description }}</p>
+          <p style="word-break:inherit;">Описание: {{ i.description }}</p>
           <p>Вес: {{ i.grams }} г</p>
           <p class="p_price">{{ i.price }} ₽</p>
+          {% if user_hard_id == 'None' or user_hard_id == None %}
+          <div></div>
+          {% else %}
+          <div class="but_basket">
+            <button type="submit" id="but_basket">В корзину</button>
+            <span>×</span>
+            <input name="count_product" type="number" value="1" style="width: 30px" max="20" min="1" /> шт.
+          </div>
+          {% endif %}
         </div>
-      </div>
-      {% endfor %} {% if user_hard_id == None or user_hard_id == "None" %}
-      <p class="user_active_none">
-        Уважаемый пользователь! Пожалуйста,
-        <a href="{% url 'registration' %}">зарегистрируйтесь</a> или
-        <a href="{% url 'login' %}">войдите</a>, чтобы можно было оставить
-        свой отзыв и совершать покупки
-      </p>
-      {% else %}
-      <button type="submit" id="but_basket">В корзину</button>
-      <span>×</span>
-      <input name="count_product" type="number" value="1" style="width: 30px" max="20" min="1" />
-      шт.
-      <br />
-      <button type="submit" id="but_favourites">Добавить в избранное</button>
-    </form>
-    <h2>Оставить отзыв</h2>
-    {% include 'users/send_feedback.html' %} {% endif %}
-    <h2 id="feedbacks">Отзывы:</h2>
-    <div>
-      {% if feedbacks|length == 0 %}
-      <p>Отзывов пока нет</p>
-      {% else %} {% for i in feedbacks %}
-      <div class="feedback">
-        <div class="date_and_score">
-          <p style="color: grey">{{ i.date }}</p>
-          <p>•</p>
-          <img src="../../media/icons/icon_score.png" alt="icon_score" style="height: 20px" />
-          <p>{{ i.score }}</p>
-        </div>
-        {% if i.anonim == 1 %}
-        <p style="color: rgb(156, 90, 54)">Пользователь скрыл свои данные</p>
-        {% else %}
-        {% for j in users %}
-        {% if i.hard_id == j.hard_id %}
-        <p style="color: rgb(156, 90, 54)">{{ j.name }} {{ j.lastname }}</p>
-        {% endif %}
         {% endfor %}
-        {% endif %}
-        <p>{{ i.message }}</p>
+        <div class="add_favourites">
+          {% if user_hard_id == None or user_hard_id == 'None' %}
+          <div></div>
+          {% else %}
+          {% if not favourites %}
+          <button type="submit" id="but_favourites">
+            <img src="../../../../media/icons/favourites_false.png" alt="favourites_false" style="height: 64px;">
+          </button>
+          {% else %}
+          <a href="{% url 'delete_favourites_2' id_product %}">
+            <img src="../../../../media/icons/favourites_true.png" alt="favourites_true" style="height: 64px;">
+          </a>
+          {% endif %}
+          {% endif %}
+        </div>
       </div>
-      {% endfor %}
-      {% endif %}
-    </div>
+    </form>
+    <br>
+    {% if user_hard_id == None or user_hard_id == "None" %}
+    <p class="user_active_none">
+      Уважаемый пользователь! Пожалуйста,
+      <a href="{% url 'registration' %}">зарегистрируйтесь</a> или
+      <a href="{% url 'login' %}">войдите</a>, чтобы можно было оставить
+      свой отзыв и совершать покупки
+    </p>
+    {% else %}
+    <h2>Оставить отзыв</h2>
+    {% include 'users/send_feedback.html' %}
+    {% endif %}
+    <br>
+    {% include 'users/feedbacks_info_product.html' %}
   </div>
   {% include 'main/footer.html' %}
-  <script src="{% static 'js/add.js' %}"></script>
+  <script src="{% static 'js/add.js' %}" type=""></script>
   <script src="{% static 'js/buy.js' %}"></script>
+  <script src="{% static 'js/send_feedback_images.js' %}"></script>
 </body>
 
 </html>

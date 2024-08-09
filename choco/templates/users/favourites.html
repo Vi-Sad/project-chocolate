@@ -1,43 +1,55 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Избранное</title>
-    <link rel="stylesheet" href="{% static 'css/all_pages.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
-  </head>
-  <body>
-    <div class="content">
-      <h2>Избранные товары</h2>
-      {% if favourites|length == 0 %}
-      <p>Здесь пока ничего нет</p>
-      {% else %} 
-      {% for i in favourites %} 
-      {% for j in products %} 
-      {% if j.product_name == i.product_name %}
-      <img src="{{ j.image.url }}" alt="chocolate" style="height: 100px" />
-      {% endif %} 
-      {% endfor %}
-      <p>{{ i.product_name }}</p>
-      <a href="{% url 'info_product' i.id_product %}">
-        <button>Подробнее</button>
-      </a>
-      <a
-        href="{% url 'delete_favourites' i.id %}"
-      >
-        <button>Удалить из избранного</button>
-      </a>
-      {% endfor %} 
-      {% endif %}
-      <br />
-      <a href="{% url 'account' %}">
-        <button>Личный кабинет</button>
-      </a>
-      <a href="{% url 'main' %}">
-        <button>Вернуться на главную</button>
-      </a>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Избранное</title>
+  <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
+  <link rel="stylesheet" href="{% static 'css/all.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/basket_favourites_orders.css' %}" />
+</head>
+
+<body>
+  <div class="content">
+    <h2>Избранные товары</h2>
+    <a href="{% url 'main' %}#all_products" class="main_all_products_a">
+      <span class="main_all_products_span">&#8617; </span> Вернуться в Каталог
+    </a>
+    <br>
+    <a href="{% url 'account' %}" class="main_all_products_a">
+      <span class="main_all_products_span">&#8617; </span> Вернуться в Личный кабинет
+    </a>
+    {% if favourites|length == 0 %}
+    <div style="text-align: center;">
+      <p style="font-size: 20px; color:rgb(156, 90, 54);">Здесь пока ничего нет</p>
+      <img style="height: 200px;" src="../../../../media/icons/icon_sad.png" alt="icon_sad">
     </div>
-    {% include 'main/footer.html' %}
-  </body>
+    {% else %}
+    <div class="display">
+      {% for i in favourites %}
+      <div class="card_view">
+        <div>
+          {% for j in products %}
+          {% if j.product_name == i.product_name %}
+          <img src="{{ j.image.url }}" alt="chocolate" />
+          {% endif %}
+          {% endfor %}
+          <p class="product_name">{{ i.product_name }}</p>
+          <a href="{% url 'info_product' i.id_product %}">
+            <button class="but_info">Подробнее</button>
+          </a>
+          <a href="{% url 'delete_favourites' i.id %}">
+            <button class="but_del">Удалить</button>
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% include 'main/footer.html' %}
+</body>
+
 </html>

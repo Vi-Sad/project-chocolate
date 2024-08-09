@@ -1,15 +1,26 @@
-<form method="post" id="form_feedback"
-      action="{{start_url}}/user/feedback/id_product={{id}}/">
-    {% csrf_token %}
-    <p>Поставьте оценку от 1 до 5</p>
-    <label>Оценка:</label>
-    <input type="number" value="0" name="score" style="width: 30px" min="1" max="5">
-    <br>
-    <label>Сообщение:</label>
-    <br>
-    <textarea name="message"></textarea>
-    <br>
-    <label>Анонимность:</label>
-    <input type="checkbox" name="anonim">
-    <button id="but_feedback" type="submit">Отправить</button>
+<form method="post" id="form_feedback" action="{% url 'send_feedback' id_product %}">
+  {% csrf_token %}
+  <p>Поставьте оценку от 1 до 5</p>
+  <label>Оценка:</label>
+  <input type="number" value="0" name="score" style="width: 30px" min="1" max="5">
+  <br>
+  <label>Сообщение:</label>
+  <br>
+  <textarea name="message" style="width: 30%; height: 100px;"></textarea>
+  <br>
+  <label>Оставить отзыв анонимно:</label>
+  <input type="checkbox" name="anonim">
+  <br>
+  <label>Фото:</label>
+  <div class="div_feedback_image">
+    <label id="label_feedback_image" for="inp_feedback_image">+</label>
+    <input type="file" id="inp_feedback_image" accept=".jpg, .jpeg, .png" />
+  </div>
+  <input type="text" id="src_feedback_1" name="src_feedback_1" value=""
+    style="width: 0; height: 0; opacity: 0; position: absolute">
+  <input type=" text" id="src_feedback_2" name="src_feedback_2" value=""
+    style="width: 0; height: 0; opacity: 0; position: absolute">
+  <input type="text" id="src_feedback_3" name="src_feedback_3" value=""
+    style="width: 0; height: 0; opacity: 0; position: absolute">
+  <button id="but_feedback" type="submit" style="margin-top: 15px;">Отправить</button>
 </form>

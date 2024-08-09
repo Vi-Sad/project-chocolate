@@ -1,0 +1,73 @@
+* {
+    font-family: "RubikBubbles-Regular";
+    color: rgb(55, 55, 55);
+    font-weight: 100;
+    line-height: 2;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    overflow-x: clip;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1 0 auto;
+}
+
+h1 {
+    color: rgb(156, 90, 54);
+}
+
+@font-face {
+    font-family: "RubikBubbles-Regular";
+    src: url("../fonts/RubikBubbles-Regular.ttf");
+}
+
+button,
+input[type="button"] {
+    padding: 5px 10px;
+}
+
+button:hover,
+input[type="button"]:hover {
+    cursor: pointer;
+}
+
+.main_icon_text {
+    text-align: center;
+    line-height: 0;
+    float: left;
+}
+
+input,
+textarea {
+    border: 1px solid rgb(156, 90, 54);
+    border-radius: 5px;
+}
+
+.main_all_products_a {
+    text-decoration: none;
+    width: max-content;
+}
+
+.main_all_products_a:hover {
+    font-size: 20px;
+}
+
+.main_all_products_a:active {
+    color: rgb(156, 90, 54);
+}
+
+.main_all_products_span {
+    font-size: 30px;
+    font-weight: bold;
+}

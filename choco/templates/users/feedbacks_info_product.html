@@ -1,0 +1,42 @@
+<h2 id="feedbacks">Отзывы:</h2>
+<div>
+    {% if feedbacks|length == 0 %}
+    <p>Отзывов пока нет</p>
+    {% else %}
+    {% for i in feedbacks %}
+    <div class="feedback">
+        <div class="date_and_score">
+            <p style="color: grey">{{ i.date }}</p>
+            <p>•</p>
+            <img src="../../../../media/icons/icon_score.png" alt="icon_score" style="height: 20px" />
+            <p>{{ i.score }}</p>
+        </div>
+        <div>
+            <div class="user_ava_and_name">
+                {% if i.anonim == 1 %}
+                <img src="../../media/icons/icon_no_photo.png" alt="user_ava" id="img_image" class="user_ava">
+                <p style="color: rgb(156, 90, 54)">Пользователь скрыл свои данные</p>
+                {% else %}
+                {% for j in users %}
+                {% if i.hard_id == j.hard_id %}
+                {% if j.photo == None or j.photo == 'None' %}
+                <img src="../../media/icons/icon_no_photo.png" alt="user_ava" id="img_image" class="user_ava">
+                {% else %}
+                <img src="{{ j.photo }}" alt="user_ava" class="user_ava">
+                {% endif %}
+                <p style="color: rgb(156, 90, 54)">{{ j.name }} {{ j.lastname }}</p>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+            </div>
+            <p style="word-wrap: break-word; margin-top: 10px;">{{ i.message }}</p>
+            <div class="feedback_image">
+                {% for i in feedback_image %}
+                <img src="{{ i.image }}" alt="user_feedback_image" style="height: 150px; object-fit: cover;">
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
