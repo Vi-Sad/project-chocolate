@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    {% include 'users/contacts.html' %}
     <img src="../../media/icons/icon_create.png" alt="icon_create"
         style="position: absolute; height: 300px; margin: 15% 0 0 70%; transform: rotate(0.06turn); opacity: 0.3;">
     <div class="content">
@@ -94,6 +95,7 @@
     </div>
     {% include 'main/footer.html' %}
     <script src="{% static 'js/account.js' %}"></script>
+    <script src="{% static 'js/contacts.js' %}"></script>
 </body>
 
 </html>

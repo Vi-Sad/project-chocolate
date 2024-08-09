@@ -7,17 +7,18 @@
     <title>Мои заказы</title>
     <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
     <link rel="stylesheet" href="{% static 'css/all.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/message.css' %}" />
 </head>
 
 <body>
     <div class="content">
-        <p>Ваш заказ принят!</p>
-        <a href="{% url 'main' %}">
-            <button>Вернуться на главную</button>
+        <h2>Ваш заказ принят!</p>
+        <img style="height: 200px;" src="../../../../media/icons/icon_happy.png" alt="icon_sad">
+        <br>
+        <a href="{% url 'orders' %}">
+            <button>Перейти к заказам</button>
         </a>
     </div>
-    {% include 'main/footer.html' %}
 </body>
 
 </html>

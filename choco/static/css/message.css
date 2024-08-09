@@ -1,0 +1,25 @@
+h2 {
+    color: rgb(156, 90, 54);
+}
+
+.content {
+    margin-top: 10%;
+    text-align: center;
+}
+
+button {
+    border: 2px solid rgb(156, 90, 54);
+    background-color: rgb(255, 255, 255);
+    border-radius: 50px;
+    color: rgb(156, 90, 54);
+}
+
+button:hover {
+    background-color: rgb(156, 90, 54);
+    color: white;
+    filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.3));
+}
+
+button:active {
+    filter: none;
+}

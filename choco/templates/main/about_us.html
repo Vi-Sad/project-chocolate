@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас</title>
+    <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
+    <link rel="stylesheet" href="{% static 'css/all.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/about_us.css' %}" />
+</head>
+
+<body>
+    <div class="div_background">
+        <svg viewBox="0 0 500 500" preserveAspectRatio="xMinYMin meet" style="z-index: -3">
+            <path d="M0, 100 C150, 300 350, 0 500, 100 L500, 00 L0, 0 Z"
+                style="stroke: none; fill: rgba(156, 90, 54, 0.2)"></path>
+        </svg>
+    </div>
+    <a style="margin: 50px 0 0 50px;" href="{% url 'main' %}" class="main_all_products_a">
+        <span style="color:rgb(55, 55, 55);" class="main_all_products_span">&#8617; </span> Вернуться на Главную
+    </a>
+    <h2>❤️ Немного о нас ❤️</h2>
+    <p>Интернет-магазин шоколада ручной работы «<span>~ЧоКо~</span>» предлагает уникальные сладости, созданные мастерами
+        шоколадного
+        дела. В ассортименте представлены авторские шоколадки, конфеты и другие лакомства, которые не найти в
+        обычных магазинах.
+    </p>
+    <p> Мы гордится тем, что использует только высококачественные ингредиенты и натуральные добавки, такие как
+        орехи, сухофрукты и начинки. Каждый кусочек шоколада — это произведение искусства, созданное с
+        любовью и заботой.</p>
+    <p> В магазине «<span>~ЧоКо~</span>» вы найдёте шоколад для любого случая: романтический ужин, детский праздник,
+        корпоративное
+        мероприятие или просто для себя.
+        Не упустите возможность порадовать себя и своих близких эксклюзивным шоколадом от «<span>~ЧоКо~</span>»!</p>
+    <img style="width: 200px; text-align: center;" src="../../../../media/icons/icon_happy.png" alt="icon_happy">
+</body>
+
+</html>

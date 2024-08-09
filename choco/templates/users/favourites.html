@@ -12,6 +12,7 @@
 </head>
 
 <body>
+  {% include 'users/contacts.html' %}
   <div class="content">
     <h2>Избранные товары</h2>
     <a href="{% url 'main' %}#all_products" class="main_all_products_a">
@@ -50,6 +51,7 @@
     {% endif %}
   </div>
   {% include 'main/footer.html' %}
+  <script src="{% static 'js/contacts.js' %}"></script>
 </body>
 
 </html>

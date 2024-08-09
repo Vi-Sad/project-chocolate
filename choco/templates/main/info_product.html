@@ -18,6 +18,7 @@
 <body>
   {% include 'main/nav.html' %}
   {% include 'users/buy.html' %}
+  {% include 'users/contacts.html' %}
   <br>
   <div class="content">
     <a href="{% url 'main' %}#all_products" class="main_all_products_a">
@@ -95,6 +96,7 @@
   <script src="{% static 'js/add.js' %}" type=""></script>
   <script src="{% static 'js/buy.js' %}"></script>
   <script src="{% static 'js/send_feedback_images.js' %}"></script>
+  <script src="{% static 'js/contacts.js' %}"></script>
 </body>
 
 </html>

@@ -7,16 +7,20 @@
     <title>Добавление отзыва</title>
     <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
     <link rel="stylesheet" href="{% static 'css/all.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/message.css' %}" />
 </head>
 
 <body>
-    <p>{{ message }}</p>
-    <a href="{% url 'main' %}#all_products">
-        <input type="button" value="Вернуться на Каталогу">
-    </a>
-    <a href="{% url 'info_product' id_product %}">
-        <input type="button" value="Вернуться к товару">
-    </a>
+    <div class="content">
+        <a href="{% url 'info_product' id_product %}" class="main_all_products_a" style="margin-right: 30px;">
+            <span class="main_all_products_span">&#8617; </span> Вернуться к товару
+        </a>
+        <a href="{% url 'main' %}#all_products" class="main_all_products_a">
+            <span class="main_all_products_span">&#8617; </span> Вернуться в Каталог
+        </a>
+        <h2>{{ message }}</h2>
+        <img style="height: 200px;" src="../../../../media/icons/icon_happy.png" alt="icon_happy">
+    </div>
 </body>
 
 </html>

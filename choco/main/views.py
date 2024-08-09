@@ -73,3 +73,6 @@ def logout(request):
     user_cookie = None
     return main(request)
 
+
+def about_us(request):
+    return render(request, 'main/about_us.html')

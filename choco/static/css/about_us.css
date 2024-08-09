@@ -1,0 +1,41 @@
+body {
+    text-align: center;
+    position: fixed;
+}
+
+h2 {
+    color: rgb(214, 80, 97);
+    margin-top: 20px;
+}
+
+svg {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.div_background {
+    display: inline-block;
+    position: absolute;
+    width: 100%;
+    padding-bottom: 100%;
+    vertical-align: middle;
+    overflow: hidden;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+span {
+    color: rgb(156, 90, 54);
+}
+
+p {
+    margin: 0 100px;
+}
+
+img {
+    margin: auto;
+    margin-top: -3px;
+}

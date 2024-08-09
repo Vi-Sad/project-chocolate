@@ -24,6 +24,7 @@
         </div>
         {% include 'main/nav.html' %}
         {% include 'users/buy.html' %}
+        {% include 'main/contacts.html' %}
         <header style="margin-top: 100px;">
             <h2 class="hello_user">
                 Добро пожаловать{% block user_active %}{% endblock user_active %}!
@@ -202,6 +203,7 @@
     {% include 'main/footer.html' %}
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/buy.js' %}"></script>
+    <script src="{% static 'js/contacts.js' %}"></script>
 </body>
 
 </html>

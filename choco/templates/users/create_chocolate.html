@@ -18,6 +18,7 @@
 <body style="margin: 50px 0;">
   {% include 'main/nav.html' %}
   {% include 'users/buy.html' %}
+  {% include 'users/contacts.html' %}
   <div class="content">
     <h2 style="margin: 0;">Создай свою шоколадку!</h2>
     <a href="{% url 'main' %}" class="main_all_products_a">
@@ -113,6 +114,7 @@
   {% include 'main/footer.html' %}
   <script src="{% static 'js/buy.js' %}"></script>
   <script src="{% static 'js/create.js' %}"></script>
+  <script src="{% static 'js/contacts.js' %}"></script>
 </body>
 
 </html>
