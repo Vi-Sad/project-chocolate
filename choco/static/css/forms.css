@@ -1,0 +1,55 @@
+h2 {
+    text-align: center;
+    background-color: rgba(235, 222, 215);
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+body {
+    margin: 50px;
+}
+
+.a_login {
+    width: max-content;
+}
+
+.a_login:hover {
+    color: rgb(156, 90, 54);
+}
+
+form {
+    padding: 20px;
+    border: 2px solid rgb(235, 222, 215);
+    border-radius: 10px;
+    margin-left: 10%;
+    width: 80%;
+}
+
+form button {
+    border: 2px solid rgb(156, 90, 54);
+    background-color: rgb(255, 255, 255);
+    border-radius: 50px;
+    color: rgb(156, 90, 54);
+}
+
+form button:hover {
+    background-color: rgb(156, 90, 54);
+    color: white;
+    filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.3));
+}
+
+form button:active {
+    filter: none;
+}
+
+#a_new_pass {
+    text-align: center;
+}
+
+#a_new_pass:hover {
+    color: rgb(156, 90, 54);
+}
+
+#id_username {
+    width: 30%;
+}

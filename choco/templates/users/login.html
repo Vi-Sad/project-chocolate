@@ -5,25 +5,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Вход</title>
+    <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
     <link rel="stylesheet" href="{% static 'css/all.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}" />
 </head>
 
 <body>
     <h2>Вход</h2>
+    <a href="{% url 'main' %}" class="main_all_products_a">
+        <span class="main_all_products_span">&#8617; </span> Вернуться на Главную
+    </a>
     <form method="post" id="form_login">
         {% csrf_token %}
         {{ form.as_p }}
         <input class="start_url" value="{{ start_url }}" style="width: 0; height: 0; opacity: 0; position: absolute"
-        disabled />
+            disabled />
         <input class="message" value="{{ message }}" style="width: 0; height: 0; opacity: 0; position: absolute"
-        disabled />
+            disabled />
         <button type="submit" id="but_login">Войти</button>
+        {% if message == 'Авторизация прошла успешно. Нажмите на кнопку "Войти" еще раз' %}
+        <p style="color: rgba(8, 184, 66, 0.811);">{{ message }}</p>
+        {% else %}
+        <p style="color: rgb(214, 80, 97);">{{ message }}</p>
+        {% endif %}
     </form>
-    <p>{{ message }}</p>
-    <a href="{% url 'new_password' %}">Забыли пароль?</a>
-    <a href="{% url 'main' %}">
-        <button>Вернуться на главную</button>
-    </a>
+    <a id="a_new_pass" href="{% url 'new_password' %}">Забыли пароль?</a>
     <script src="{% static 'js/login.js' %}"></script>
 </body>
 

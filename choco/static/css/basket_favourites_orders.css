@@ -48,6 +48,11 @@ h2 {
     filter: drop-shadow(1px 10px 5px rgba(0, 0, 0, 0.3));
 }
 
+.but_del:active {
+    filter: none;
+}
+
+
 .card_view a {
     text-decoration: none;
 }

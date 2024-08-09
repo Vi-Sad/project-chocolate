@@ -95,7 +95,7 @@ def login_check(request):
 def logout(request):
     global user_hard_id
     user_hard_id = None
-    response = render(request, 'users/logout.html')
+    response = main(request)
     response.set_cookie('hard_id', user_hard_id)
     return response
 
@@ -252,7 +252,7 @@ def delete_basket_2(request, id):
         else:
             basket.filter(id=id, hard_id=user_cookie, basket=True).delete()
         user_chocolate.filter(id_basket=id, hard_id=user_cookie).delete()
-        if 'user/chocolate/id_product%3D' in url_active:
+        if 'user/chocolate/id_product%3D' in url_active or 'user/chocolate/basket/add/id_product%3D':
             return info_product(request, url_active[(url_active.index('%3D') + 3):-1])
         elif url_active == f'{start_url}user/chocolate/create/':
             return create_chocolate(request)
@@ -380,13 +380,16 @@ def new_password(request):
 def new_password_check(request):
     email = request.POST.get('email')
     if users.filter(email=email).exists():
-        message = 'Проверьте Вашу эл. почту'
         for i in users.filter(email=email):
+            new_update_password.create(hard_id=i.hard_id, new_password=False)
             if new_update_password.filter(hard_id=i.hard_id).exists():
                 url = f'{start_url}/user/update_password/{i.hard_id}/'
                 new_update_password.filter(hard_id=i.hard_id).update(new_password=True)
-        send_mail('Восстановление пароля', f'Перейдите по ссылке для восстановления аккаунта.\nСсылка -> {url}',
-                  settings.EMAIL_HOST_USER, [email])
+                message = 'Проверьте Вашу эл. почту'
+                send_mail('Восстановление пароля', f'Перейдите по ссылке для восстановления аккаунта.\nСсылка -> {url}',
+                          settings.EMAIL_HOST_USER, [email])
+    elif email == '':
+        message = 'Поля не могут быть пустыми'
     else:
         message = 'Пользователь с данной эл. почтой не зарегистрирован'
     return render(request, 'users/new_password.html', context={'message': message, 'start_url': start_url})

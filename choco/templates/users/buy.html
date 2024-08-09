@@ -1,6 +1,9 @@
 <section id="buy_products" style="display: none;">
   {% if basket|length == 0 %}
-  <p>Корзина пуста</p>
+  <div style="text-align: center; background-color: rgba(235, 222, 215); margin-top: 20%;">
+    <p style="font-size: 20px; color:rgb(156, 90, 54);">Здесь пока ничего нет</p>
+    <img style="height: 200px;" src="../../../../media/icons/icon_sad.png" alt="icon_sad">
+  </div>
   {% else %}
   <h3>Мои товары:</h3>
   <div>

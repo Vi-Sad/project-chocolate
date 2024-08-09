@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Мои заказы</title>
+    <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
     <link rel="stylesheet" href="{% static 'css/all.css' %}" />
     <link rel="stylesheet" href="{% static 'css/footer.css' %}" />
     <link rel="stylesheet" href="{% static 'css/basket_favourites_orders.css' %}" />
@@ -21,7 +22,10 @@
             <span class="main_all_products_span">&#8617; </span> Вернуться в Личный кабинет
         </a>
         {% if user_orders|length == 0 %}
-        <p>Здесь пока ничего нет</p>
+        <div style="text-align: center;">
+            <p style="font-size: 20px; color:rgb(156, 90, 54);">Здесь пока ничего нет</p>
+            <img style="height: 200px;" src="../../../../media/icons/icon_sad.png" alt="icon_sad">
+        </div>
         {% else %}
         <div class="display">
             {% for i in user_orders %}

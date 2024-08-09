@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Ошибка 404</title>
-    <link rel="stylesheet" href="{% static 'css/all.css' %}"/>
+    <link href="../../../media/icons/icon_main.png" type="png" rel="Website Icon" />
+    <link rel="stylesheet" href="{% static 'css/all.css' %}" />
 </head>
-<body>
-<p>Ошибка 404</p>
-<p>Страница не найдена или не существует</p>
-<a href="{% url 'main' %}">
-    <input type="button" value="Вернуться на Главную"/>
-</a>
+
+<body style="margin: 50px 0 0 10% ">
+    <h2>Ошибка 404</h2>
+    <a href="{% url 'main' %}" class="main_all_products_a">
+        <span class="main_all_products_span">&#8617; </span> Вернуться на Главную
+    </a>
+    <p>Страница не найдена или не существует</p>
+    <img style="height: 250px; width: 250px;" src="../../../../media/icons/icon_sad.png" alt="icon_sad">
 </body>
+
 </html>
