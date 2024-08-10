@@ -19,7 +19,7 @@
                 {% else %}
                 {% for j in users %}
                 {% if i.hard_id == j.hard_id %}
-                {% if j.photo == None or j.photo == 'None' %}
+                {% if j.photo == None or j.photo == 'None' or j.photo == '' %}
                 <img src="../../media/icons/icon_no_photo.png" alt="user_ava" id="img_image" class="user_ava">
                 {% else %}
                 <img src="{{ j.photo }}" alt="user_ava" class="user_ava">
