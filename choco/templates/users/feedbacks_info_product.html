@@ -31,8 +31,10 @@
             </div>
             <p style="word-wrap: break-word; margin-top: 10px;">{{ i.message }}</p>
             <div class="feedback_image">
-                {% for i in feedback_image %}
-                <img src="{{ i.image }}" alt="user_feedback_image" style="height: 150px; object-fit: cover;">
+                {% for j in feedback_image %}
+                {% if i.image == True %}
+                <img src="{{ j.image }}" alt="user_feedback_image" style="height: 150px; object-fit: cover;">
+                {% endif %}
                 {% endfor %}
             </div>
         </div>

@@ -180,7 +180,7 @@ def info_product(request, id):
                                                                       'id_product': id, 'start_url': start_url,
                                                                       'user_hard_id': user_cookie,
                                                                       'feedback_image': feedbacks_images.filter(
-                                                                          hard_id=user_cookie, id_product=id),
+                                                                          id_product=id),
                                                                       'general_assessment': general_assessment,
                                                                       'count_feedbacks': divider, 'users': users.all(),
                                                                       'basket': basket.filter(basket=True,
@@ -325,10 +325,14 @@ def add_favourites(request, id):
 
 def send_feedback(request, id):
     def add_feedback_image():
-        num = 0
         for i in all_src_feedbacks:
             if i != '':
-                feedbacks_images.create(hard_id=user_cookie, id_product=id, image=i)
+                if not feedbacks_images.filter(hard_id=user_cookie, id_product=id).exists():
+                    feedbacks_images.create(hard_id=user_cookie, id_product=id, image=i)
+                    feedbacks.filter(hard_id=user_cookie, id_product=id).update(image=True)
+                else:
+                    feedbacks_images.filter(hard_id=user_cookie, id_product=id).update(image=i)
+                    feedbacks.filter(hard_id=user_cookie, id_product=id).update(image=True)
         return feedbacks_images.filter(hard_id=user_hard_id, id_product=id)
 
     user_cookie = request.COOKIES['hard_id']
@@ -344,19 +348,15 @@ def send_feedback(request, id):
         anonim = True if anonim == 'on' else False
         if not existence:
             feedbacks.create(id_product=id, message=message, score=score, anonim=anonim, date=datetime.now(),
-                             hard_id=user_cookie)
+                             hard_id=user_cookie, image=False)
             add_feedback_image()
             message = 'Спасибо за отзыв!'
         else:
             user_message = ' (изменено) '
             feedbacks.filter(id_product=id, hard_id=user_cookie).update(message=message + user_message, score=score,
                                                                         anonim=anonim, date=datetime.now())
-            message = 'Отзыв обновлен. Спасибо!'
-            if feedbacks_images.filter(hard_id=user_cookie, id_product=id).exists():
-                for i in feedbacks_images.filter(hard_id=user_cookie, id_product=id):
-                    os.remove(f'media/{i.image}')
-                feedbacks_images.filter(hard_id=user_cookie, id_product=id).delete()
             add_feedback_image()
+            message = 'Отзыв обновлен. Спасибо!'
         return render(request, 'users/check_feedback.html', context={'message': message, 'start_url': start_url,
                                                                      'user_hard_id': user_cookie, 'id_product': id})
     else:

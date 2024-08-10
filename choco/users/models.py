@@ -71,6 +71,7 @@ class Feedback(models.Model):
     id_product = models.IntegerField(default=0)
     anonim = models.BooleanField(default=False)
     date = models.DateField(default=None)
+    image = models.BooleanField(default=False)
 
     def __str__(self):
         return self.message
@@ -81,6 +82,9 @@ class FeedbackImage(models.Model):
     hard_id = models.CharField(default=None, max_length=50)
     id_product = models.IntegerField(default=0)
     image = models.ImageField(default=None, null=True, upload_to='feedback-img/')
+
+    def __str__(self):
+        return self.hard_id
 
 
 class NewUpdatePassword(models.Model):
