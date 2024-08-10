@@ -27,3 +27,18 @@
     border-radius: 5px;
     object-fit: cover;
 }
+
+#h2_send_feedback,
+#feedbacks {
+    background-color: rgba(235, 222, 215);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding-left: 50px;
+}
+
+#form_feedback {
+    padding: 20px;
+    border: 2px solid rgb(235, 222, 215);
+    border-radius: 10px;
+    width: max-content;
+}

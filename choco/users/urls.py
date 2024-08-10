@@ -13,7 +13,7 @@ urlpatterns = [
     path('logout/', users.logout, name='logout'),
     # path('account/', users.AccountView.as_view(), name='account'),
     path('account/', users.account, name='account'),
-    path('account/update/email', users.account_update_email, name='account_update_email'),
+    path('account/update/email_and_phone', users.account_update_email_and_phone, name='account_update_email_and_phone'),
     path('account/update/birthday', users.account_update_birthday, name='account_update_birthday'),
     path('account/add_image/', users.account_add_image, name='account_add_image'),
     path('chocolate/id_product=<int:id>/', users.info_product, name='info_product'),

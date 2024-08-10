@@ -48,17 +48,29 @@ def registration_check(request):
     birthday = request.POST['birthday']
     password = request.POST['password1']
     password_2 = request.POST['password2']
+    phone = request.POST['phone']
     birthday = None if birthday == '' else birthday
-    if len(name) == 0 or len(email) == 0 or len(password) == 0:
+    if len(name) == 0 or len(email) == 0 or len(password) == 0 or len(phone) == 0:
         message = 'Поля не могут быть пустыми'
     elif all([x.email != email for x in users.all()]):
-        if is_valid_password(password, password_2) and is_valid_email(email) and is_valid_name(name, lastname):
+        if is_valid_password(password, password_2) and is_valid_email(email) and is_valid_name(name, lastname) and \
+                is_valid_phone(phone):
             hard_id = user_url(name)
             User.objects.create(name=name, lastname=lastname, email=email, password=password,
-                                date_registration=datetime.now(), hard_id=hard_id, birthday=birthday, photo=None)
+                                date_registration=datetime.now(), hard_id=hard_id, birthday=birthday, photo=None,
+                                phone=phone)
             message = 'Вы успешны зарегистрированы. Попробуйте войти'
         else:
-            message = 'Ваша эл. почта, никнейм или пароль не соответствуют требованиям'
+            if not is_valid_email(email):
+                message = 'Ваша эл. почта не соответствует требованиям'
+            elif not is_valid_password(password, password_2):
+                message = 'Ваш пароль не соответствует требованиям'
+            elif not is_valid_phone(phone):
+                message = 'Ваш номер телефона не соответствует требованиям'
+            elif not is_valid_name(name, lastname):
+                message = 'Ваша имя или фамилия не соответствуют требованиям'
+            else:
+                message = 'Введены не корректные данные'
     else:
         message = 'Почта уже используется'
     return render(request, 'users/registration.html', context={'message': message, 'start_url': start_url,
@@ -113,18 +125,20 @@ def account(request):
     if users.filter(hard_id=user_cookie).exists():
         for i in users.filter(hard_id=user_cookie):
             user_email = i.email
+            user_phone = i.phone
         return render(request, 'users/account.html', context={'user': users.filter(hard_id=user_cookie),
-                                                              'user_email': user_email})
+                                                              'user_email': user_email, 'user_phone': user_phone})
     else:
         return render(request, 'main/error_404.html', status=404)
 
 
-def account_update_email(request):
+def account_update_email_and_phone(request):
     user_cookie = request.COOKIES['hard_id']
     if users.filter(hard_id=user_cookie).exists():
         inp_update_email = request.POST.get('inp_email')
-        if is_valid_email(inp_update_email):
-            users.filter(hard_id=user_cookie).update(email=inp_update_email)
+        inp_update_phone = request.POST.get('inp_phone')
+        if is_valid_email(inp_update_email) and is_valid_phone(inp_update_phone):
+            users.filter(hard_id=user_cookie).update(email=inp_update_email, phone=inp_update_phone)
     else:
         return render(request, 'main/error_404.html', status=404)
     return account(request)
@@ -543,14 +557,18 @@ def orders(request):
 def orders_check(request):
     user_cookie = request.COOKIES['hard_id']
     list_orders = []
+    num_order = 1
     if users.filter(hard_id=user_cookie).exists():
         for i in basket.filter(hard_id=user_cookie, basket=True):
-            list_orders.append(f'ID: {i.id_product}; Шоколад: {i.product_name}; Количество: {i.count}; Цена: {i.price}')
+            list_orders.append(f'№: {num_order}; ID: {i.id_product}; Шоколад: {i.product_name}; Количество: {i.count}; '
+                               f'Цена: {i.price}')
+            num_order += 1
         for i in users.filter(hard_id=user_cookie):
             name_email = i.name
             lastname_email = i.lastname
             email_email = i.email
             id_email = i.hard_id
+            phone_email = i.phone
             birthday_email = i.birthday
 
         for i in basket.filter(hard_id=user_cookie, basket=True):
@@ -561,7 +579,7 @@ def orders_check(request):
             else:
                 basket.filter(hard_id=user_cookie, basket=True).delete()
         message_email = f'ID: {id_email};\nИмя: {name_email};\nФамилия: {lastname_email};\nЭл. почта: {email_email};' \
-                        f'\nДР: {birthday_email};\nЗаказы: {list_orders}'
+                        f'\nТелефон: {phone_email};\nДР: {birthday_email};\nЗаказы: {list_orders}'
         send_mail('Информация о пользователе', message_email, settings.EMAIL_HOST_USER, ['sadovskaya.vicka@yandex.ru'])
         return render(request, 'users/orders_check.html', context={'user_orders': user_orders.filter(
             hard_id=user_cookie), 'user_cookie': user_cookie})

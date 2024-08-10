@@ -27,6 +27,7 @@ h2 {
     background-color: rgb(255, 255, 255);
     border-radius: 50px;
     color: rgb(156, 90, 54);
+    margin-left: 5px;
 }
 
 .but_del {
@@ -70,4 +71,9 @@ h2 {
 .product_name {
     color: rgb(156, 90, 54);
     font-size: 20px;
+}
+
+.but_status_0 {
+    background-color: rgb(156, 90, 54);
+    color: white;
 }

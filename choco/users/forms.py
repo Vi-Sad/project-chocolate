@@ -22,6 +22,19 @@ def is_valid_email(email):
         return False
 
 
+def is_valid_phone(phone):
+    if len(phone) >= 12:
+        if phone[0] == '8' or phone[0] == '+':
+            if phone[1] == '9' or phone[1] == '7':
+                return True
+            else:
+                return False
+        else:
+            return False
+    else:
+        return False
+
+
 def is_valid_name(name, lastname):
     if len(name) >= 3 and len(lastname) >= 3 and name != lastname and name.isalpha() and lastname.isalpha():
         return True

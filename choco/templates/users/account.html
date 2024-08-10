@@ -65,8 +65,15 @@
         <br>
         <h3>Учетные данные</h3>
         <div id="account_data">
-            <form action="{% url 'account_update_email' %}" method="post" id="form_update_email">
+            <form action="{% url 'account_update_email_and_phone' %}" method="post" id="form_update_email">
                 {% csrf_token %}
+                <div style="display: flex; gap: 5px;">
+                    <label>Номер телефона:</label>
+                    <input type="tel" name="inp_phone" id="inp_update_phone" value="{{ user_phone }}"
+                        style="display: none; width: 30%;">
+                    <span id="span_update_phone">{{ user_phone }}</span>
+                </div>
+                <button id="but_update_phone" type="">Изменить номер телефона</button>
                 <div style="display: flex; gap: 5px;">
                     <label>Эл. почта:</label>
                     <input type="text" name="inp_email" id="inp_update_email" value="{{ user_email }}"

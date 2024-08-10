@@ -14,6 +14,7 @@ class User(models.Model):
     hard_id = models.CharField(default=None, unique=True, max_length=50)
     photo = models.ImageField(default=None, null=True, upload_to='ava/')
     birthday = models.DateField(default=None, null=True)
+    phone = models.IntegerField(default=None)
 
     def __str__(self):
         return self.name
