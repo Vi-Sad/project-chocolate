@@ -24,7 +24,7 @@
     <a href="{% url 'main' %}" class="main_all_products_a">
       <span class="main_all_products_span">&#8617; </span> Вернуться на Главную
     </a>
-    <p style="text-align: center;">*1 штука без пищевых добавок = 20₽</p>
+    <p style="text-align: center;">*1 штука без пищевых добавок = 20₽, 30 г</p>
     <form action="{% url 'create_chocolate_check' %}" method="post" id="form_create">
       {% include 'users/add.html' %}
       {% csrf_token %}
@@ -109,6 +109,7 @@
       {% else %}
       <button type="submit" id="but_basket">В корзину</button>
       {% endif %}
+      <p id="message_click_price" style="color: rgb(214, 80, 97);"></p>
     </form>
   </div>
   {% include 'main/footer.html' %}

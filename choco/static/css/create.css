@@ -27,3 +27,7 @@ h3 {
 .a_not_user:hover {
     color: rgb(156, 90, 54);
 }
+
+button[disabled] {
+    pointer-events: none;
+}

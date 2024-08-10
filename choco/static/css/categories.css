@@ -19,12 +19,12 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
-.category_chocolate > div {
+.category_chocolate>div {
   padding: 0 20px;
   border-radius: 50%;
 }
 
-.category_chocolate > div:hover,
+.category_chocolate>div:hover,
 .category_chocolate input:hover {
   cursor: pointer;
 }
