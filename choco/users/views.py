@@ -373,10 +373,16 @@ def account_delete(request):
         users.filter(hard_id=user_cookie).delete()
         basket.filter(hard_id=user_cookie).delete()
         feedbacks.filter(hard_id=user_cookie).delete()
-        feedbacks_images.filter(hard_id=user_cookie).delete()
         new_update_password.filter(hard_id=user_cookie).delete()
         user_orders.filter(hard_id=user_cookie).delete()
         user_chocolate.filter(hard_id=user_cookie).delete()
+
+        if feedbacks_images.filter(hard_id=user_cookie).exists():
+            for i in feedbacks_images.filter(hard_id=user_cookie):
+                os.unlink(f'{os.getcwd()}/media/{str(i.image)}')
+                print(i.image)
+                print(os.getcwd())
+        feedbacks_images.filter(hard_id=user_cookie).delete()
 
         user_hard_id, user_cookie = None, None
         response = render(request, 'users/account_delete.html')
