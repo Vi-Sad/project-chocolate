@@ -71,7 +71,6 @@ class Feedback(models.Model):
     id_product = models.IntegerField(default=0)
     anonim = models.BooleanField(default=False)
     date = models.DateField(default=None)
-    image = models.BooleanField(default=False)
 
     def __str__(self):
         return self.message

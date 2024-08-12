@@ -325,14 +325,14 @@ def add_favourites(request, id):
 
 def send_feedback(request, id):
     def add_feedback_image():
+        num = 0
         for i in all_src_feedbacks:
             if i != '':
-                if not feedbacks_images.filter(hard_id=user_cookie, id_product=id).exists():
-                    feedbacks_images.create(hard_id=user_cookie, id_product=id, image=i)
-                    feedbacks.filter(hard_id=user_cookie, id_product=id).update(image=True)
-                else:
-                    feedbacks_images.filter(hard_id=user_cookie, id_product=id).update(image=i)
-                    feedbacks.filter(hard_id=user_cookie, id_product=id).update(image=True)
+                num += 1
+                user_feedback_image = f'media/feedback-img/{user_cookie}_feedback_{id}_img_{num}.jpg'
+                urllib.request.urlretrieve(i, user_feedback_image)
+                feedbacks_images.create(hard_id=user_cookie, id_product=id,
+                                        image=f'feedback-img/{user_cookie}_feedback_{id}_img_{num}.jpg')
         return feedbacks_images.filter(hard_id=user_hard_id, id_product=id)
 
     user_cookie = request.COOKIES['hard_id']
@@ -348,17 +348,20 @@ def send_feedback(request, id):
         anonim = True if anonim == 'on' else False
         if not existence:
             feedbacks.create(id_product=id, message=message, score=score, anonim=anonim, date=datetime.now(),
-                             hard_id=user_cookie, image=False)
+                             hard_id=user_cookie)
             add_feedback_image()
             message = 'Спасибо за отзыв!'
         else:
             user_message = ' (изменено) '
             feedbacks.filter(id_product=id, hard_id=user_cookie).update(message=message + user_message, score=score,
                                                                         anonim=anonim, date=datetime.now())
-            add_feedback_image()
             message = 'Отзыв обновлен. Спасибо!'
+            if feedbacks_images.filter(hard_id=user_cookie).exists():
+                feedbacks_images.filter(hard_id=user_cookie, id_product=id).delete()
+            add_feedback_image()
         return render(request, 'users/check_feedback.html', context={'message': message, 'start_url': start_url,
                                                                      'user_hard_id': user_cookie, 'id_product': id})
+
     else:
         return render(request, 'main/error_404.html', status=404)
 
